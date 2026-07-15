@@ -1,0 +1,124 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'IBM Plex Sans Thai', sans-serif; }
+.blog-wrap { padding: 1.5rem 0; }
+.blog-header { margin-bottom: 2rem; }
+.blog-header h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+.blog-header p { font-size: 14px; color: var(--color-text-secondary); }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.filter-btn { font-size: 12px; padding: 5px 14px; border-radius: 99px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
+.filter-btn.active { background: #1B2D6E; color: #FFC700; border-color: #1B2D6E; }
+.featured-card { background: #1B2D6E; border-radius: var(--border-radius-lg); padding: 2rem; margin-bottom: 1.5rem; cursor: pointer; }
+.featured-card:hover { opacity: 0.92; }
+.cat-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 99px; background: #FFC700; color: #1B2D6E; margin-bottom: 1rem; letter-spacing: 0.04em; }
+.featured-card h2 { font-size: 20px; font-weight: 500; color: #fff; line-height: 1.4; margin-bottom: 10px; }
+.featured-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; margin-bottom: 1.25rem; }
+.meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: rgba(255,255,255,0.5); }
+.divider { width: 1px; height: 12px; background: rgba(255,255,255,0.25); }
+.read-time { color: #FFC700; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; cursor: pointer; display: flex; flex-direction: column; gap: 10px; }
+.card:hover { border-color: var(--color-border-secondary); }
+.card-cat { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 99px; display: inline-block; width: fit-content; }
+.cat-transform { background: #e8edf7; color: #1B2D6E; }
+.cat-leadership { background: #FFF5CC; color: #7A5800; }
+.cat-ai { background: #e1f5ee; color: #0F6E56; }
+.cat-change { background: #FAECE7; color: #993C1D; }
+.card h3 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.5; }
+.card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; flex: 1; }
+.card-meta { font-size: 11px; color: var(--color-text-tertiary); border-top: 0.5px solid var(--color-border-tertiary); padding-top: 10px; display: flex; justify-content: space-between; }
+.list-section { margin-top: 1.5rem; }
+.list-section-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+.list-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 0.5px solid var(--color-border-tertiary); cursor: pointer; }
+.list-item:last-child { border-bottom: none; }
+.list-num { font-size: 22px; font-weight: 500; color: #FFC700; min-width: 28px; line-height: 1; margin-top: 2px; }
+.list-item h4 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; line-height: 1.4; }
+.list-item span { font-size: 12px; color: var(--color-text-secondary); }
+.view-btn { display: block; width: 100%; margin-top: 1.5rem; padding: 12px; border: 0.5px solid #1B2D6E; border-radius: var(--border-radius-md); background: transparent; color: #1B2D6E; font-size: 13px; cursor: pointer; text-align: center; }
+</style>
+
+<div class="blog-wrap">
+  <h2 class="sr-only">SolutionsIMPACT blog layout mockup — no cover images required</h2>
+
+  <div class="blog-header">
+    <h1>Insights & Perspectives</h1>
+    <p>มุมมองจากคนที่ลงมือทำ transformation จริง</p>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active">ทั้งหมด</button>
+    <button class="filter-btn">Transformation</button>
+    <button class="filter-btn">Leadership</button>
+    <button class="filter-btn">AI & Future of Work</button>
+    <button class="filter-btn">Change Management</button>
+  </div>
+
+  <div class="featured-card" onclick="sendPrompt('ช่วยแสดง mockup blog แบบอื่นที่ไม่มีรูปปกอีกหน่อย')">
+    <div class="cat-badge">Transformation</div>
+    <h2>ทำไม 70% ของโปรเจค Change Management ถึงล้มเหลว — และจะแก้ยังไง</h2>
+    <p>ปัญหาไม่ได้อยู่ที่ strategy ที่ดีไม่พอ แต่อยู่ที่การขาด "adoption" จากคนในองค์กร บทความนี้เปิดเผยสาเหตุที่แท้จริงและแนวทางที่ได้ผลจริงจากประสบการณ์ลงมือทำ</p>
+    <div class="meta">
+      <span>15 เม.ย. 2569</span>
+      <div class="divider"></div>
+      <span class="read-time">7 min read</span>
+      <div class="divider"></div>
+      <span>James T.</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="card-cat cat-leadership">Leadership</span>
+      <h3>ผู้นำที่ทำให้ทีม "เชื่อ" กับผู้นำที่ทำให้ทีม "ทำ" ต่างกันอย่างไร</h3>
+      <p>ความแตกต่างระหว่าง buy-in กับ real commitment ที่ทีมส่วนใหญ่มองข้าม</p>
+      <div class="card-meta"><span>10 เม.ย. 2569</span><span>5 min</span></div>
+    </div>
+    <div class="card">
+      <span class="card-cat cat-ai">AI & Future of Work</span>
+      <h3>AI จะไม่มาแทนคุณ — แต่คนที่ใช้ AI เป็นจะมาแทน</h3>
+      <p>3 ทักษะที่องค์กรควร reskill พนักงานก่อนปี 2027 เพื่อรักษาความสามารถในการแข่งขัน</p>
+      <div class="card-meta"><span>2 เม.ย. 2569</span><span>6 min</span></div>
+    </div>
+    <div class="card">
+      <span class="card-cat cat-change">Change Management</span>
+      <h3>เมื่อ training จบแล้ว แต่ไม่มีอะไรเปลี่ยน — ทำไมถึงเกิดขึ้น</h3>
+      <p>สาเหตุที่ learning program ส่วนใหญ่ไม่ก่อให้เกิด behavior change จริง</p>
+      <div class="card-meta"><span>25 มี.ค. 2569</span><span>4 min</span></div>
+    </div>
+  </div>
+
+  <div class="list-section">
+    <div class="list-section-title">บทความล่าสุด</div>
+    <div class="list-item">
+      <div class="list-num">01</div>
+      <div>
+        <h4>วิธีวัด ROI ของ organizational transformation อย่างจริงจัง</h4>
+        <span>Transformation · 18 มี.ค. 2569 · 8 min read</span>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-num">02</div>
+      <div>
+        <h4>ทำไม consulting project ส่วนใหญ่ถึงหยุดอยู่แค่ใน PowerPoint</h4>
+        <span>Transformation · 5 มี.ค. 2569 · 5 min read</span>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-num">03</div>
+      <div>
+        <h4>Culture เปลี่ยนได้จริง — ถ้าเริ่มจากจุดนี้</h4>
+        <span>Change Management · 20 ก.พ. 2569 · 6 min read</span>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-num">04</div>
+      <div>
+        <h4>Middle manager คือหัวใจของ transformation — ไม่ใช่ CEO</h4>
+        <span>Leadership · 12 ก.พ. 2569 · 5 min read</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="view-btn" onclick="sendPrompt('ช่วย mock up หน้าบทความ blog post เดี่ยวๆ ให้หน่อย ไม่มีรูปปกเช่นกัน')">ดูบทความทั้งหมด →</button>
+</div>

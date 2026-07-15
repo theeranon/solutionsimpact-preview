@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plugin Analysis — SolutionsIMPACT</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', -apple-system, sans-serif; background: #f4f6f9; color: #111; margin: 0; padding: 2rem 1rem; line-height: 1.6; font-size: 14px; }
+  .wrap { max-width: 960px; margin: 0 auto; }
+
+  .report-header { background: #002554; color: #fff; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 1.5rem; }
+  .report-header .kicker { font-size: 11px; font-weight: 600; letter-spacing: .1em; color: #FFC600; text-transform: uppercase; margin-bottom: 6px; }
+  .report-header h1 { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+  .report-header p { font-size: 12px; color: rgba(255,255,255,.6); margin: 0; }
+
+  /* Groups */
+  .group { margin-bottom: 2rem; }
+  .group-title { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #888; margin: 0 0 8px; padding-left: 2px; }
+
+  /* Plugin card */
+  .plugin { background: #fff; border: 1px solid #e5e9ef; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .plugin-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; user-select: none; }
+  .plugin-header:hover { background: #fafbfc; }
+  .plugin-icon { width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .plugin-meta { flex: 1; min-width: 0; }
+  .plugin-name { font-size: 13px; font-weight: 700; color: #111; }
+  .plugin-slug { font-size: 11px; color: #94a3b8; font-family: monospace; }
+  .badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 3px; }
+  .badge { font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 3px; white-space: nowrap; }
+  .b-active  { background: #dcfce7; color: #15803d; }
+  .b-disabled{ background: #fee2e2; color: #9f1239; }
+  .b-builder { background: #e0f2fe; color: #0369a1; }
+  .b-crm     { background: #fef3c7; color: #92400e; }
+  .b-seo     { background: #f3e8ff; color: #6b21a8; }
+  .b-security{ background: #fff1f2; color: #be123c; }
+  .b-perf    { background: #f0fdf4; color: #166534; }
+  .b-admin   { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
+  .b-custom  { background: #002554; color: #FFC600; }
+  .b-warning { background: #fef9c3; color: #854d0e; }
+  .plugin-vis { font-size: 11px; color: #94a3b8; flex-shrink: 0; text-align: right; line-height: 1.3; }
+  .chevron { font-size: 10px; color: #ccc; flex-shrink: 0; transition: transform .2s; }
+
+  /* Body */
+  .plugin-body { padding: 0 16px 14px; border-top: 1px solid #f1f5f9; display: none; }
+  .plugin-body.open { display: block; }
+
+  .row { display: grid; grid-template-columns: 110px 1fr; gap: 4px 12px; margin-top: 10px; }
+  .row-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: .04em; padding-top: 2px; }
+  .row-val { font-size: 13px; color: #334155; line-height: 1.5; }
+  .row-val code { background: #f1f5f9; padding: 0 5px; border-radius: 3px; font-size: 11px; color: #0369a1; }
+  .row-val.warn { color: #b91c1c; font-weight: 600; }
+  .row-val.ok { color: #15803d; }
+
+  /* Visibility legend */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 1.5rem; background: #fff; border: 1px solid #e5e9ef; border-radius: 8px; padding: 10px 16px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #555; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-frontend { background: #3b82f6; }
+  .dot-admin    { background: #f59e0b; }
+  .dot-bg       { background: #8b5cf6; }
+  .dot-none     { background: #d1d5db; border: 1px solid #9ca3af; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="report-header">
+  <div class="kicker">Plugin Analysis · SolutionsIMPACT.com · 35 Plugins</div>
+  <h1>แต่ละ Plugin ทำอะไร ทำงานตอนไหน ทำไมถึงไม่เห็น</h1>
+  <p>วิเคราะห์จาก plugin source + page HTML + script loading patterns จริงๆ</p>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="dot dot-frontend"></div> มองเห็นบน frontend (user เห็น)</div>
+  <div class="legend-item"><div class="dot dot-admin"></div> ทำงานใน WP Admin เท่านั้น</div>
+  <div class="legend-item"><div class="dot dot-bg"></div> ทำงาน background / server-side</div>
+  <div class="legend-item"><div class="dot dot-none"></div> Disabled</div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: PAGE BUILDER STACK           -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">🏗️ Page Builder Stack — core design system</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#1a56db22">🧱</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Bricks Builder <span style="color:#94a3b8;font-weight:400;font-size:11px">(Theme — ไม่ใช่ Plugin)</span></div>
+      <div class="plugin-slug">themes/bricks</div>
+      <div class="badges"><span class="badge b-builder">Builder</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Visual page builder ที่ generate HTML/CSS สำหรับทุกหน้า เป็น foundation ของทั้งเว็บ — layout, typography, colors, components ทั้งหมดมาจาก Bricks</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — Bricks render template → output HTML พร้อม inline <code>&lt;style&gt;</code> blocks (11 blocks) และ <code>bricks.min.js</code> สำหรับ interactive elements</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val ok">เห็นอยู่แล้ว — นี่คือทุกอย่างที่เห็นบนเว็บ</div></div>
+    <div class="row"><div class="row-label">Scripts load</div><div class="row-val"><code>bricks.min.js</code>, <code>swiper.min.js</code>, <code>splide.min.js</code>, <code>photoswipe.umd.min.js</code></div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#7c3aed22">⚡</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Automatic.css (ACSS)</div>
+      <div class="plugin-slug">automaticcss-plugin · v3.3.6</div>
+      <div class="badges"><span class="badge b-builder">Builder Addon</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">CSS utility framework — สร้าง CSS custom properties (variables) สำหรับ spacing, colors, typography ทั้งเว็บ เหมือน Tailwind แต่เป็น design system แบบ semantic เช่น <code>var(--space-m)</code>, <code>var(--color-primary)</code></div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — inject CSS variables เข้า <code>:root</code>, มี JS เล็กๆ สำหรับ Dark/Light mode switcher (<code>frontend.min.js</code>)</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">ทำงาน "ใต้น้ำ" — เป็น CSS foundation ที่ Bricks elements อิง ถ้าลบออก layout พัง spacing พัง</div></div>
+    <div class="row"><div class="row-label">หมายเหตุ</div><div class="row-val warn">ไม่ควรลบ — เป็น dependency หลักของ design ทั้งเว็บ</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#0ea5e922">🧩</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">BricksExtras</div>
+      <div class="plugin-slug">bricksextras · v1.6.9</div>
+      <div class="badges"><span class="badge b-builder">Builder Addon</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>(บางส่วน)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">เพิ่ม Bricks elements เพิ่มเติม เช่น: Off-Canvas Drawer, Mega Menu, Scrolling Text, Flipbox, Advanced Accordion, Reading Progress Bar, Tooltip</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">โหลด <code>frontend.min.js</code> ทุกหน้า — แม้หน้านั้นจะไม่ได้ใช้ BricksExtras element ก็ตาม</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เห็นได้ถ้ารู้ว่า element ไหนมาจาก BricksExtras เช่น off-canvas menu ที่เปิดออกทางซ้าย/ขวา หรือ scrolling text banner</div></div>
+    <div class="row"><div class="row-label">Performance</div><div class="row-val warn">JS โหลดทุกหน้าโดยไม่มี defer — ควรตรวจว่าหน้าไหนใช้ elements จริงๆ</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#06b6d422">🖼️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Frames</div>
+      <div class="plugin-slug">frames-plugin · v1.5.11</div>
+      <div class="badges"><span class="badge b-builder">Builder Addon</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>(mostly)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Library of pre-built Bricks sections/components — import ready-made layouts เข้า Bricks editor ได้เลย เหมือน template library</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ส่วนใหญ่ใช้ตอน build เว็บเท่านั้น พบว่า load บางหน้า (<code>inhouse-training</code>) แต่ไม่ load บน homepage</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เพราะมันเป็นแค่ "import tool" — หลังจาก import section เข้า Bricks แล้ว Frames ทำหน้าที่เสร็จแล้ว ไม่ต้องทำงาน frontend</div></div>
+    <div class="row"><div class="row-label">หมายเหตุ</div><div class="row-val warn">ควรตรวจว่า CSS/JS ที่ยังโหลดอยู่จำเป็นหรือเปล่า ถ้าไม่ได้ build เพิ่ม deactivate ได้ตอน production</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: CROCOBLOCK / JET SUITE       -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">🚀 Crocoblock / Jet Suite — dynamic content</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#f97316" >⚙️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">JetEngine</div>
+      <div class="plugin-slug">jet-engine</div>
+      <div class="badges"><span class="badge b-builder">Dynamic Content</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">สร้าง Custom Post Types (CPT), Custom Content Types (CCT), Dynamic Fields, Listing Grids, Calendar, Booking, Relations ระหว่าง CPT — backbone ของ dynamic content ทั้งเว็บ</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — register CPTs ทุกครั้ง WordPress boot, render dynamic listings บนหน้าที่มี JetEngine listing</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เห็นได้ทางอ้อม — course cards, inhouse training listings, dynamic fields ทั้งหมดมาจาก JetEngine โดย data store ใน WP database ไม่ใช่ hard-code ใน page</div></div>
+    <div class="row"><div class="row-label">หมายเหตุ</div><div class="row-val warn">หนึ่งใน critical plugins ที่สุด — ลบไม่ได้แน่นอน</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#ec489922">🎛️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">JetEngine — Dynamic Tables Module</div>
+      <div class="plugin-slug">jet-engine-dynamic-tables-module</div>
+      <div class="badges"><span class="badge b-builder">JetEngine Module</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>(บางหน้า)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Extension ของ JetEngine สำหรับสร้าง dynamic table จาก CPT/CCT data เช่น ตารางเปรียบเทียบ pricing, ตารางหลักสูตร</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">เฉพาะหน้าที่มี JetEngine Dynamic Table widget วาง</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">อาจไม่ได้ใช้บน live pages ในปัจจุบัน ควรตรวจ Bricks editor ว่ามีหน้าไหนใช้ Dynamic Table อยู่</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#10b98122">🔍</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">JetSmartFilters</div>
+      <div class="plugin-slug">jet-smart-filters · v3.7.5</div>
+      <div class="badges"><span class="badge b-builder">JetEngine Addon</span><span class="badge b-active">Active</span><span class="badge b-warning">โหลดทุกหน้า</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>(filter UI)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">สร้าง filter widgets (checkbox, dropdown, search, range) ที่ AJAX-filter JetEngine listings โดยไม่ต้อง reload หน้า — เช่น filter หลักสูตรตาม category</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — <code>bricks.js</code> โหลดทุกหน้าโดยไม่มี conditional loading</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เห็นได้บนหน้า catalog ที่มี filter dropdowns — แต่ JS โหลดทุกหน้าแม้ไม่มี filter</div></div>
+    <div class="row"><div class="row-label">แก้ได้</div><div class="row-val">WP Admin → JetSmartFilters → Settings → uncheck "Load scripts on all pages" → เลือกเฉพาะหน้า catalog</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#8b5cf622">💬</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">JetPopup</div>
+      <div class="plugin-slug">jet-popup</div>
+      <div class="badges"><span class="badge b-builder">Popup Engine</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>(popup)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">สร้าง popup windows ที่ trigger ได้จาก: page load, scroll %, exit intent, click element, form submit สามารถ design popup ด้วย Bricks ได้เลย</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — <code>jet-popup-frontend.js</code> + <code>anime.min.js</code> โหลดทั้งคู่ทุกหน้า แม้หน้านั้นไม่มี popup</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">Popup จะมองเห็นเมื่อ trigger condition เกิดขึ้น เช่น อยู่บนหน้านาน 10 วินาที หรือ กำลัง scroll ออกจากหน้า</div></div>
+    <div class="row"><div class="row-label">Performance</div><div class="row-val warn">anime.js (animation library) หนักพอควร ควรตั้งให้โหลดเฉพาะหน้าที่มี popup</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#f5952522">📐</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">JetElements</div>
+      <div class="plugin-slug">jet-elements</div>
+      <div class="badges"><span class="badge b-builder">Widget Library</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>(บางส่วน)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Widgets เพิ่มเติมสำหรับ builder: Animated Box, Circle Progress, Countdown, Price List, Testimonials Slider, Team Member, Portfolio</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">เฉพาะหน้าที่วาง JetElements widget ไว้</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">ขึ้นอยู่กับว่าใช้ widget ไหน — countdown timer, progress circle จะมองเห็นได้ชัด</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: FORMS & CRM                  -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">📋 Forms & CRM — lead capture pipeline</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#f59e0b22">📝</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">FluentForm (Base)</div>
+      <div class="plugin-slug">fluentform</div>
+      <div class="badges"><span class="badge b-crm">Form Builder</span><span class="badge b-active">Active</span><span class="badge b-warning">JS ทุกหน้า</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Form builder หลัก — สร้าง forms ทุกแบบ: inhouse inquiry, contact, booth registration เป็น Forms 2, 14, 16 ที่ connect กับ Venio CRM</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">JS โหลดทุกหน้าแม้หน้านั้นไม่มี form — <code>fluentform-advanced.js</code> + <code>form-submission.js</code></div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">Form มองเห็นบนหน้าที่วางไว้ แต่ JS โหลดซ่อนทุกหน้า</div></div>
+    <div class="row"><div class="row-label">แก้ได้</div><div class="row-val">FluentForm → Global Settings → Misc → "Load assets only on pages with forms"</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#f59e0b22">⭐</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">FluentForm Pro</div>
+      <div class="plugin-slug">fluentformpro</div>
+      <div class="badges"><span class="badge b-crm">Form Pro</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Pro addon ที่เพิ่ม: Conversational Forms (chat-style), Payment integration, Signature field, Advanced calculations, Conditional logic ขั้นสูง, PDF export</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">เฉพาะเมื่อ form ใช้ pro features</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เห็นเมื่อใช้ pro features เช่น multi-step form หรือ payment form</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#06b6d422">📊</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">JetFormBuilder</div>
+      <div class="plugin-slug">jetformbuilder</div>
+      <div class="badges"><span class="badge b-crm">Form Builder</span><span class="badge b-active">Active</span><span class="badge b-warning">JS ทุกหน้า</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Form builder จาก Crocoblock — integrate กับ JetEngine CPT fields โดยตรง เหมาะสำหรับ forms ที่ submit แล้ว save เข้า JetEngine CPT (เช่น booking, registration)</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">โหลด 3 JS files ทุกหน้า: <code>index.js</code>, <code>frontend.js</code>, <code>jet-plugins/index.js</code></div></div>
+    <div class="row"><div class="row-label">หมายเหตุ</div><div class="row-val warn">มีทั้ง FluentForm AND JetFormBuilder อยู่พร้อมกัน = สองระบบ form ที่ซ้อนกัน ควรเลือกใช้แค่อันเดียวระยะยาว</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#7c3aed22">🏢</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">FluentCRM</div>
+      <div class="plugin-slug">fluent-crm</div>
+      <div class="badges"><span class="badge b-crm">CRM</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">CRM ใน WordPress — เก็บ contacts, segment ด้วย tags/lists, ส่ง email campaigns, สร้าง automation sequences (เช่น welcome email, follow-up)</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Background เสมอ — เมื่อมี form submit → FluentForm ส่ง contact เข้า FluentCRM อัตโนมัติ (ถ้า configure ไว้)</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เป็น backend CRM ทั้งหมด เห็นใน WP Admin → FluentCRM เท่านั้น frontend ไม่มีอะไรโหลด</div></div>
+    <div class="row"><div class="row-label">หมายเหตุ</div><div class="row-val">ใช้คู่กับ Venio CRM ด้วย — ควรชัดเจนว่า pipeline ไปทาง FluentCRM หรือ Venio หรือทั้งคู่</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#0ea5e922">📧</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Fluent SMTP</div>
+      <div class="plugin-slug">fluent-smtp</div>
+      <div class="badges"><span class="badge b-crm">Email Delivery</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>เท่านั้น</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">บังคับ WordPress ส่ง email ผ่าน SMTP provider จริง (Gmail, SendGrid, Mailgun, etc.) แทน PHP mail() ที่มักถูก spam filter block</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุกครั้งที่ WordPress ส่ง email — form notification, admin alerts, password reset ทุกอย่าง</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เป็น email routing layer — silent by design ถ้าไม่มีจะสังเกตได้เมื่อ email notification ไม่ถึง inbox</div></div>
+    <div class="row"><div class="row-label">สำคัญ</div><div class="row-val warn">อย่าลบเด็ดขาด — ถ้าลบ form notifications และ admin emails จะไม่ถึง inbox</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#64748b22">💬</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">jet-forms-popup-notification-master</div>
+      <div class="plugin-slug">jet-forms-popup-notification-master</div>
+      <div class="badges"><span class="badge b-disabled">DISABLED</span></div>
+    </div>
+    <div class="plugin-vis" style="color:#ccc">—</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Bridge ระหว่าง JetFormBuilder submit → trigger JetPopup — เมื่อ JetFormBuilder form ถูก submit จะ fire JetPopup แบบ thank-you popup</div></div>
+    <div class="row"><div class="row-label">สถานะ</div><div class="row-val ok">Disabled แล้ว — ต้องทดสอบว่า popup-after-form ยังทำงานผ่าน JetFormBuilder Actions หรือเปล่า</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: SEO & ANALYTICS              -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">📈 SEO & Analytics</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#7c3aed22">🏆</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Rank Math SEO</div>
+      <div class="plugin-slug">seo-by-rank-math · v1.0.268</div>
+      <div class="badges"><span class="badge b-seo">SEO</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Traditional SEO suite — output meta title, description, og tags, schema markup (Organization, Article, Course), XML sitemap, 301 redirects (ซ้อนกับ si-blog-redesign redirect manager ของเรา), breadcrumbs</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — inject <code>&lt;head&gt;</code> meta tags และ JSON-LD schema</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เห็นได้ใน page source (<code>view-source:</code>) ใน <code>&lt;head&gt;</code> — Google/social media ใช้ข้อมูลนี้แสดง search result และ link preview</div></div>
+    <div class="row"><div class="row-label">ปัญหา</div><div class="row-val warn">SEO Engine ยิง duplicate empty meta description ซ้อน Rank Math — ต้องตัดสินใจเลือกอันเดียว</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#10b98122">🤖</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">SEO Engine</div>
+      <div class="plugin-slug">seo-engine · v0.6.5</div>
+      <div class="badges"><span class="badge b-seo">AI SEO</span><span class="badge b-active">Active</span><span class="badge b-warning">Duplicate meta!</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>+ Admin</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">AI-era SEO — optimize สำหรับ AI search engines (ChatGPT, Perplexity, Bing AI), entity markup, MCP protocol support (ให้ AI assistants query site SEO data ได้), citation-ready content structure</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — ตอนนี้ inject <code>&lt;meta class="mwseo-meta" name="description" content=""&gt;</code> (empty) ซ้อนกับ Rank Math</div></div>
+    <div class="row"><div class="row-label">ปัญหาที่พบ</div><div class="row-val warn">ยิง empty duplicate meta tag บน homepage — Google เห็น description สองอัน (Rank Math มี content, SEO Engine ว่าง) เป็น SEO harm แก้โดย configure SEO Engine ให้ไม่ output meta tags เอง หรือปิด Rank Math แล้วให้ SEO Engine manage meta แทน</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#1a56db22">📊</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Site Kit by Google</div>
+      <div class="plugin-slug">google-site-kit · v1.177.0</div>
+      <div class="badges"><span class="badge b-seo">Analytics Dashboard</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>เท่านั้น</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Dashboard widget ใน WP Admin แสดง Google Analytics 4, Search Console, PageSpeed Insights, Google Ads data รวมในที่เดียว</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Admin เท่านั้น — ไม่ inject JS/CSS บน frontend เลย</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เพราะอยู่ใน Dashboard เท่านั้น เข้าผ่าน WP Admin → Site Kit</div></div>
+    <div class="row"><div class="row-label">หมายเหตุ</div><div class="row-val">Site Kit ไม่ได้ inject tracking code — GTM (ใน si-blog-redesign) ทำหน้าที่นั้น Site Kit แค่ pull data มาแสดง</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#1877f222">🎯</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">PixelYourSite</div>
+      <div class="plugin-slug">pixelyoursite</div>
+      <div class="badges"><span class="badge b-seo">Pixel Manager</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>(invisible)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Manages tracking pixels — Facebook Pixel, Google Ads, TikTok Pixel, Pinterest, Snapchat fire events เมื่อ: page view, form submit, specific clicks เพื่อ retargeting ads และ conversion tracking</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก page load — inject pixel code ใน <code>&lt;head&gt;</code> และ fire events ตาม trigger ที่ set ไว้</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เป็น invisible tracking layer — เห็นได้ใน browser DevTools → Network tab ดู requests ไป facebook.com/tr, googleadservices.com</div></div>
+    <div class="row"><div class="row-label">สำคัญ</div><div class="row-val warn">อย่าลบถ้ายังรัน Facebook/Google Ads อยู่ — conversion tracking พัง retargeting audience พัง</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: SECURITY                     -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">🔒 Security</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#dc262622">🛡️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Wordfence</div>
+      <div class="plugin-slug">wordfence</div>
+      <div class="badges"><span class="badge b-security">Security</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>(constant)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Server-side Web Application Firewall (WAF) — block malicious requests ก่อนถึง WordPress, brute force login protection, malware file scanning, IP blocking, 2FA สำหรับ admin</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก request — WAF run ก่อน WordPress bootstrap เลย (<code>wp-config.php</code> level)</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เพราะทำงานด้านหลังตลอด เห็นได้ใน WP Admin → Wordfence → Firewall เมื่อมี attack log</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#059c6422">☁️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">MalCare Security</div>
+      <div class="plugin-slug">malcare-security</div>
+      <div class="badges"><span class="badge b-security">Security</span><span class="badge b-active">Active</span><span class="badge b-warning">ซ้อนกับ Wordfence</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>(cloud)</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Cloud-based malware scanning — ส่ง file checksums ไป MalCare cloud servers เพื่อ analyze (ไม่ scan บน server เอง), one-click malware removal, firewall layer, site backup</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Background scan รอบคืน + WAF ทุก request</div></div>
+    <div class="row"><div class="row-label">ความซ้ำซ้อน</div><div class="row-val warn">Server นี้มี ImunifyAV อยู่แล้ว + Wordfence + MalCare = 3 security layers ที่ overlap กัน เลือก 1-2 ก็พอ</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: PERFORMANCE                  -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">⚡ Performance & Media</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#10b98122">🖼️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">EWWW Image Optimizer</div>
+      <div class="plugin-slug">ewww-image-optimizer</div>
+      <div class="badges"><span class="badge b-perf">Performance</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Background<br>+ Lazy load</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">อัดรูปอัตโนมัติตอน upload, convert เป็น WebP, lazy loading ด้วย lazysizes library (โหลดรูปเมื่อ scroll ใกล้ถึง viewport)</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Upload time (compress+convert) + frontend ทุกหน้า (lazysizes.min.js)</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">รูปยัง "เหมือนเดิม" แต่ไฟล์เล็กกว่า + lazy load ทำให้ scroll แล้วค่อยโหลด</div></div>
+    <div class="row"><div class="row-label">ตรวจ</div><div class="row-val">เช็ค EWWW → Settings → WebP Conversion เปิดหรือยัง ถ้าเปิดแล้วรูปจะเป็น .webp ใน source</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: AI                           -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">🧠 AI</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#8b5cf622">💡</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">AI Engine (Meow Apps)</div>
+      <div class="plugin-slug">ai-engine · v3.4.7</div>
+      <div class="badges"><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>+ บาง frontend</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">AI tools ใน WP Admin: content generation, chatbot widget บน frontend, image generation, custom AI forms, translate content ใน bulk</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Admin: ทุกครั้งที่เปิด editor. Frontend: ถ้าเปิด chatbot widget จะโหลด JS ทุกหน้า</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">ถ้าไม่ได้เปิด chatbot widget บน frontend จะไม่มี user-visible ผลลัพธ์</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: CONTENT MANAGEMENT           -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">📁 Content Management — ใช้ใน Admin เท่านั้น</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#f59e0b22">📋</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">WP Sheet Editor (Premium + CMB2 + JetEngine addons)</div>
+      <div class="plugin-slug">wp-sheet-editor-premium · wp-sheet-editor-cmb2 · wp-sheet-editor-jetengine</div>
+      <div class="badges"><span class="badge b-admin">Admin Only</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>เท่านั้น</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Bulk edit posts/pages/CPT entries ผ่าน spreadsheet UI ใน WP Admin — เปลี่ยน title, status, meta fields, JetEngine custom fields หลายร้อยรายการพร้อมกัน</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">เฉพาะ WP Admin → Sheet Editor — ไม่มีผลบน frontend เลย</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">Admin-only tool — ไม่มีอะไรปรากฏบนเว็บ เห็นได้ใน Posts → Sheet Editor หรือใน JetEngine CPT lists</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#06b6d422">🏷️</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">Bulk Edit Categories & Tags Premium</div>
+      <div class="plugin-slug">bulk-edit-categories-tags-premium</div>
+      <div class="badges"><span class="badge b-admin">Admin Only</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>เท่านั้น</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Bulk assign/remove categories และ tags ให้โพสต์หลายร้อยชิ้นพร้อมกัน ใน WP Admin Posts list view</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Admin เท่านั้น ไม่มีผลบน frontend</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#10b98122">📁</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">HappyFiles Pro</div>
+      <div class="plugin-slug">happyfiles-pro · v1.8.3</div>
+      <div class="badges"><span class="badge b-admin">Admin Only</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>เท่านั้น</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">เพิ่ม virtual folder structure ใน WP Media Library — drag & drop รูปเข้า folder ได้ ช่วย organize media ที่มีหลายร้อยหลายพันไฟล์ ไม่ได้ย้ายไฟล์จริงบน server แค่ tag ใน database</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Admin เท่านั้น — ไม่มีผลบน frontend 0%</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">เพราะมันเป็น media organizer ไม่ใช่ display plugin</div></div>
+  </div>
+</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#f59e0b22">📥</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">WP All Import Pro</div>
+      <div class="plugin-slug">wp-all-import-pro · v5.0.4</div>
+      <div class="badges"><span class="badge b-admin">Admin Only</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Admin<br>เท่านั้น</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Import XML/CSV/Excel ไฟล์เข้า WordPress เป็น posts, pages, CPT, users สร้าง field mapping ระหว่างคอลัมน์ spreadsheet กับ WP fields/JetEngine fields</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">Admin เท่านั้น ตอน import data — ไม่ทำงาน background และไม่มีผล frontend</div></div>
+    <div class="row"><div class="row-label">ทำไมไม่เห็น</div><div class="row-val">ใช้ครั้งเดียวหรือ scheduled import — เห็นใน WP Admin → All Import เท่านั้น</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: CUSTOM / MIGRATED            -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">⚙️ Custom — si-blog-redesign</div>
+
+<div class="plugin">
+  <div class="plugin-header" onclick="toggle(this)">
+    <div class="plugin-icon" style="background:#FFC60022">🏠</div>
+    <div class="plugin-meta">
+      <div class="plugin-name">SI Blog Redesign</div>
+      <div class="plugin-slug">si-blog-redesign · v2.3.0</div>
+      <div class="badges"><span class="badge b-custom">Custom</span><span class="badge b-active">Active</span></div>
+    </div>
+    <div class="plugin-vis">Frontend<br>+ Background</div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="plugin-body">
+    <div class="row"><div class="row-label">ทำอะไร</div><div class="row-val">Plugin หลักที่สร้างขึ้นเอง รวม 6 ระบบ: (1) Blog/Archive/Single/Taxonomy templates (2) /public/ course listing page ดึง Base44 API (3) GTM injection (4) Disable Comments (5) Venio CRM integration (Forms 2, 14, 16) (6) SI Redirect Manager</div></div>
+    <div class="row"><div class="row-label">ทำงานตอนไหน</div><div class="row-val">ทุก request สำหรับ GTM + redirect check, เฉพาะ blog/public pages สำหรับ templates, เฉพาะ form submit สำหรับ Venio</div></div>
+    <div class="row"><div class="row-label">Replaced plugins</div><div class="row-val ok">ทดแทน: insert-headers-and-footers (GTM), disable-comments (WPCode snippet)</div></div>
+  </div>
+</div>
+
+</div><!-- end group -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- GROUP: DISABLED                     -->
+<!-- ═══════════════════════════════════ -->
+<div class="group">
+<div class="group-title">🚫 Disabled — ปิดไปแล้ว</div>
+
+<div style="background:#fff;border:1px solid #e5e9ef;border-radius:8px;padding:14px 16px;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+    <div style="font-size:13px;color:#94a3b8;"><code>user-switching</code> — dev tool ✓</div>
+    <div style="font-size:13px;color:#94a3b8;"><code>all-in-one-wp-migration</code> — backup tool ✓</div>
+    <div style="font-size:13px;color:#94a3b8;"><code>insert-headers-and-footers</code> — migrated to custom plugin ✓</div>
+    <div style="font-size:13px;color:#94a3b8;"><code>jet-forms-popup-notification-master</code> — testing ✓</div>
+  </div>
+</div>
+
+</div>
+
+</div><!-- wrap -->
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+</script>
+</body>
+</html>

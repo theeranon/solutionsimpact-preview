@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolutionsIMPACT | Your Transformation Partner</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Brand scales: Downriver 950 #002554 · Supernova 500 #FFC600 (Brand Guideline 2025 p.12) */
+    --navy:#002554; --navy-light:#004CB3; --navy-deep:#001a3d;
+    --gold:#FFC600; --gold-light:#FFE51B;
+    --bg:#f8f7f5; --white:#fff;
+    --text:#111827; --muted:#5b6472; --faint:#9ca3af;
+    --border:#e5e7eb;
+    /* Poppins = EN เท่านั้น (ไม่มี glyph ไทย) — อักษรไทยใน heading ต้อง fallback ไป IBM Plex Sans Thai เสมอ */
+    --font-head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --font-body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --max-w:1140px;
+    --radius:5px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{font-family:var(--font-body);color:var(--text);background:var(--bg);line-height:1.7;font-size:17px}
+  h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;text-wrap:balance}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+  .eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:'';width:28px;height:2px;background:var(--gold)}
+  .eyebrow.on-light{color:var(--navy)}
+  .eyebrow.on-light::before{background:var(--gold)}
+
+  /* ===== NAV ===== */
+  nav{position:sticky;top:0;z-index:50;background:rgba(0,26,61,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav-in{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .logo{font-family:var(--font-head);font-weight:800;font-size:19px;color:#fff;text-decoration:none;letter-spacing:.01em}
+  .logo b{color:var(--gold)}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .2s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:600;font-size:15px;padding:13px 26px;border-radius:8px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover,.btn-gold:focus-visible{background:var(--gold-light);transform:translateY(-1px)}
+  .btn-outline{border:1.5px solid rgba(255,255,255,.35);color:#fff}
+  .btn-outline:hover,.btn-outline:focus-visible{background:rgba(255,255,255,.1);border-color:#fff}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover,.btn-navy:focus-visible{background:var(--navy-light)}
+  .btn-sm{padding:10px 20px;font-size:14px}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* ===== HERO ===== */
+  .hero{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;right:-260px;top:-260px;width:820px;height:820px;background:url('assets/Ripple 1.svg') center/contain no-repeat;opacity:.30}
+  .hero::after{content:'';position:absolute;left:-180px;bottom:-320px;width:520px;height:520px;background:url('assets/Ripple yellow 1.svg') center/contain no-repeat;opacity:.12}
+  .hero-in{max-width:var(--max-w);margin:0 auto;padding:110px 24px 90px;position:relative;z-index:1}
+  .hero h1{font-size:clamp(38px,5.4vw,62px);font-weight:800;margin:26px 0 10px;letter-spacing:-.01em}
+  .hero h1 .strike{position:relative;white-space:nowrap;color:rgba(255,255,255,.45)}
+  .hero h1 .strike::after{content:'';position:absolute;left:-2%;right:-2%;top:54%;height:5px;background:var(--gold);transform:rotate(-2deg);border-radius:3px}
+  .hero h1 .gold{color:var(--gold)}
+  .hero .sub{font-size:20px;font-weight:300;color:rgba(255,255,255,.82);max-width:640px;margin:22px 0 38px}
+  .hero .sub b{font-weight:600;color:#fff}
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:70px}
+  .hero-note{font-size:13.5px;color:rgba(255,255,255,.5);margin-top:-56px;margin-bottom:64px}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);overflow:hidden;max-width:820px}
+  .stat{background:var(--navy-deep);padding:26px 28px}
+  .stat .n{font-family:var(--font-head);font-size:34px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+  .stat .l{font-size:13.5px;color:rgba(255,255,255,.6);margin-top:2px}
+  @media(max-width:680px){.hero-stats{grid-template-columns:1fr}.hero-in{padding-top:70px}}
+
+  /* ===== TRUST BAR ===== */
+  .trust{background:var(--white);border-bottom:1px solid var(--border);padding:34px 0}
+  .trust-in{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center}
+  .trust .t-label{font-size:13px;color:var(--faint);white-space:nowrap}
+  .t-logos{display:flex;gap:36px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .t-logos span{font-family:var(--font-head);font-weight:700;font-size:17px;color:#b9bec7;letter-spacing:.02em}
+
+  /* ===== SECTIONS ===== */
+  section{padding:96px 0}
+  .sec-head{max-width:720px;margin-bottom:56px}
+  .sec-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;color:var(--navy);margin:18px 0 14px}
+  .sec-head p{color:var(--muted);font-size:17.5px}
+
+  /* ===== SHIFT (positioning) ===== */
+  .shift{background:var(--white)}
+  .shift-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .shift-col{padding:44px 46px}
+  .shift-col.old{background:#fafafa;border-right:1px solid var(--border)}
+  .shift-col.new{background:var(--navy);color:#fff}
+  .shift-col h3{font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:26px}
+  .shift-col.old h3{color:var(--faint)}
+  .shift-col.new h3{color:var(--gold)}
+  .shift-col ul{list-style:none;display:flex;flex-direction:column;gap:18px}
+  .shift-col li{padding-left:32px;position:relative;font-size:16.5px}
+  .shift-col.old li{color:var(--muted)}
+  .shift-col.old li::before{content:'✓';position:absolute;left:0;color:#c9ced6;font-weight:700}
+  .shift-col.new li::before{content:'✓';position:absolute;left:0;color:var(--gold);font-weight:700}
+  @media(max-width:760px){.shift-grid{grid-template-columns:1fr}.shift-col.old{border-right:none;border-bottom:1px solid var(--border)}}
+
+  /* ===== TIERS ===== */
+  .tiers{background:var(--bg)}
+  .tier-row{display:flex;flex-direction:column;gap:20px}
+  .tier{display:grid;grid-template-columns:64px 1.1fr 1.6fr auto;gap:36px;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:38px 42px;transition:box-shadow .2s,transform .2s}
+  .tier:hover{box-shadow:0 12px 48px rgba(0,37,84,.12);transform:translateY(-2px)}
+  .tier-num{font-family:var(--font-head);font-size:44px;font-weight:800;color:#e8e4dc;line-height:1;font-variant-numeric:tabular-nums}
+  .tier h3{font-size:21px;font-weight:700;color:var(--navy)}
+  .tier .t-tag{font-size:13px;color:var(--faint);margin-top:4px}
+  .tier p{color:var(--muted);font-size:15.5px}
+  .tier .t-price{font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--navy);white-space:nowrap;text-align:right}
+  .tier .t-price small{display:block;font-weight:400;font-size:12.5px;color:var(--faint)}
+  .tier.flagship{border:2px solid var(--gold);position:relative}
+  .tier.flagship::before{content:'FLAGSHIP';position:absolute;top:-11px;left:42px;background:var(--gold);color:var(--navy);font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.12em;padding:3px 12px;border-radius:4px}
+  @media(max-width:900px){.tier{grid-template-columns:1fr;gap:12px}.tier .t-price{text-align:left}}
+
+  /* ===== PACKS ===== */
+  .packs{background:var(--navy);color:#fff}
+  .packs .sec-head h2{color:#fff}
+  .packs .sec-head p{color:rgba(255,255,255,.7)}
+  .pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .pack{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:38px 34px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+  .pack:hover{border-color:rgba(255,198,0,.5);transform:translateY(-3px)}
+  .pack .days{font-family:var(--font-head);font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.08em}
+  .pack h3{font-size:24px;font-weight:700;margin:10px 0 6px}
+  .pack .p-sub{font-size:14px;color:rgba(255,255,255,.55);margin-bottom:24px}
+  .pack ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:30px;flex:1}
+  .pack li{padding-left:28px;position:relative;font-size:15px;color:rgba(255,255,255,.85)}
+  .pack li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+  .pack li.dim{color:rgba(255,255,255,.35)}
+  .pack li.dim::before{content:'—';color:rgba(255,255,255,.25)}
+  .pack .p-out{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;font-size:14px}
+  .pack .p-out b{color:var(--gold);font-weight:600;display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .pack.featured{background:rgba(255,198,0,.08);border-color:var(--gold)}
+  @media(max-width:900px){.pack-grid{grid-template-columns:1fr}}
+  .packs-note{margin-top:36px;font-size:14.5px;color:rgba(255,255,255,.55);max-width:640px}
+  .packs-note a{color:var(--gold);text-decoration:none;font-weight:600}
+  .packs-note a:hover{text-decoration:underline}
+
+  /* ===== PROOF / CASE ===== */
+  .proof{background:var(--white)}
+  .case{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center}
+  .case blockquote{font-size:clamp(22px,2.8vw,30px);font-family:var(--font-head);font-weight:600;color:var(--navy);line-height:1.45;position:relative;padding-left:28px;border-left:5px solid var(--gold)}
+  .case .attrib{margin-top:22px;padding-left:33px;font-size:15px;color:var(--muted)}
+  .case .attrib b{color:var(--text);font-weight:600;display:block}
+  .case-stats{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .cs{background:var(--white);padding:24px 30px;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .cs .n{font-family:var(--font-head);font-size:30px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+  .cs .l{font-size:14px;color:var(--muted);text-align:right}
+  @media(max-width:860px){.case{grid-template-columns:1fr;gap:40px}}
+
+  /* ===== PROCESS ===== */
+  .process{background:var(--bg)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:step}
+  .step{padding:32px 28px 0 0;position:relative;counter-increment:step}
+  .step::before{content:counter(step,decimal-leading-zero);font-family:var(--font-head);font-weight:800;font-size:15px;color:var(--navy);background:var(--gold);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:22px;position:relative;z-index:1}
+  .step::after{content:'';position:absolute;top:54px;left:44px;right:0;height:2px;background:var(--border)}
+  .step:last-child::after{display:none}
+  .step h3{font-size:17.5px;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .step p{font-size:14.5px;color:var(--muted)}
+  @media(max-width:860px){.steps{grid-template-columns:1fr 1fr}.step::after{display:none}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+  /* ===== FINAL CTA ===== */
+  .final{background:var(--navy-deep);color:#fff;text-align:center;position:relative;overflow:hidden}
+  .final::before{content:'';position:absolute;left:50%;bottom:-420px;transform:translateX(-50%);width:900px;height:900px;background:url('assets/Ripple yellow 1.svg') center/contain no-repeat;opacity:.18}
+  .final .wrap{position:relative;z-index:1;max-width:760px}
+  .final h2{font-size:clamp(30px,4.2vw,46px);font-weight:800;margin:20px 0 18px}
+  .final h2 .gold{color:var(--gold)}
+  .final p{color:rgba(255,255,255,.72);font-size:18px;max-width:560px;margin:0 auto 40px}
+  .final .micro{margin-top:22px;font-size:13.5px;color:rgba(255,255,255,.45)}
+
+  /* ===== FOOTER ===== */
+  footer{background:#001229;color:rgba(255,255,255,.6);padding:56px 0 40px;font-size:14px}
+  .foot{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot .f-brand{font-family:var(--font-head);font-weight:800;font-size:17px;color:#fff}
+  .foot .f-brand b{color:var(--gold)}
+  .foot ul{list-style:none;display:flex;gap:28px;flex-wrap:wrap}
+  .foot a{color:rgba(255,255,255,.6);text-decoration:none}
+  .foot a:hover,.foot a:focus-visible{color:#fff}
+  .foot .f-note{width:100%;border-top:1px solid rgba(255,255,255,.08);margin-top:36px;padding-top:24px;font-size:12.5px;color:rgba(255,255,255,.35)}
+</style>
+
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:38px;display:block"></a>
+    <ul class="nav-links">
+      <li><a href="hackathon-journey-2026.html">Hackathon Journey</a></li>
+      <li><a href="executive-programs-2026.html">Executive Programs</a></li>
+      <li><a href="track-record-2026.html">Results</a></li>
+      <li><a href="insights-2026.html">Insights</a></li>
+    </ul>
+    <a class="btn btn-gold btn-sm" href="#cta">นัดคุยกลยุทธ์</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-in">
+    <span class="eyebrow">Your Transformation Partner</span>
+    <h1>ทีมของคุณ<br><span class="gold">ทำได้มากกว่าที่คิด</span></h1>
+    <p class="sub">SolutionsIMPACT เติมกระบวนการใหม่ให้ทีมของคุณ พาโจทย์จากหน้างานไปเป็น<b>ผลงานที่ใช้ได้จริง และวัดผลออกมาเป็นตัวเลขที่ชัดเจน</b></p>
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="#cta">นัดคุยกลยุทธ์กับทีมเรา →</a>
+      <a class="btn btn-outline" href="#packs">ดูโครงสร้างโปรแกรม</a>
+    </div>
+    <p class="hero-note">ทุกโปรแกรมออกแบบเฉพาะองค์กร เริ่มจากบทสนทนาเรื่องโจทย์ของคุณ</p>
+    <!-- ✏️ HERO STATS — ตัวเลขผลงานล่าสุด แก้ที่ .n (ตัวเลข) / .l (คำอธิบาย)
+         ใช้เฉพาะตัวเลขจากโปรเจกต์ที่จบแล้วเท่านั้น ไม่ใส่ตัวเลขคาดการณ์ -->
+    <div class="hero-stats">
+      <div class="stat"><div class="n">100+</div><div class="l">โปรเจกต์จริงที่เกิดจาก Hackathon เดียว</div></div>
+      <div class="stat"><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหาร C-Level ร่วมสังเกตการณ์</div></div>
+      <div class="stat"><div class="n">5×</div><div class="l">ลูกค้า Enterprise ขยายขอบเขตงานหลังเห็นผลรุ่นแรก</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="trust-in">
+    <span class="t-label">องค์กรที่ไว้วางใจเรา</span>
+    <div class="t-logos">
+      <span>SCB</span><span>KBank</span><span>CP&nbsp;Group</span><span>Krungsri</span><span>LINE</span><span>BMW</span><span>Isuzu</span><span>SET</span>
+    </div>
+  </div>
+</div>
+
+<section class="shift" id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow on-light">Our Approach</span>
+      <h2>ทีมของคุณ กับกระบวนการใหม่<br>คือสูตรที่พาองค์กร<span style="border-bottom:5px solid var(--gold)">ไปข้างหน้า</span></h2>
+      <p>โลกของการพัฒนาคนกำลังเปลี่ยน การอบรมแบบเดิมอาจไม่เพียงพอแล้วสำหรับเป้าหมายวันนี้
+      เราจึงออกแบบกระบวนการที่ให้ทีมของคุณลงมือสร้างผลงานระหว่างทาง และวัดผลเป็นตัวเลขเมื่อจบโปรแกรม</p>
+    </div>
+    <div class="shift-grid">
+      <div class="shift-col old">
+        <h3>สิ่งที่องค์กรคุณมีอยู่แล้ว</h3>
+        <ul>
+          <li>ทีมที่เข้าใจหน้างานลึกที่สุด</li>
+          <li>โจทย์จริงที่พร้อมให้ลงมือ</li>
+          <li>ประสบการณ์ที่สั่งสมมาหลายปี</li>
+          <li>ผู้บริหารที่อยากเห็นการเปลี่ยนแปลง</li>
+        </ul>
+      </div>
+      <div class="shift-col new">
+        <h3>สิ่งที่เราเติมให้</h3>
+        <ul>
+          <li>กระบวนการที่เปลี่ยนความเข้าใจเป็นผลงาน</li>
+          <li>mentor ประจำทีมที่เคยสร้างงานจริง</li>
+          <li>เกณฑ์วัดผลที่ตกลงร่วมกันตั้งแต่ต้น</li>
+          <li>เวทีที่พาผลงานไปถึงผู้บริหาร</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tiers" id="tiers">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow on-light">How We Work</span>
+      <h2>เส้นทาง Transformation 3 ระดับ</h2>
+      <p>เริ่มจากผู้บริหาร ขยายสู่ทีม แล้วเปลี่ยนทั้งองค์กร แต่ละระดับออกแบบให้ต่อยอดถึงกัน</p>
+    </div>
+    <div class="tier-row">
+      <div class="tier">
+        <div class="tier-num">01</div>
+        <div>
+          <h3>Executive Session</h3>
+          <div class="t-tag">ครึ่งวันถึงหนึ่งวัน · ผู้บริหารเท่านั้น</div>
+        </div>
+        <p>เปิดมุมมอง AI &amp; Transformation ให้ทีมผู้บริหารเห็นภาพเดียวกัน ก่อนตัดสินใจลงทุนเปลี่ยนองค์กร และเป็นจุดเริ่มต้นที่เราแนะนำสำหรับทุกองค์กร</p>
+        <div class="t-price">เริ่มต้น ฿200,000<small>ต่อวัน · เฉพาะ C-Level</small></div>
+      </div>
+      <div class="tier flagship">
+        <div class="tier-num">02</div>
+        <div>
+          <h3>Hackathon Journey</h3>
+          <div class="t-tag">3 / 4 / 6–8 วัน · ทีมงานจริง โจทย์จริง</div>
+        </div>
+        <p>Bootcamp เข้มข้นที่ทีมของคุณลงมือสร้างโปรเจกต์จริงตั้งแต่วันแรก จบด้วยผลงานที่นำเสนอต่อผู้บริหาร และวัดผลเป็น ROI ได้จริง</p>
+        <div class="t-price">ประเมินตามขอบเขตงาน<small>ตามแพ็ก จำนวนคน และจำนวนรุ่น</small></div>
+      </div>
+      <div class="tier">
+        <div class="tier-num">03</div>
+        <div>
+          <h3>Enterprise Rollout</h3>
+          <div class="t-tag">3–8 เดือน · หลายรุ่นต่อเนื่องทั้งองค์กร</div>
+        </div>
+        <p>ขยายผลจาก Hackathon สู่ทั้งองค์กร ยกระดับทักษะพนักงานแบบหลายรุ่นต่อเนื่อง พร้อมระบบวัดผลและ PM ดูแลตลอดโครงการ</p>
+        <div class="t-price">ออกแบบเฉพาะองค์กร<small>ราคาตามโครงสร้างและจำนวนรุ่น</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="packs" id="packs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Hackathon Journey</span>
+      <h2>เลือกความลึกที่องค์กรคุณต้องการ</h2>
+      <p>ทุกแพ็กเริ่มจากโจทย์ธุรกิจของคุณ ต่างกันที่ความลึกของผลลัพธ์ปลายทาง</p>
+    </div>
+    <div class="pack-grid">
+      <div class="pack">
+        <div class="days">3 วัน</div>
+        <h3>Ignite</h3>
+        <div class="p-sub">GenAI + Automation Sprint</div>
+        <ul>
+          <li>Hackathon เข้มข้นจากโจทย์งานจริง</li>
+          <li>ทีมสร้าง automation ใช้เองได้ทันที</li>
+          <li>Mentor ประกบทุกทีมตลอดโปรแกรม</li>
+          <li class="dim">นำเสนอผู้บริหาร</li>
+          <li class="dim">วัด ROI เชิงตัวเลข</li>
+        </ul>
+        <div class="p-out"><b>ผลลัพธ์</b>โปรเจกต์ pilot ที่ทีมใช้งานได้จริงในแผนกตัวเอง</div>
+      </div>
+      <div class="pack featured">
+        <div class="days">4 วัน</div>
+        <h3>Accelerate</h3>
+        <div class="p-sub">Sprint + Executive Showcase</div>
+        <ul>
+          <li>ทุกอย่างใน Ignite</li>
+          <li>วันที่ 4 นำเสนอผลงานต่อหน้าผู้บริหาร</li>
+          <li>โค้ชการนำเสนอเชิงธุรกิจให้ทุกทีม</li>
+          <li>คัดโปรเจกต์เด่นเข้าแผนงานขององค์กร</li>
+          <li class="dim">วัด ROI เชิงตัวเลข</li>
+        </ul>
+        <div class="p-out"><b>ผลลัพธ์</b>Pilot ที่ผ่านสายตาผู้บริหาร พร้อมเดินหน้าเป็นโปรเจกต์จริง</div>
+      </div>
+      <div class="pack">
+        <div class="days">6–8 วัน</div>
+        <h3>Transform</h3>
+        <div class="p-sub">Full Journey ถึงระดับ ROI</div>
+        <ul>
+          <li>ทุกอย่างใน Accelerate</li>
+          <li>เกณฑ์วัดผลตกลงร่วมกันก่อนเริ่มงาน</li>
+          <li>วันสุดท้ายสรุปผลเป็นตัวเลขต่อหน้าผู้บริหาร</li>
+          <li>ที่ปรึกษาการคัดเลือกเครื่องมือและผู้ให้บริการ</li>
+          <li>Roadmap ต่อยอดสู่ Enterprise Rollout</li>
+        </ul>
+        <div class="p-out"><b>ผลลัพธ์</b>โครงการที่ฝ่ายการเงินรับรองตัวเลขได้ พร้อมแผนขยายผลทั้งองค์กร</div>
+      </div>
+    </div>
+    <p class="packs-note">ราคาขึ้นกับจำนวนคน จำนวนรุ่น และความลึกของโจทย์ <a href="#cta">นัดคุย 30 นาที</a> เพื่อให้เราประเมินแพ็กที่เหมาะสมที่สุดสำหรับองค์กรคุณ สำหรับงานอบรมรายวันทั่วไป เรายินดีแนะนำพาร์ตเนอร์ที่เชี่ยวชาญให้แทน</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TRACK RECORD — แก้ไข/เพิ่มข้อมูลผลงานได้ที่ section นี้ที่เดียว
+     · เคสใหม่ = ก๊อปบล็อก <article class="case"> ... </article> แล้ววางต่อ
+     · ตัวเลขใหม่ = แก้ใน <span class="n"> (ตัวเลข) และ <span class="l"> (คำอธิบาย)
+     · ตอน build เป็น WordPress theme ส่วนนี้จะกลายเป็น custom fields
+       ที่แก้จากหลังบ้านได้โดยไม่ต้องแตะโค้ด
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="proof" id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow on-light">Track Record</span>
+      <h2>ผลงานล่าสุด<br>จากสนามจริง</h2>
+      <p>ทุกเคสในหน้านี้มาจากโปรแกรมที่ส่งมอบแล้ว</p>
+    </div>
+
+    <article class="case">
+      <div>
+        <blockquote>องค์กรอาหารระดับประเทศให้ทีมของตัวเองลงมือสร้างใน Hackathon กับเรา เพียงรุ่นเดียวได้โปรเจกต์ใช้งานจริงกว่า 100 โปรเจกต์ และขยายขอบเขตโปรแกรมเป็นห้าเท่า</blockquote>
+        <div class="attrib"><b>Enterprise AI Hackathon · 2026</b>ผู้เข้าร่วม 300 คนต่อรุ่น พร้อมผู้บริหาร C-Level ร่วมตัดสิน</div>
+      </div>
+      <div class="case-stats">
+        <div class="cs"><span class="n">100+</span><span class="l">โปรเจกต์เกิดขึ้นจริงจากรุ่นเดียว</span></div>
+        <div class="cs"><span class="n">5×</span><span class="l">ลูกค้าขยายขอบเขตงานหลังเห็นผลรุ่นแรก</span></div>
+        <div class="cs"><span class="n">600</span><span class="l">โปรเจกต์ตามขอบเขตงานที่ลูกค้าขยายแล้ว</span></div>
+      </div>
+    </article>
+
+    <!-- ✏️ เคสถัดไป: ก๊อปบล็อกนี้ไปแก้ (ลบ comment ออกเมื่อใช้จริง)
+    <article class="case" style="margin-top:64px">
+      <div>
+        <blockquote>[คำโปรยเคส — เล่าสิ่งที่เกิดขึ้นจริง 1-2 ประโยค เน้นตัวเลขเทียบก่อน/หลัง]</blockquote>
+        <div class="attrib"><b>[ชื่อโปรแกรม · ปี]</b>[บริบท เช่น จำนวนคน อุตสาหกรรม]</div>
+      </div>
+      <div class="case-stats">
+        <div class="cs"><span class="n">[ตัวเลข]</span><span class="l">[หน่วย/คำอธิบาย]</span></div>
+        <div class="cs"><span class="n">[ตัวเลข]</span><span class="l">[หน่วย/คำอธิบาย]</span></div>
+        <div class="cs"><span class="n">[ตัวเลข]</span><span class="l">[หน่วย/คำอธิบาย]</span></div>
+      </div>
+    </article>
+    -->
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow on-light">The Journey</span>
+      <h2>จากบทสนทนาแรก ถึงผลลัพธ์ที่วัดได้</h2>
+      <p>ทุกโปรแกรมเดินบนมาตรฐานเดียวกัน คือ I.M.P.A.C.T. Model และ Transformative Productivity System™ ของเรา</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>คุยโจทย์</h3>
+        <p>30 นาทีกับทีมออกแบบโปรแกรม เพื่อเข้าใจโจทย์ธุรกิจและความพร้อมขององค์กรคุณ</p>
+      </div>
+      <div class="step">
+        <h3>ตั้งเกณฑ์วัดผล</h3>
+        <p>ตกลงร่วมกันก่อนเริ่มว่าความสำเร็จวัดด้วยตัวเลขใด ทุกฝ่ายเห็นเป้าเดียวกันตั้งแต่วันแรก</p>
+      </div>
+      <div class="step">
+        <h3>ลงมือสร้าง</h3>
+        <p>ทีมของคุณสร้างผลงานจริง โดยมี mentor ประจำทีมและ PM ดูแลตลอดโครงการ</p>
+      </div>
+      <div class="step">
+        <h3>วัดผลและขยาย</h3>
+        <p>สรุปผลเป็นตัวเลขต่อผู้บริหาร แล้ววางแผนขยายผลสู่ทั้งองค์กร</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="cta">
+  <div class="wrap">
+    <span class="eyebrow">Ready When You Are</span>
+    <h2>เริ่มจากบทสนทนา 30 นาที<br><span class="gold">เรื่องโจทย์ขององค์กรคุณ</span></h2>
+    <p>คุยกับทีมที่ออกแบบโปรแกรมโดยตรง จบบทสนทนา คุณจะเห็นชัดขึ้นว่าควรเริ่มตรงไหน และควรวัดผลด้วยอะไร</p>
+    <a class="btn btn-gold" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์ →</a>
+    <p class="micro">สำหรับองค์กรที่มองหาการอบรมรายวันทั่วไป เรายินดีแนะนำพาร์ตเนอร์ที่เหมาะสมให้</p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:34px;display:block">
+      <p style="margin-top:14px;max-width:300px">Your Transformation Partner<br>999/9 Central World, กรุงเทพฯ 10330</p>
+    </div>
+    <ul>
+      <li><a href="hackathon-journey-2026.html">Hackathon Journey</a></li>
+      <li><a href="executive-programs-2026.html">Executive Programs</a></li>
+      <li><a href="track-record-2026.html">Results</a></li>
+      <li><a href="insights-2026.html">Insights</a></li>
+      <li><a href="#cta">Contact</a></li>
+    </ul>
+    <div class="f-note">© 2026 SolutionsIMPACT · training@solutionsimpact.com · 02-107-6374</div>
+  </div>
+</footer>
+</html>

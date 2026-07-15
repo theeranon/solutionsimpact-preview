@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SI Web Audit — เมษายน 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f4f6f9;
+    color: #111;
+    margin: 0;
+    padding: 0;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Header */
+  .report-header {
+    background: #002554;
+    color: #fff;
+    padding: 2.5rem 2rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header::after {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 40px solid rgba(255,198,0,.12);
+    pointer-events: none;
+  }
+  .report-header .badge {
+    display: inline-block;
+    background: #FFC600;
+    color: #002554;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 4px;
+    letter-spacing: .07em;
+    margin-bottom: 12px;
+  }
+  .report-header h1 { margin: 0 0 6px; font-size: 26px; font-weight: 700; }
+  .report-header p { margin: 0; font-size: 13px; color: rgba(255,255,255,.65); }
+
+  /* TOC */
+  .toc {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #e5e7eb;
+  }
+  .toc h2 { font-size: 13px; font-weight: 700; color: #64748b; margin: 0 0 12px; text-transform: uppercase; letter-spacing: .08em; }
+  .toc ol { margin: 0; padding-left: 1.2rem; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: #002554; font-size: 14px; text-decoration: none; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* Section */
+  section { margin-bottom: 2.5rem; }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    background: #002554;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .section-title h2 { margin: 0; font-size: 20px; font-weight: 700; color: #002554; }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p { margin: 0 0 8px; font-size: 13px; color: #374151; line-height: 1.6; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* Badges */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: .06em;
+    vertical-align: middle;
+  }
+  .tag-red    { background: #fee2e2; color: #991b1b; }
+  .tag-yellow { background: #fef9c3; color: #854d0e; }
+  .tag-green  { background: #dcfce7; color: #166534; }
+  .tag-blue   { background: #dbeafe; color: #1e40af; }
+  .tag-gray   { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+  /* Code */
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: #0f172a;
+  }
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-size: 12px;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+
+  /* Impact table */
+  .impact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+  }
+  .impact-row:last-child { border-bottom: none; }
+  .impact-label { flex: 0 0 180px; font-weight: 600; color: #111; }
+  .impact-desc  { flex: 1; color: #374151; line-height: 1.5; }
+
+  /* Summary bar */
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .summary-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .summary-card .num {
+    font-size: 32px;
+    font-weight: 800;
+    color: #002554;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .summary-card .num.red { color: #dc2626; }
+  .summary-card .num.amber { color: #d97706; }
+  .summary-card .num.green { color: #16a34a; }
+  .summary-card .lbl { font-size: 12px; color: #64748b; font-weight: 500; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0; }
+
+  /* Recommendation box */
+  .rec {
+    background: linear-gradient(135deg, #001a3d 0%, #002554 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 10px;
+  }
+  .rec .rec-title { font-size: 12px; font-weight: 700; color: #FFC600; margin-bottom: 8px; letter-spacing: .07em; text-transform: uppercase; }
+  .rec p { font-size: 13px; color: rgba(255,255,255,.85); margin: 0; line-height: 1.6; }
+
+  /* Priority list */
+  .prio-list { list-style: none; padding: 0; margin: 0; }
+  .prio-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+  }
+  .prio-list li:last-child { border-bottom: none; }
+  .prio-num {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    background: #FFC600;
+    color: #002554;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .prio-content strong { display: block; color: #111; font-weight: 600; margin-bottom: 2px; }
+  .prio-content span { color: #64748b; line-height: 1.4; }
+
+  @media (max-width: 640px) {
+    .summary-bar { grid-template-columns: 1fr; }
+    .impact-label { flex: 0 0 130px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="report-header">
+    <span class="badge">SITE AUDIT · APRIL 2026</span>
+    <h1>solutionsimpact.com — Full Review</h1>
+    <p>วิเคราะห์จาก FTP + HTML fetch ทุกหน้าหลัก · 3 มุม: Plugin, Speed, Positioning</p>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-bar">
+    <div class="summary-card">
+      <div class="num red">6</div>
+      <div class="lbl">จุดที่ต้องแก้ทันที</div>
+    </div>
+    <div class="summary-card">
+      <div class="num amber">8</div>
+      <div class="lbl">จุดที่ควรปรับปรุง</div>
+    </div>
+    <div class="summary-card">
+      <div class="num green">3</div>
+      <div class="lbl">Plugin ที่ตัดออกได้</div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h2>สารบัญ</h2>
+    <ol>
+      <li><a href="#plugins">มุมที่ 1 — Plugin ที่ควรตัดออกหรือแทนที่ด้วย Code</a></li>
+      <li><a href="#speed">มุมที่ 2 — Performance &amp; Speed</a></li>
+      <li><a href="#positioning">มุมที่ 3 — Positioning: Transformation Consult ไม่ใช่ Training House</a></li>
+      <li><a href="#priority">Top Priority Action List</a></li>
+    </ol>
+  </div>
+
+  <!-- ===== SECTION 1: PLUGINS ===== -->
+  <section id="plugins">
+    <div class="section-title">
+      <div class="section-icon">🔌</div>
+      <h2>มุมที่ 1 — Plugin ที่ควรตัดหรือแทนที่</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-green">แทนได้แน่นอน</span>
+        google-site-kit → ใส่ Code ตรงใน si-blog-redesign.php
+      </div>
+      <p><strong>ปัญหาปัจจุบัน:</strong> Site Kit ฉีด 2 อย่างบน frontend จริงๆ คือ GA4 tag (<code>GT-PHRZMJXS</code> via gtag.js) และ GTM container ที่สอง (<code>GTM-T7LVRVFH</code>) ซึ่งทำให้มี GTM 2 container โหลดพร้อมกัน (<code>GTM-PSD6BMK</code> จาก si-blog-redesign + <code>GTM-T7LVRVFH</code> จาก Site Kit)</p>
+      <p><strong>วิธีแทนที่:</strong> ถ้า GA4 manage ผ่าน GTM-PSD6BMK อยู่แล้ว — ปิด Site Kit ได้เลย ไม่ต้องเขียน Code เพิ่ม ถ้า GA4 ไม่ได้อยู่ใน GTM ให้เพิ่ม snippet เดียวใน si-blog-redesign.php แล้วปิด Site Kit</p>
+      <div class="rec">
+        <div class="rec-title">⚠️ ต้องตรวจก่อน</div>
+        <p>เข้า GTM-PSD6BMK → Tags ดูว่ามี GA4 tag (<code>GT-PHRZMJXS</code>) อยู่หรือเปล่า ถ้ามี → ปิด Site Kit ได้เลย 100% ถ้าไม่มี → ให้ผมเพิ่ม 3 บรรทัดใน si-blog-redesign.php แล้วค่อยปิด Site Kit</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-green">แทนได้แน่นอน</span>
+        ai-engine → ปิดได้เลย (ไม่มี Frontend presence เลย)
+      </div>
+      <p>Fetch ทุกหน้าแล้วไม่พบ reference ของ ai-engine แม้แต่ครั้งเดียว ไม่มี chatbot widget, ไม่มี JS, ไม่มี CSS โหลด Plugin active อยู่เฉยๆ กิน memory PHP ทุก request</p>
+      <p><strong>Action:</strong> ปิดใน WP Admin → Plugins ได้เลย ถ้าต้องการ AI chatbot ในอนาคต ค่อยกลับมา enable</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">พิจารณา</span>
+        seo-engine — จ่ายเงินแล้ว แต่ยัง output ว่าง
+      </div>
+      <p>ยืนยัน fetch ล่าสุด: <code>&lt;meta class="mwseo-meta" name="description" content=""&gt;</code> ยังอยู่ทุกหน้า SEO Engine ต้องการ Excerpt ในแต่ละหน้า — เพราะ Bricks Builder ไม่ได้เขียน content ลง <code>post_content</code> มาตรฐาน</p>
+      <p><strong>Action ที่ทำได้เลย:</strong> เข้า Edit Page แต่ละหน้า → แท็บ Basic → กรอก Excerpt → Save 4 หน้าหลักแก้ได้ใน 10 นาที</p>
+      <p><strong>ถ้าจะ automate:</strong> ผมเพิ่ม filter ใน si-blog-redesign.php ให้ดึง description จาก custom field ที่กำหนดเป็น fallback ได้เลย ไม่ต้องกรอกทุกหน้า</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-gray">Admin Only — เก็บไว้ถ้าใช้</span>
+        bulk-edit-categories-tags-premium, wp-sheet-editor-* (3 ตัว)
+      </div>
+      <p>ทั้ง 4 ตัวนี้ไม่มีผลต่อ Frontend เลย ใช้จัดการข้อมูลใน Admin เท่านั้น ถ้าไม่ได้ใช้ batch edit บ่อยๆ → ปิดไว้ เปิดตอนจะใช้</p>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ===== SECTION 2: SPEED ===== -->
+  <section id="speed">
+    <div class="section-title">
+      <div class="section-icon">⚡</div>
+      <h2>มุมที่ 2 — Performance &amp; Speed</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-red">🔴 Critical</span>
+        Poppins โหลดทุก weight — 18 variants ที่แทบไม่ได้ใช้
+      </div>
+      <p>Bricks โหลด Poppins ทุก weight ตั้งแต่ 100 ถึง 900 ทั้ง italic และ normal รวม 18 variants ในหน้าเดียว แต่ grep ทั้งเว็บเจอ Poppins ใช้จริงแค่ครั้งเดียว (น่าจะเป็น Heading ตัวเดียว)</p>
+      <pre>/* ปัจจุบัน — โหลดทั้งหมด */
+family=Poppins:ital,wght@0,100;0,200;...0,900;1,100;...1,900
+
+/* ควรเป็น — เฉพาะที่ใช้จริง */
+family=Poppins:wght@600;700</pre>
+      <p><strong>แก้:</strong> Bricks Builder → Settings → Custom Fonts / Google Fonts → จำกัด Poppins ให้เหลือแค่ weight ที่ใช้จริง ประหยัด HTTP request + ลด render-blocking font ได้ชัดเจน</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-red">🔴 Critical</span>
+        GTM โหลด 2 Container พร้อมกันทุกหน้า
+      </div>
+      <p><code>GTM-PSD6BMK</code> (si-blog-redesign) + <code>GTM-T7LVRVFH</code> (google-site-kit) โหลดพร้อมกันทุกหน้า ทุก GTM container = 1 HTTP request + JS execution + dataLayer init ซ้ำ</p>
+      <p><strong>แก้:</strong> ตรวจว่า GTM-T7LVRVFH มี tag อะไรบ้าง ถ้า GA4 อยู่ใน GTM-PSD6BMK อยู่แล้ว → ปิด Site Kit แก้ปัญหานี้ได้เลย</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-red">🔴 Critical</span>
+        FluentForm JS โหลดทุกหน้าแม้ไม่มี Form
+      </div>
+      <p><code>fluentform-advanced.js</code> + <code>form-submission.js</code> โหลดทุกหน้า รวมถึงหน้า Blog และ Public ที่ไม่มี form อยู่เลย</p>
+      <div class="impact-row">
+        <div class="impact-label">homepage</div>
+        <div class="impact-desc">28 FluentForm references (มี form จริง — โอเค)</div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">inhouse-training</div>
+        <div class="impact-desc">28 references (มี form จริง — โอเค)</div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">/public/</div>
+        <div class="impact-desc">17 references — ส่วนใหญ่ CSS inline form style โหลด JS ฟรี</div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">/blog/</div>
+        <div class="impact-desc">17 references — โหลด JS ฟรี</div>
+      </div>
+      <p><strong>แก้:</strong> FluentForm Settings → Global Settings → ติ๊ก "Load styles/scripts only when shortcode used" ถ้า option นี้มี หรือผมเพิ่ม conditional loading ใน si-blog-redesign.php ได้</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Medium</span>
+        โหลด 2 Carousel Libraries พร้อมกัน (Swiper + Splide)
+      </div>
+      <p><code>swiper.min.js</code> และ <code>splide.min.js</code> โหลดคู่กันทุกหน้า ปกติ Bricks ใช้ Splide เป็น default carousel แต่ Swiper โหลดมาด้วยเสมอ ถ้าไม่มี Swiper widget ในหน้าไหน → เป็น dead weight</p>
+      <p><strong>ตรวจ:</strong> Bricks Builder → Elements ที่ใช้ ถ้าไม่มี Slider element ที่ใช้ Swiper → ไปตั้ง Bricks Settings ให้ไม่โหลด Swiper globally</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Medium</span>
+        Page Titles ไม่มี Keyword — SEO เสีย
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">Homepage title</div>
+        <div class="impact-desc"><code>"Home | Solutions IMPACT"</code> — Google ไม่รู้ว่าเว็บทำอะไร</div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">Inhouse title</div>
+        <div class="impact-desc"><code>"Inhouse Training | Solutions IMPACT"</code> — พอได้แต่ไม่มี year/benefit</div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">Public title</div>
+        <div class="impact-desc"><code>"Public | Solutions IMPACT"</code> — แย่มาก ไม่มี keyword เลย</div>
+      </div>
+      <div class="impact-row">
+        <div class="impact-label">Blog title</div>
+        <div class="impact-desc"><code>"Blog | Solutions IMPACT"</code> — missed opportunity</div>
+      </div>
+      <p><strong>แก้:</strong> ผ่าน SEO Engine → ตั้ง title template per-page เช่น Homepage → <em>"SolutionsIMPACT — Transformation Consulting &amp; AI Training สำหรับองค์กร"</em></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Medium</span>
+        WordPress Version ถูก expose ใน &lt;head&gt;
+      </div>
+      <p><code>&lt;meta name="generator" content="WordPress 6.9.4"&gt;</code> อยู่ใน &lt;head&gt; ทุกหน้า บอก attacker ว่าใช้ WP version อะไร</p>
+      <p><strong>แก้:</strong> เพิ่มใน si-blog-redesign.php 1 บรรทัด:</p>
+      <pre>remove_action('wp_head', 'wp_generator');</pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Medium</span>
+        OG Description ว่างเปล่า — Share บน LINE/Facebook ไม่มีข้อความ
+      </div>
+      <p>Homepage og:description = <code>""</code> (ว่าง), og:image = <code>""</code> (ว่าง) ทุกครั้งที่ share ลิงค์บน LINE/Facebook จะไม่มีรูปและไม่มีคำอธิบาย — เสีย CTR ชัดเจน</p>
+      <p><strong>แก้:</strong> SEO Engine → ตั้ง OG description per-page หรือผมเพิ่ม fallback ใน si-blog-redesign.php</p>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ===== SECTION 3: POSITIONING ===== -->
+  <section id="positioning">
+    <div class="section-title">
+      <div class="section-icon">🎯</div>
+      <h2>มุมที่ 3 — Positioning: Transformation Consult ≠ Training House</h2>
+    </div>
+
+    <p style="font-size:14px;color:#374151;margin-bottom:1.5rem;line-height:1.6;">วิเคราะห์จาก heading, copy, และ schema ทุกหน้า — ปัญหาหลักคือ <em>ข้อความบนเว็บยังพูดถึงตัวเองเป็น "สถาบันฝึกอบรม" อยู่หลายจุด</em> ทั้งที่ positioning จริงๆ คือ Transformation Consulting</p>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-red">🔴 Positioning Gap</span>
+        Copy บน Inhouse Training ยังใช้คำ "สถาบันฝึกอบรม" 2 ครั้ง
+      </div>
+      <p>พบใน inhouse-training page: <em>"SOLUTIONS IMPACT สถาบันฝึกอบรม ของเรามุ่งเน้นจัดฝึกอบรม Inhouse Training"</em> และ <em>"เราคือสถาบัน การพัฒนา บุคลากร"</em></p>
+      <p>คำว่า "สถาบันฝึกอบรม" / "สถาบัน" ทำให้ถูกจัดอยู่ใน mental category เดียวกับ training provider ทั่วไป แทนที่จะเป็น strategic partner ที่ drive business transformation</p>
+      <div class="rec">
+        <div class="rec-title">แนะนำ — แทนที่ด้วย</div>
+        <p>"SolutionsIMPACT เป็น Transformation Partner ที่ช่วยองค์กรวาง Strategy และสร้าง Capability ด้าน AI &amp; Future Skills ให้เกิดผลลัพธ์จริง ไม่ใช่แค่การอบรม"</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-red">🔴 Positioning Gap</span>
+        H1 Homepage ไม่พูดถึง Transformation — พูดถึงแค่ Reskill
+      </div>
+      <p>H1 ปัจจุบัน: <em>"อัพเกรดทีมของคุณในปี 2026 ให้มีทักษะสำคัญแห่งอนาคต ที่ทุกคนทำงานเก่งขึ้น 10 เท่า"</em></p>
+      <p>นี่คือ messaging ของ Training Provider — เน้น skills เน้น "ทำงานเก่ง" Transformation Consultant จะพูดถึง Business Outcomes, Organizational Change, และ ROI ไม่ใช่ individual skills</p>
+      <div class="rec">
+        <div class="rec-title">แนะนำ — Frame ใหม่</div>
+        <p>"เราไม่ได้แค่สอน — เราเปลี่ยนวิธีที่องค์กรของคุณทำงาน ด้วย AI &amp; Future Skills ที่วัดผลได้จริง"</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-red">🔴 Positioning Gap</span>
+        Inhouse H1 ยังใช้ "ปี 2025" — ล้าสมัย
+      </div>
+      <p><em>"Inhouse Training หลักสูตรจัดฝึกอบรม ภายในองค์กร ปี 2025!"</em> — ตอนนี้ 2026 แล้ว ทำให้ดูไม่ได้ update เนื้อหา กระทบ credibility</p>
+      <p><strong>แก้:</strong> แก้เป็น 2026 ในหน้า Bricks Editor ทันที</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Missing</span>
+        ไม่มี Case Study / Business Outcome บนเว็บ
+      </div>
+      <p>Transformation Consultant พิสูจน์ตัวเองด้วย <strong>Business Results</strong> ไม่ใช่แค่ logo ลูกค้า เว็บปัจจุบันมีแค่ "ได้รับความเชื่อถือจากองค์กรชั้นนำ" แต่ไม่มี story ว่าองค์กรนั้น<em>เปลี่ยนไปยังไง</em></p>
+      <p><strong>แนะนำ:</strong> เพิ่มหน้า Case Study หรือ Success Stories อย่างน้อย 3 เคส รูปแบบ: ปัญหาก่อน → process → ผลลัพธ์ที่วัดได้ (เช่น "ลดเวลา onboarding 40%" หรือ "ทีม 50 คน adopt AI workflow ใน 3 เดือน")</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Missing</span>
+        Schema.org ไม่มี Organization / Consulting markup
+      </div>
+      <p>Schema JSON-LD ปัจจุบัน: <code>"@type": "WebPage"</code> เท่านั้น ไม่มี Organization schema ไม่มี service type ไม่มี expertise area Google ไม่รู้ว่า SI คือ Consulting firm ประเภทไหน</p>
+      <div class="rec">
+        <div class="rec-title">เพิ่ม Organization Schema</div>
+        <p>ผมเพิ่มใน si-blog-redesign.php ได้เลย — <code>@type: ProfessionalService</code> + <code>knowsAbout: ["AI Transformation", "Change Management", "Corporate Training"]</code> + address + serviceArea</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-yellow">🟡 Missing</span>
+        Blog Section ไม่ได้ communicate Thought Leadership
+      </div>
+      <p>Blog page H1: <em>"Insights &amp; Perspectives"</em> — ดีกว่า "Blog" แต่ sub-copy ไม่มี ไม่มีประโยคที่บอกว่า SI มี POV เรื่องอะไร Transformation Consultant ควรมี strong point of view ที่ push boundary ไม่ใช่แค่แชร์ knowledge</p>
+      <p><strong>แนะนำ:</strong> เพิ่ม tagline ใต้ "Insights &amp; Perspectives" เช่น <em>"มุมมองของเราว่า AI จะเปลี่ยน DNA ขององค์กรในยุคถัดไป — และองค์กรของคุณควรเตรียมตัวยังไง"</em></p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-blue">💡 Opportunity</span>
+        "Transformation Consult" มีแค่ใน og:site_description ไม่มีบนเว็บจริง
+      </div>
+      <p>ตรวจ meta tags พบว่า <code>og:site_description = "Transformation Consult"</code> — คือ positioning ที่ถูกต้อง แต่คำนี้ไม่ปรากฏบน visible content ของเว็บเลย Visitor ที่เข้ามาอ่านเว็บจะไม่เห็น positioning นี้</p>
+      <p><strong>แนะนำ:</strong> นำ "Transformation Consult" หรือ "Transformation Partner" ขึ้นมา above-the-fold ในทุกหน้าหลัก อาจเป็น sub-headline ใต้ logo หรือ hero tagline</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="tag tag-blue">💡 Opportunity</span>
+        ไม่มี Consulting Process / Methodology บนเว็บ
+      </div>
+      <p>Training House ขายหลักสูตร — Transformation Consultant ขาย Process ปัจจุบันเว็บ SI แสดงแต่ "รายการหลักสูตร" ไม่มี section ที่อธิบายว่า SI ทำงานกับลูกค้ายังไง ตั้งแต่ Discovery → Design → Deliver → Measure</p>
+      <p><strong>แนะนำ:</strong> เพิ่ม section "วิธีที่เราทำงานด้วยกัน" หรือ "Our Approach" ในหน้า Inhouse หรือหน้า Homepage แสดง 4-step process พร้อม outcome ที่วัดได้</p>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ===== PRIORITY LIST ===== -->
+  <section id="priority">
+    <div class="section-title">
+      <div class="section-icon">🚀</div>
+      <h2>Top Priority Action List</h2>
+    </div>
+
+    <div class="card">
+      <ul class="prio-list">
+        <li>
+          <div class="prio-num">1</div>
+          <div class="prio-content">
+            <strong>ตรวจ GTM-PSD6BMK → ปิด google-site-kit</strong>
+            <span>ถ้า GA4 อยู่ใน GTM อยู่แล้ว ปิด Site Kit = ตัด 1 GTM container + 1 JS file ทันที</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">2</div>
+          <div class="prio-content">
+            <strong>แก้ Inhouse H1 "ปี 2025!" → "ปี 2026"</strong>
+            <span>5 นาที credibility เพิ่มทันที</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">3</div>
+          <div class="prio-content">
+            <strong>กรอก Excerpt ทั้ง 4 หน้าหลัก</strong>
+            <span>Homepage, Public, Inhouse, Blog — แก้ empty meta description และ OG description พร้อมกัน</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">4</div>
+          <div class="prio-content">
+            <strong>เพิ่ม remove_action('wp_head', 'wp_generator') ใน si-blog-redesign.php</strong>
+            <span>ซ่อน WordPress version จาก attacker — 1 บรรทัด</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">5</div>
+          <div class="prio-content">
+            <strong>จำกัด Poppins font weights ใน Bricks</strong>
+            <span>เหลือแค่ weight ที่ใช้จริง ลด render-blocking font load ได้เห็นชัด</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">6</div>
+          <div class="prio-content">
+            <strong>แก้ Copy "สถาบันฝึกอบรม" → "Transformation Partner" ในหน้า Inhouse</strong>
+            <span>Positioning shift ที่ชัดเจนที่สุด ทำบน Bricks Editor ได้เลย ไม่ต้องรอ developer</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">7</div>
+          <div class="prio-content">
+            <strong>เพิ่ม Organization Schema JSON-LD</strong>
+            <span>ผมทำให้ได้ใน si-blog-redesign.php — บอก Google ว่า SI คือ Consulting ไม่ใช่ Training Agency</span>
+          </div>
+        </li>
+        <li>
+          <div class="prio-num">8</div>
+          <div class="prio-content">
+            <strong>วางแผน Case Study section</strong>
+            <span>อย่างน้อย 3 เคส — เป็น single biggest signal ที่แยก Transformation Consult จาก Training House</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:3rem;">วิเคราะห์จาก HTTP fetch · solutionsimpact.com · เมษายน 2026 · by Claude (Cowork)</p>
+
+</div>
+</body>
+</html>

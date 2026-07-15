@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insights | SolutionsIMPACT</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/cine.css">
+<style>
+  :root{
+    /* Brand scales: Downriver 950 #002554 · Supernova 500 #FFC600 (Brand Guideline 2025 p.12) */
+    --navy:#002554; --navy-light:#004CB3; --navy-deep:#001a3d;
+    --gold:#FFC600; --gold-light:#FFE51B;
+    --bg:#f8f7f5; --white:#fff;
+    --text:#111827; --muted:#5b6472; --faint:#9ca3af;
+    --border:#e5e7eb;
+    /* Poppins = EN เท่านั้น (ไม่มี glyph ไทย) — อักษรไทยใน heading ต้อง fallback ไป IBM Plex Sans Thai เสมอ */
+    --font-head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --font-body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --max-w:1140px;
+    --radius:5px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{font-family:var(--font-body);color:var(--text);background:var(--bg);line-height:1.7;font-size:17px}
+  h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;text-wrap:balance}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+  .eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:'';width:28px;height:2px;background:var(--gold)}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(0,26,61,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav-in{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .2s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:#fff}
+  .nav-links a.active{color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:600;font-size:15px;padding:13px 26px;border-radius:8px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover,.btn-gold:focus-visible{background:var(--gold-light);transform:translateY(-1px)}
+  .btn-sm{padding:10px 20px;font-size:14px}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  .hero{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;right:-200px;top:-260px;width:660px;height:660px;background:url('assets/Ripple 2.svg') center/contain no-repeat;opacity:.26}
+  .hero-in{max-width:var(--max-w);margin:0 auto;padding:80px 24px 64px;position:relative;z-index:1}
+  .hero h1{font-size:clamp(32px,4.4vw,50px);font-weight:800;margin:22px 0 10px;letter-spacing:-.01em}
+  .hero h1 .gold{color:var(--gold)}
+  .hero .sub{font-size:18.5px;font-weight:300;color:rgba(255,255,255,.8);max-width:600px;margin:16px 0 0}
+
+  /* ===== FEATURED ===== */
+  .featured{background:var(--white);padding:72px 0}
+  .feat-card{display:grid;grid-template-columns:1.15fr 1fr;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;transition:box-shadow .2s,transform .2s}
+  .feat-card:hover{box-shadow:0 12px 48px rgba(0,37,84,.12);transform:translateY(-2px)}
+  .feat-body{padding:48px 50px;display:flex;flex-direction:column;justify-content:center}
+  .feat-kicker{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .feat-body h2{font-size:clamp(24px,3vw,32px);font-weight:800;color:var(--navy);margin:14px 0 14px}
+  .feat-body p{color:var(--muted);font-size:16px}
+  .feat-body .read{margin-top:26px;font-family:var(--font-head);font-weight:600;font-size:14.5px;color:var(--navy)}
+  .feat-visual{background:var(--navy);position:relative;overflow:hidden;min-height:280px}
+  .feat-visual::before{content:'';position:absolute;inset:0;background:url('assets/Ripple yellow 1.svg') center/80% no-repeat;opacity:.4}
+  @media(max-width:820px){.feat-card{grid-template-columns:1fr}.feat-visual{min-height:180px}}
+
+  /* ===== FILTER + GRID ===== */
+  .listing{background:var(--bg);padding:72px 0 96px}
+  .cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px}
+  .cat{font-family:var(--font-head);font-size:13.5px;font-weight:600;padding:9px 18px;border-radius:99px;border:1px solid var(--border);background:var(--white);color:var(--muted);text-decoration:none;transition:all .15s}
+  .cat:hover{border-color:var(--navy);color:var(--navy)}
+  .cat.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .post{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:32px 32px 28px;text-decoration:none;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+  .post-thumb{margin:-32px -32px 22px -32px;height:152px;position:relative;overflow:hidden;
+    background:linear-gradient(150deg,rgba(255,198,0,.14),rgba(0,76,179,.22)),repeating-linear-gradient(120deg,rgba(0,0,0,.02) 0 2px,transparent 2px 20px);border-bottom:1px solid var(--border)}
+  .post-thumb .ptag{position:absolute;top:12px;left:12px;font-family:var(--font-head);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border:1px dashed #cfd4db;background:rgba(255,255,255,.65);padding:4px 9px;border-radius:5px}
+  .post:hover{box-shadow:0 8px 32px rgba(0,37,84,.1);transform:translateY(-2px)}
+  .post .p-cat{font-family:var(--font-head);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .post h3{font-size:18.5px;font-weight:700;color:var(--navy);margin:12px 0 10px;line-height:1.4}
+  .post p{color:var(--muted);font-size:14.5px;flex:1}
+  .post .p-meta{margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:12.5px;color:var(--faint)}
+  @media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .load-more{text-align:center;margin-top:48px}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover,.btn-navy:focus-visible{background:var(--navy-light)}
+
+  footer{background:#001229;color:rgba(255,255,255,.6);padding:56px 0 40px;font-size:14px}
+  .foot{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot ul{list-style:none;display:flex;gap:28px;flex-wrap:wrap}
+  .foot a{color:rgba(255,255,255,.6);text-decoration:none}
+  .foot a:hover,.foot a:focus-visible{color:#fff}
+  .foot .f-note{width:100%;border-top:1px solid rgba(255,255,255,.08);margin-top:36px;padding-top:24px;font-size:12.5px;color:rgba(255,255,255,.35)}
+</style>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:38px;display:block"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="hackathon-journey-2026.html">Hackathon Journey</a></li>
+      <li><a href="executive-programs-2026.html">Executive Programs</a></li>
+      <li><a href="track-record-2026.html">Results</a></li>
+      <li><a href="insights-2026.html" class="active">Insights</a></li>
+    </ul>
+    <a class="btn btn-gold btn-sm" href="index.html#cta">นัดคุยกลยุทธ์</a>
+  </div>
+</nav>
+
+<header class="hero-cine">
+  <div class="cine-photo"><div class="cine-tag">From The Field</div></div>
+  <canvas class="cine-ripple"></canvas>
+  <div class="cine-in">
+    <span class="cine-eyebrow cine-rev cine-d1">Insights</span>
+    <h1 class="cine-word cine-rev cine-d2">INSIGHTS</h1>
+    <p class="cine-thai cine-rev cine-d3">มุมมองจากคนที่ <span class="u">ลงมือทำจริง</span></p>
+    <p class="cine-sub cine-rev cine-d4">สิ่งที่เราเรียนรู้จากหน้างาน transformation เขียนขึ้นเพื่อคนที่ต้องตัดสินใจในองค์กรของคุณ</p>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURED — บทความเรือธง 1 ชิ้น เปลี่ยนได้ที่บล็อกนี้
+     · ควรเป็น thought-leadership ที่ผูกกับประสบการณ์จริง ไม่ใช่ listicle
+     · ตอน build เป็น WordPress theme จะดึงจาก sticky post อัตโนมัติ
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="featured">
+  <div class="wrap">
+    <a class="feat-card" href="insight-hackathon-300.html">
+      <div class="feat-body">
+        <span class="feat-kicker">Featured · From the Field</span>
+        <h2>สิ่งที่ Hackathon 300 คนสอนเรา เรื่องเส้นทางของโครงการ AI สู่การใช้งานจริง</h2>
+        <p>บันทึกจากหน้างานโปรแกรมที่ใหญ่ที่สุดของเรา อะไรทำให้บางทีมไปได้ไกลกว่า และข้อสังเกตที่เห็นซ้ำในโปรเจกต์ที่ยังมีคนใช้งานต่อหลังจบโปรแกรม</p>
+        <span class="read">อ่านบทความ →</span>
+      </div>
+      <div class="feat-visual"><span style="position:absolute;top:16px;left:16px;z-index:2;font-family:var(--font-head);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);border:1px dashed rgba(255,255,255,.35);padding:5px 11px;border-radius:5px">Featured Photo</span></div>
+    </a>
+  </div>
+</section>
+
+<section class="listing">
+  <div class="wrap">
+    <!-- ✏️ CATEGORIES — ปรับหมวดตามกลยุทธ์คอนเทนต์ใหม่: น้อยหมวด แต่ชัด -->
+    <div class="cats">
+      <a class="cat active" href="#">ทั้งหมด</a>
+      <a class="cat" href="#">From the Field</a>
+      <a class="cat" href="#">Leadership &amp; Change</a>
+      <a class="cat" href="#">Measuring IMPACT</a>
+    </div>
+
+    <!-- ✏️ POST GRID — ตัวอย่างโครง card (เนื้อหาจริงดึงจาก WordPress ตอน build theme)
+         บทความเดิม 341 ชิ้นยัง migrate มาได้หมด แค่จัดหมวดใหม่ให้เข้าโครงนี้ -->
+    <div class="grid">
+      <a class="post" href="insight-roi-baseline.html">
+        <div class="post-thumb"><span class="ptag">Photo</span></div>
+        <span class="p-cat">Measuring IMPACT</span>
+        <h3>วัด ROI ของ AI ได้จริง เมื่อรู้ว่าจุดตั้งต้นขององค์กรคุณอยู่ตรงไหน</h3>
+        <p>บทเรียนจากการตั้งเกณฑ์วัดผลร่วมกับฝ่ายการเงินขององค์กรขนาดใหญ่ ตัวเลขที่มีจุดตั้งต้นชัดเจน คือตัวเลขที่นำเข้าที่ประชุมบอร์ดได้</p>
+        <span class="p-meta">8 นาที</span>
+      </a>
+      <a class="post" href="insight-exec-questions.html">
+        <div class="post-thumb"><span class="ptag">Photo</span></div>
+        <span class="p-cat">Leadership &amp; Change</span>
+        <h3>คำถามที่ช่วยให้ผู้บริหารเห็นภาพชัด ก่อนอนุมัติโครงการ AI</h3>
+        <p>ชุดคำถามที่เราใช้เปิด Executive Session คำถามที่ช่วยให้มองเห็นตั้งแต่ก่อนเริ่ม ว่าโครงการ AI ไหนมีโอกาสไปต่อได้จริง</p>
+        <span class="p-meta">6 นาที</span>
+      </a>
+      <a class="post" href="insight-team-structure.html">
+        <div class="post-thumb"><span class="ptag">Photo</span></div>
+        <span class="p-cat">From the Field</span>
+        <h3>โครงสร้างทีมแบบไหน พา prototype จาก Hackathon ไปถึงระบบที่ใช้งานจริง</h3>
+        <p>prototype ที่ดีเกิดได้ในไม่กี่วัน แต่การพามันไปเป็นระบบที่ทั้งองค์กรใช้จริง เป็นเรื่องของโครงสร้างทีมมากกว่าเรื่องของโค้ด</p>
+        <span class="p-meta">7 นาที</span>
+      </a>
+      <a class="post" href="insight-hours-to-baht.html">
+        <div class="post-thumb"><span class="ptag">Photo</span></div>
+        <span class="p-cat">Measuring IMPACT</span>
+        <h3>เมื่อผลของ AI ต้องพิสูจน์กับ CFO ภาษาที่ใช้สำคัญพอกับตัวเลข</h3>
+        <p>ผลลัพธ์เดียวกัน เล่าคนละแบบ ให้ผลต่างกันในห้องประชุมการเงิน ความชัดของภาษาคือสิ่งที่ทำให้ตัวเลขได้รับความเชื่อถือ</p>
+        <span class="p-meta">9 นาที</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:34px;display:block">
+      <p style="margin-top:14px;max-width:300px">Your Transformation Partner<br>999/9 Central World, กรุงเทพฯ 10330</p>
+    </div>
+    <ul>
+      <li><a href="hackathon-journey-2026.html">Hackathon Journey</a></li>
+      <li><a href="executive-programs-2026.html">Executive Programs</a></li>
+      <li><a href="track-record-2026.html">Results</a></li>
+      <li><a href="insights-2026.html">Insights</a></li>
+      <li><a href="index.html#cta">Contact</a></li>
+    </ul>
+    <div class="f-note">© 2026 SolutionsIMPACT · training@solutionsimpact.com · 02-107-6374</div>
+  </div>
+</footer>
+<script src="assets/cine.js"></script>
+<script>
+(function(){
+  var cats=document.querySelectorAll('.cats .cat'), posts=document.querySelectorAll('.grid .post');
+  cats.forEach(function(c){
+    c.addEventListener('click',function(e){
+      e.preventDefault();
+      cats.forEach(function(x){x.classList.remove('active')});
+      c.classList.add('active');
+      var pick=c.textContent.trim();
+      posts.forEach(function(p){
+        var cat=(p.querySelector('.p-cat')||{}).textContent||'';
+        p.style.display=(pick==='ทั้งหมด'||cat.trim()===pick)?'':'none';
+      });
+    });
+  });
+})();
+</script>
+</html>

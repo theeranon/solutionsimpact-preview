@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero Direction | SolutionsIMPACT</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#002554; --navy-light:#004CB3; --navy-deep:#00152e;
+    --gold:#FFC600; --gold-light:#FFE51B;
+    --bg:#f8f7f5; --white:#fff;
+    --text:#111827; --muted:#5b6472; --faint:#9ca3af;
+    --border:#e5e7eb;
+    --font-head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --font-body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --max-w:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font-body);color:var(--text);background:#000;line-height:1.7;font-size:17px}
+  h1,h2,h3,h4{font-family:var(--font-head);line-height:1.05;text-wrap:balance}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:'';width:34px;height:2px;background:var(--gold)}
+
+  /* ===== NAV ===== */
+  nav{position:absolute;top:0;left:0;right:0;z-index:20}
+  .nav-in{max-width:var(--max-w);margin:0 auto;padding:26px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-links{display:flex;gap:34px;list-style:none}
+  .nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-head);font-weight:600;font-size:15px;padding:14px 28px;border-radius:8px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,198,0,.35)}
+  .btn-ghost{border:1.5px solid rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+  @media(max-width:880px){.nav-links{display:none}}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:118px 0 56px;background:radial-gradient(120% 120% at 70% 20%, #01204a 0%, #001127 55%, #000a18 100%)}
+  /* PHOTO SLOT — real hackathon footage goes here as <img>/<video>; the dark scrim keeps text readable */
+  .hero-photo{position:absolute;inset:0;z-index:0;
+    background:
+      linear-gradient(90deg, rgba(0,10,24,.94) 0%, rgba(0,10,24,.72) 45%, rgba(0,10,24,.35) 100%),
+      /* placeholder texture — replace this layer with the real event photo */
+      repeating-linear-gradient(115deg, rgba(255,255,255,.015) 0 2px, transparent 2px 26px);
+    background-size:cover;background-position:center}
+  .hero-photo .slot-tag{position:absolute;right:30px;bottom:26px;font-family:var(--font-head);font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.32);border:1px dashed rgba(255,255,255,.22);padding:7px 14px;border-radius:6px;text-transform:uppercase}
+  canvas.ripple{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.9}
+  .hero-in{position:relative;z-index:3;max-width:var(--max-w);margin:0 auto;padding:0 28px;width:100%}
+  .hero-in .eyebrow{margin-bottom:26px}
+
+  .kicker-word{max-width:100%;display:block;font-family:var(--font-head);font-weight:900;color:#fff;
+    font-size:clamp(40px,9.6vw,112px);line-height:.9;letter-spacing:-.035em;
+    text-transform:uppercase;margin:0;white-space:nowrap}
+  .kicker-word .out{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.4)}
+  .kicker-word .fill{color:#fff}
+  .kicker-word .gold{color:var(--gold)}
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .d1{animation-delay:.05s}.d2{animation-delay:.18s}.d3{animation-delay:.34s}.d4{animation-delay:.5s}.d5{animation-delay:.66s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  .hero-thai{font-family:var(--font-body);font-weight:700;color:#fff;font-size:clamp(22px,3.2vw,38px);line-height:1.3;margin:26px 0 0;max-width:16ch}
+  .hero-thai .u{border-bottom:4px solid var(--gold);padding-bottom:2px}
+  .hero-sub{font-weight:300;color:rgba(255,255,255,.8);font-size:clamp(16px,1.5vw,19px);max-width:52ch;margin:22px 0 40px}
+  .hero-sub b{font-weight:600;color:#fff}
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .hero-metrics{display:flex;gap:44px;margin-top:64px;flex-wrap:wrap}
+  .hm .n{font-family:var(--font-head);font-weight:800;font-size:34px;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+  .hm .l{font-size:13.5px;color:rgba(255,255,255,.6);margin-top:6px;max-width:20ch}
+  .scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.18em;font-family:var(--font-head);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-hint span{width:1px;height:34px;background:linear-gradient(rgba(255,255,255,.6),transparent);animation:drop 1.8s ease-in-out infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  @media(max-width:880px){.hero-metrics{gap:28px;margin-top:44px}}
+
+  /* ===== IN THE ROOM (photo-led proof) ===== */
+  .room{background:var(--navy-deep);color:#fff;padding:110px 0 120px;position:relative}
+  .room .sec-head{max-width:640px;margin-bottom:52px}
+  .room .eyebrow{margin-bottom:20px}
+  .room h2{font-size:clamp(30px,4vw,46px);font-weight:800;color:#fff;line-height:1.15}
+  .room h2 .gold{color:var(--gold)}
+  .room .lead{color:rgba(255,255,255,.72);font-size:18px;margin-top:18px}
+  .room-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:200px 200px;gap:16px}
+  .rphoto{position:relative;border-radius:5px;overflow:hidden;background:
+      linear-gradient(160deg, rgba(255,198,0,.10), rgba(0,76,179,.18)),
+      repeating-linear-gradient(125deg, rgba(255,255,255,.02) 0 2px, transparent 2px 22px);
+    border:1px solid rgba(255,255,255,.08);display:flex;align-items:flex-end;padding:18px}
+  .rphoto.tall{grid-row:span 2}
+  .rphoto .cap{font-family:var(--font-head);font-weight:600;font-size:13.5px;color:rgba(255,255,255,.92);position:relative;z-index:2}
+  .rphoto .slot{position:absolute;top:14px;left:14px;font-family:var(--font-head);font-size:10px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.4);border:1px dashed rgba(255,255,255,.22);padding:5px 10px;border-radius:5px;text-transform:uppercase}
+  @media(max-width:760px){.room-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,170px)}.rphoto.tall{grid-row:span 1}}
+
+  /* ===== NOTE STRIP ===== */
+  .note{background:var(--bg);color:var(--text);padding:64px 0}
+  .note .wrap{max-width:820px}
+  .note h3{font-family:var(--font-head);font-size:20px;color:var(--navy);font-weight:700;margin-bottom:14px}
+  .note p{color:var(--muted);font-size:16px}
+  .note .kv{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin-top:22px;font-size:15px}
+  .note .kv b{color:var(--navy);white-space:nowrap}
+
+  @media(prefers-reduced-motion:reduce){
+    .reveal{animation:none;opacity:1;transform:none}
+    canvas.ripple{display:none}
+    .scroll-hint span{animation:none}
+  }
+</style>
+
+<nav>
+  <div class="nav-in">
+    <a href="#"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:38px;display:block"></a>
+    <ul class="nav-links">
+      <li><a href="#">Hackathon Journey</a></li>
+      <li><a href="#">Executive Programs</a></li>
+      <li><a href="#">Results</a></li>
+      <li><a href="#">Insights</a></li>
+    </ul>
+    <a class="btn btn-gold" href="#">นัดคุยกลยุทธ์</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <!-- ▼ REAL PHOTO/VIDEO SLOT: วางภาพหรือวิดีโอจริงจาก Hackathon ของคุณตรงนี้ (คนเต็มห้อง กำลังลงมือ นำเสนอ) -->
+  <div class="hero-photo">
+    <div class="slot-tag">Real Hackathon Footage</div>
+  </div>
+  <canvas class="ripple" id="rippleCanvas"></canvas>
+
+  <div class="hero-in">
+    <span class="eyebrow reveal d1">Your Transformation Partner</span>
+    <h1 class="kicker-word">
+      <span class="reveal d2 fill">TRANSFORMATION</span>
+    </h1>
+    <p class="hero-thai reveal d4">ทีมของคุณ <span class="u">ไปได้ไกลกว่าที่คิด</span></p>
+    <p class="hero-sub reveal d5">เริ่มจากโจทย์จริงในองค์กร ลงมือสร้างจนใช้งานได้จริง <b>วัดผลเป็นตัวเลขที่ชัดเจน แล้วก้าวต่อไปทั้งองค์กร</b></p>
+    <div class="hero-ctas reveal d5">
+      <a class="btn btn-gold" href="#">นัดคุยกลยุทธ์ →</a>
+      <a class="btn btn-ghost" href="#">ดูผลงานจริง</a>
+    </div>
+    <div class="hero-metrics reveal d5">
+      <div class="hm"><div class="n">100+</div><div class="l">โปรเจกต์ใช้งานจริงจากรุ่นเดียว</div></div>
+      <div class="hm"><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
+      <div class="hm"><div class="n">5×</div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scroll<span></span></div>
+</header>
+
+<section class="room">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">In The Room</span>
+      <h2>เมื่อ 300 คนลงมือพร้อมกัน<br><span class="gold">โจทย์บนโต๊ะกลายเป็นระบบที่ใช้จริง</span></h2>
+      <p class="lead">สิ่งที่เคยค้างอยู่ในที่ประชุม เดินหน้ากลายเป็นของที่เปิดใช้งานได้ก่อนวันสุดท้ายจะจบ และผู้บริหารได้เห็นกับตาว่าทีมของตัวเองไปได้ไกลแค่ไหน</p>
+    </div>
+    <div class="room-grid">
+      <div class="rphoto tall"><div class="slot">Photo 01</div><div class="cap">ทั้งห้องกำลังลงมือสร้างพร้อมกัน</div></div>
+      <div class="rphoto"><div class="slot">Photo 02</div><div class="cap">ทีมนำเสนอต่อผู้บริหาร</div></div>
+      <div class="rphoto"><div class="slot">Photo 03</div><div class="cap">โมเมนต์ที่ของใช้งานได้จริง</div></div>
+      <div class="rphoto"><div class="slot">Photo 04</div><div class="cap">mentor ประกบทีม</div></div>
+      <div class="rphoto"><div class="slot">Photo 05</div><div class="cap">ผู้บริหารร่วมตัดสิน</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="note">
+  <div class="wrap">
+    <h3>ต้นแบบนี้แสดงทิศทาง ไม่ใช่หน้าจริง</h3>
+    <p>ทุกช่องที่มีป้าย Photo คือที่วางภาพจริงจาก Hackathon ของคุณ ตัวการเคลื่อนไหวเบื้องหลังคือ IMPACT Ripple เวอร์ชันมีชีวิต แทนเวกเตอร์นิ่ง เพื่อให้เว็บสะท้อนคำว่า movement และ momentum</p>
+    <div class="kv">
+      <b>สิ่งที่ต้องเตรียม</b><span>ภาพหรือวิดีโอจริงจากงาน คนเต็มห้อง หน้าคนกำลังลงมือ ช่วงนำเสนอ ผู้บริหารในห้อง</span>
+      <b>คำใหญ่ในฮีโร่</b><span>TRANSFORMATION เป็นคำแบรนด์ที่คุณเป็นเจ้าของอยู่แล้ว จึงกล้าได้โดยไม่หลุดความนิ่ง</span>
+      <b>เสียงยังคงเดิม</b><span>Sage 70 Outlaw 30 ไม่มีเครื่องหมายพิเศษในภาษาไทย ไม่ว่าใคร มีแต่ทีมของคุณกับกระบวนการใหม่</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = document.getElementById('rippleCanvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  let W,H,DPR;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio||1, 2);
+    W = c.clientWidth; H = c.clientHeight;
+    c.width = W*DPR; c.height = H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  // ripple origin sits behind the headline, upper-left-ish
+  function origin(){ return { x: W*0.16, y: H*0.46 }; }
+  const rings = [];
+  let last = 0;
+  const SPAWN = 900; // ms between new rings = steady momentum
+  function spawn(){ rings.push({ r: 0, life: 0 }); }
+  spawn();
+  function frame(t){
+    const dt = t - last; last = t;
+    ctx.clearRect(0,0,W,H);
+    const o = origin();
+    const max = Math.hypot(W,H);
+    for(let i=rings.length-1;i>=0;i--){
+      const ring = rings[i];
+      ring.r += (max/6000) * dt;      // expansion speed
+      ring.life = ring.r / (max*1.05);
+      if(ring.life >= 1){ rings.splice(i,1); continue; }
+      const alpha = (1-ring.life)*0.5;
+      // alternate gold / blue rings
+      const gold = i % 2 === 0;
+      ctx.beginPath();
+      ctx.arc(o.x, o.y, ring.r, 0, Math.PI*2);
+      ctx.lineWidth = 1.4 + (1-ring.life)*2.2;
+      ctx.strokeStyle = gold
+        ? 'rgba(255,198,0,'+ (alpha*0.9) +')'
+        : 'rgba(90,150,255,'+ (alpha*0.8) +')';
+      ctx.stroke();
+    }
+    // spawn on cadence
+    if(!spawn._t) spawn._t = 0;
+    spawn._t += dt;
+    if(spawn._t > SPAWN){ spawn._t = 0; spawn(); }
+    requestAnimationFrame(frame);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  requestAnimationFrame(function(t){ last = t; requestAnimationFrame(frame); });
+})();
+</script>
+</html>

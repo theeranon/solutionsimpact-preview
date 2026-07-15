@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolutionsIMPACT — Site Review</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    background: #f8f9fa;
+    color: #111;
+    margin: 0;
+    padding: 2rem 1rem;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  /* Header */
+  .report-header {
+    background: #002554;
+    color: #fff;
+    border-radius: 10px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+  }
+  .report-header .kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: #FFC600;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .report-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .report-header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+  }
+
+  /* Section */
+  .section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e8ecf0;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .section-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #002554;
+    color: #FFC600;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+    color: #002554;
+  }
+  .section-title p {
+    font-size: 12px;
+    color: #888;
+    margin: 2px 0 0;
+  }
+
+  /* Item rows */
+  .item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f5f5f5;
+    align-items: start;
+  }
+  .item:last-child { border-bottom: none; }
+  .item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 3px;
+    font-family: 'Courier New', monospace;
+  }
+  .item-name.plain {
+    font-family: inherit;
+    font-size: 14px;
+  }
+  .item-desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.45;
+  }
+  .item-action {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-weight: 600;
+    align-self: start;
+    margin-top: 2px;
+  }
+  .tag-delete { background: #fee2e2; color: #b91c1c; }
+  .tag-replace { background: #fef3c7; color: #92400e; }
+  .tag-keep { background: #dcfce7; color: #15803d; }
+  .tag-review { background: #e0f2fe; color: #0369a1; }
+  .tag-critical { background: #002554; color: #FFC600; }
+
+  /* Badge row */
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+  .badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Performance bar */
+  .perf-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .perf-item:last-child { border-bottom: none; }
+  .perf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .perf-title { font-size: 14px; font-weight: 600; }
+  .severity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .sev-high { background: #fee2e2; color: #b91c1c; }
+  .sev-med  { background: #fef3c7; color: #92400e; }
+  .sev-low  { background: #f0fdf4; color: #15803d; }
+  .perf-desc { font-size: 13px; color: #555; line-height: 1.45; }
+  .perf-fix  { font-size: 12px; color: #002554; background: #eff6ff; padding: 6px 10px; border-radius: 4px; margin-top: 6px; border-left: 3px solid #002554; }
+
+  /* Positioning */
+  .pos-item {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .pos-item:last-child { border-bottom: none; }
+  .pos-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .pos-now {
+    font-size: 13px;
+    color: #b91c1c;
+    background: #fff5f5;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .pos-should {
+    font-size: 13px;
+    color: #065f46;
+    background: #f0fdf4;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .pos-note { font-size: 12px; color: #555; line-height: 1.45; }
+
+  /* Summary box */
+  .summary {
+    background: linear-gradient(135deg, #002554 0%, #003d8f 100%);
+    color: #fff;
+    border-radius: 10px;
+    padding: 2rem 2.5rem;
+    margin-top: 2rem;
+  }
+  .summary h3 { margin: 0 0 1rem; font-size: 16px; color: #FFC600; }
+  .summary ul { margin: 0; padding-left: 1.2rem; }
+  .summary li { font-size: 13px; margin-bottom: 6px; line-height: 1.4; }
+  .summary li strong { color: #FFC600; }
+
+  hr.divider { border: none; border-top: 2px solid #FFC600; margin: 2rem 0; opacity: .3; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="report-header">
+    <div class="kicker">Site Review · SolutionsIMPACT.com · April 2026</div>
+    <h1>WordPress Site Audit — 3 มุมมอง</h1>
+    <p>วิเคราะห์จาก HTML source + FTP plugin directory · 35 plugins · Bricks + JetEngine stack</p>
+  </div>
+
+  <!-- ───────────────────────────────────────── -->
+  <!-- SECTION 1: PLUGINS                         -->
+  <!-- ───────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">1</div>
+      <div>
+        <h2>Plugin ที่แทนที่ได้ หรือลบทิ้งได้</h2>
+        <p>35 plugins installed · วิเคราะห์เฉพาะที่มั่นใจ 100% ว่าทำได้แน่นอน</p>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:#555;margin:0 0 1.2rem;">Plugin ทั้งหมดที่ detect ได้:</p>
+    <div class="badge-row">
+      <span class="badge">jet-elements</span>
+      <span class="badge">jet-engine</span>
+      <span class="badge">jet-smart-filters</span>
+      <span class="badge">jet-popup</span>
+      <span class="badge">jetformbuilder</span>
+      <span class="badge">jet-engine-dynamic-tables-module</span>
+      <span class="badge">jet-forms-popup-notification-master</span>
+      <span class="badge">bricksextras</span>
+      <span class="badge">automaticcss-plugin</span>
+      <span class="badge">frames-plugin</span>
+      <span class="badge">fluent-crm</span>
+      <span class="badge">fluentformpro</span>
+      <span class="badge">fluentform</span>
+      <span class="badge">fluent-smtp</span>
+      <span class="badge">seo-by-rank-math</span>
+      <span class="badge" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5;">seo-engine ⚠</span>
+      <span class="badge">ewww-image-optimizer</span>
+      <span class="badge">wordfence</span>
+      <span class="badge">malcare-security</span>
+      <span class="badge">google-site-kit</span>
+      <span class="badge">pixelyoursite</span>
+      <span class="badge">ai-engine</span>
+      <span class="badge">happyfiles-pro</span>
+      <span class="badge" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5;">user-switching ⚠</span>
+      <span class="badge">wp-all-import-pro</span>
+      <span class="badge">wp-sheet-editor-premium</span>
+      <span class="badge">wp-sheet-editor-cmb2</span>
+      <span class="badge">wp-sheet-editor-jetengine</span>
+      <span class="badge">bulk-edit-categories-tags-premium</span>
+      <span class="badge">disable-comments</span>
+      <span class="badge">insert-headers-and-footers</span>
+      <span class="badge">all-in-one-wp-migration</span>
+      <span class="badge">si-blog-redesign</span>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #f0f0f0;margin:1rem 0 1.5rem;">
+
+    <!-- ลบทันที -->
+    <div class="item">
+      <div>
+        <div class="item-name">user-switching</div>
+        <div class="item-desc">Developer tool สำหรับ switch ระหว่าง user accounts — ไม่มีทางจำเป็นบน production เด็ดขาด เป็น security risk ชัดเจน</div>
+      </div>
+      <span class="item-action tag-delete">ลบทันที</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">seo-engine</div>
+        <div class="item-desc">มี <strong>seo-by-rank-math</strong> อยู่แล้ว — ติด SEO plugin สองตัวพร้อมกัน = conflict กัน, schema ซ้อน, meta tag ซ้ำ ลบ seo-engine ออกได้เลย Rank Math เก่งกว่าอยู่แล้ว</div>
+      </div>
+      <span class="item-action tag-delete">ลบทันที</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">disable-comments</div>
+        <div class="item-desc">ทำได้ใน 3 บรรทัดใน <code>si-blog-redesign.php</code> ที่มีอยู่แล้ว: <code>add_filter('comments_open', '__return_false');</code> + remove comment menu จาก admin</div>
+      </div>
+      <span class="item-action tag-replace">แทนด้วย code</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">insert-headers-and-footers</div>
+        <div class="item-desc">ใช้สำหรับ inject tracking code / custom HTML ใน head และ footer — สามารถย้ายมาไว้ใน <code>si-blog-redesign.php</code> โดยตรง หรือสร้าง settings page แบบเบาๆ ใน custom plugin ที่มีอยู่ได้เลย ไม่ต้องพึ่ง plugin แยก</div>
+      </div>
+      <span class="item-action tag-replace">แทนด้วย code</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">jet-forms-popup-notification-master</div>
+        <div class="item-desc">Plugin นี้ทำหน้าที่ trigger Jet Popup หลังจาก JetFormBuilder submit — JetFormBuilder ปัจจุบัน (v3+) มี Action Hooks ในตัวที่สามารถ trigger popup ได้โดยตรงโดยไม่ต้องพึ่ง plugin นี้ ลองทดสอบ remove แล้ว config ผ่าน JetFormBuilder Actions แทน</div>
+      </div>
+      <span class="item-action tag-review">ทดสอบก่อน</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">malcare-security + wordfence</div>
+        <div class="item-desc">มีสอง Security plugin พร้อมกัน ทั้งคู่ scan files + firewall = load ซ้ำซ้อน MalCare เน้น cloud-based scanning, Wordfence เน้น server-side — เลือกอันเดียว Wordfence เป็น standard ที่แนะนำมากกว่า</div>
+      </div>
+      <span class="item-action tag-review">เลือกอันเดียว</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">all-in-one-wp-migration</div>
+        <div class="item-desc">ถ้าใช้ migrate เสร็จแล้วก็ไม่ต้องเปิดทิ้งไว้ตลอด — activate เฉพาะตอนที่จะ backup/restore จริงๆ</div>
+      </div>
+      <span class="item-action tag-review">Deactivate เมื่อไม่ใช้</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">jet-smart-filters</div>
+        <div class="item-desc">ใช้คู่กับ JetEngine listing — ถ้า migrate หน้า listing ที่เหลือออกจาก JetEngine มาเป็น custom PHP template เหมือนที่ทำกับ /public/ แล้ว จะไม่ต้องการ jet-smart-filters อีก script ของมันก็หยุดโหลดทุกหน้า</div>
+      </div>
+      <span class="item-action tag-replace">ถ้า migrate listing ออก</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <div class="item-name">happyfiles-pro</div>
+        <div class="item-desc">Media/file organizer ใน WP Admin — ถ้าทีมไม่ได้ใช้ organize media อย่างจริงจัง สามารถ deactivate ได้ ไม่มีผลต่อ frontend</div>
+      </div>
+      <span class="item-action tag-review">ประเมินการใช้งาน</span>
+    </div>
+
+  </div>
+
+  <!-- ───────────────────────────────────────── -->
+  <!-- SECTION 2: PERFORMANCE                    -->
+  <!-- ───────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">2</div>
+      <div>
+        <h2>Performance — จุดที่เพิ่มความเร็วได้</h2>
+        <p>วิเคราะห์จาก scripts + HTML source ที่ load บน homepage จริง</p>
+      </div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🔴 ไม่มี Page Caching เลย</div>
+        <span class="severity sev-high">Critical</span>
+      </div>
+      <div class="perf-desc">ตรวจ HTTP headers และ HTML source ไม่พบ caching plugin (WP Rocket, LiteSpeed Cache, W3TC) ทุก request กระทบ PHP + DB โดยตรง บน shared hosting = ช้ามากเมื่อ traffic สูง</div>
+      <div class="perf-fix">แนะนำ: ติดตั้ง <strong>LiteSpeed Cache</strong> (ฟรี, server นี้น่าจะเป็น LiteSpeed) หรือ WP Rocket (paid แต่คุ้มมาก) จะเร็วขึ้น 3–10x ในทันที</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🔴 JS 15 ไฟล์ โหลดโดยไม่มี defer/async</div>
+        <span class="severity sev-high">Critical</span>
+      </div>
+      <div class="perf-desc">จาก source พบ script 17 ไฟล์รวม — มีแค่ 2 ไฟล์ที่ defer/async ที่เหลืออีก 15 ไฟล์ block การ render หน้าเว็บทันที jQuery, Bricks, Swiper, Splide, JetPopup, FluentForm ทั้งหมด load synchronous</div>
+      <div class="perf-fix">Bricks มี settings "Load scripts deferred" ใน Bricks → Settings → Performance — เปิดได้เลย แต่ต้องทดสอบว่า popup/form ยังทำงานปกติ</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🟡 FluentForm JS โหลดทุกหน้า</div>
+        <span class="severity sev-med">Medium</span>
+      </div>
+      <div class="perf-desc">fluentform-advanced.js + form-submission.js โหลดทุก page request ทั้งที่ form มีเฉพาะบางหน้า เป็น 2 requests รวมกันประมาณ 50KB+ ที่ users ส่วนใหญ่ไม่ต้องการ</div>
+      <div class="perf-fix">ใน FluentForm → Global Settings → Misc → เปิด "Load form script only on pages with forms"</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🟡 JetPopup + anime.js โหลดทุกหน้า</div>
+        <span class="severity sev-med">Medium</span>
+      </div>
+      <div class="perf-desc">jet-popup-frontend.js + anime.min.js โหลดทุก page ทั้งที่ popup อาจมีแค่ homepage หรือบางหน้า anime.js เป็น animation library ที่หนักพอสมควร</div>
+      <div class="perf-fix">JetPopup → Settings → Advanced → Load scripts on pages where popups exist only</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🟡 Slider 2 Library พร้อมกัน: Swiper + Splide</div>
+        <span class="severity sev-med">Medium</span>
+      </div>
+      <div class="perf-desc">swiper.min.js และ splide.min.js โหลดพร้อมกันทุกหน้า ทั้งสองเป็น full-featured slider libraries ที่ overlap กันมาก (~150KB รวมกัน) Bricks ใช้ Splide เป็น default ส่วน Swiper อาจมาจาก BricksExtras หรือ JetEngine</div>
+      <div class="perf-fix">ตรวจว่า component ไหนใช้ library ไหน ถ้า standardize ได้เป็น Splide อย่างเดียว Bricks รองรับ Swiper ก็ disable Swiper ออกได้</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🟡 Hero image เป็น 2560px screenshot (2x)</div>
+        <span class="severity sev-med">Medium</span>
+      </div>
+      <div class="perf-desc">พบ image URL: <code>CleanShot-2026-04-09-at-09.12.21@2x-scaled.png</code> — screenshot จาก CleanShot @2x บน Retina = ไฟล์ใหญ่มาก แม้ EWWW จะ optimize แล้วก็ตาม source file @2x มักใหญ่เกินจำเป็นสำหรับ web</div>
+      <div class="perf-fix">Export image ใหม่เป็น WebP ที่ max 1440px wide แทน ใช้ EWWW convert เป็น WebP อัตโนมัติถ้ายังไม่ได้เปิด</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🟢 Google Fonts มี preconnect แล้ว</div>
+        <span class="severity sev-low">OK</span>
+      </div>
+      <div class="perf-desc">พบ <code>&lt;link rel="preconnect" href="https://fonts.gstatic.com/"&gt;</code> ใน head — ถูกต้องแล้ว แต่สังเกตว่ามีซ้ำ 2 ครั้ง (ลบ duplicate ได้)</div>
+    </div>
+
+    <div class="perf-item">
+      <div class="perf-header">
+        <div class="perf-title">🟢 EWWW Image Optimizer ติดตั้งแล้ว</div>
+        <span class="severity sev-low">OK</span>
+      </div>
+      <div class="perf-desc">lazysizes.min.js โหลดอยู่ = lazy loading active, EWWW optimize images อัตโนมัติ ตรวจว่าเปิด WebP conversion ใน EWWW settings แล้วหรือยัง</div>
+    </div>
+
+  </div>
+
+  <!-- ───────────────────────────────────────── -->
+  <!-- SECTION 3: POSITIONING                    -->
+  <!-- ───────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">3</div>
+      <div>
+        <h2>Positioning — Transformation Consulting ไม่ใช่ Training House</h2>
+        <p>วิเคราะห์จาก H1/H2, meta, navigation structure, schema markup</p>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:#555;margin:0 0 1.5rem;line-height:1.5;">ปัจจุบัน signal จาก website บอกว่า "สถาบันอบรม" ชัดเจน ทั้งที่ copy ใน hero พยายาม push ว่า "Transformation" แต่ structure โดยรวมยังล้มการ positioning นั้นอยู่ นี่คือจุดที่ conflict:</p>
+
+    <div class="pos-item">
+      <div class="pos-label">Navigation — โครงสร้างเมนู</div>
+      <div class="pos-now">❌ ปัจจุบัน: "Inhouse Training" / "AI-Driven Training" / "Public Course" — ทุก menu item เป็น "Training" หมดเลย</div>
+      <div class="pos-should">✅ ควรเป็น: มี menu item "Consulting" หรือ "Advisory" หรือ "Business Transformation" แยกออกมา — training เป็น delivery vehicle ไม่ใช่ตัวตนหลักของบริษัท</div>
+      <div class="pos-note">ตัวอย่าง positioning ที่ดี: McKinsey ไม่ได้บอกว่า "เราสอน Strategy" แต่บอกว่า "เราช่วยให้ธุรกิจ grow" → courses เป็น how ไม่ใช่ what</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">Nav CTA Button</div>
+      <div class="pos-now">❌ ปัจจุบัน: "Download คอร์สอบรมองค์กร 2026" — CTA หลักของทั้งเว็บคือ catalog download = สถาบันอบรม 100%</div>
+      <div class="pos-should">✅ ควรเป็น: "ขอคำปรึกษาฟรี" หรือ "ปรึกษากลยุทธ์" — นำด้วย consulting access ก่อน ส่วน catalog ย้ายไปเป็น secondary CTA</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">H1 — Hero Headline</div>
+      <div class="pos-now">❌ ปัจจุบัน: "อัพเกรดทีมของคุณในปี 2026 ให้มีทักษะสำคัญแห่งอนาคต ที่ทุกคนทำงานเก่งขึ้น 10 เท่า"</div>
+      <div class="pos-should">✅ ดีกว่าถ้า lead ด้วย business outcome ก่อน เช่น "ธุรกิจที่ปรับตัวด้วย AI ได้เร็วกว่าคู่แข่ง — ไม่ใช่แค่ทีมที่ฉลาดขึ้น แต่องค์กรที่ทำงานต่างออกไปทั้งระบบ"</div>
+      <div class="pos-note">Subheadline ตอนนี้ดีกว่า H1: "หน้าที่ของเราคือการสร้าง Transformation ที่มากกว่าเทรนนิ่งทั่วไป" — อันนี้ควรขึ้นมาเป็น H1</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">Meta Description + og:title (SEO)</div>
+      <div class="pos-now">❌ ปัจจุบัน: "SOLUTIONS IMPACT พัฒนาศักยภาพแก่องค์กรเพื่อการเติบโตในธุรกิจ" + "ปลดล็อกศักยภาพขององค์กร ด้วยเครื่องมือที่ล้ำสมัย!" — ฟังดู generic HR vendor</div>
+      <div class="pos-should">✅ ควรเป็น: บอก specific transformation outcome เช่น "SolutionsIMPACT ช่วยองค์กรนำ AI เข้าสู่การทำงานจริง — ไม่ใช่แค่อบรม แต่เปลี่ยน DNA วิธีทำงานทั้งทีม"</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">Schema Markup</div>
+      <div class="pos-now">❌ ปัจจุบัน: Schema type = "Article" ทุกหน้ารวมถึง homepage — Article schema สำหรับ consulting firm = ผิดทั้งหมด</div>
+      <div class="pos-should">✅ ควรเป็น: Organization + ProfessionalService schema บน homepage, Course schema ในหน้า course จริงๆ สามารถ config ได้ใน Rank Math → Schema → เปลี่ยน default type</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">หน้าที่ขาด — Missing Pages</div>
+      <div class="pos-now">❌ ปัจจุบัน: /about/ → 404, ไม่มีหน้า Case Studies, ไม่มีหน้า Our Approach/Methodology, ไม่มีหน้า "Consulting Services" ที่แยกจาก Training</div>
+      <div class="pos-should">✅ สิ่งที่ consulting firm ควรมี: (1) About/Who We Are — story ของบริษัท ไม่ใช่ list of services (2) Our Approach — methodology ว่า transformation คืออะไรในมุมของ SI (3) Case Studies/Results — proof of work (4) Consulting/Advisory page แยกจาก training catalog</div>
+      <div class="pos-note">Blog ที่กำลังทำใหม่ (si-blog-redesign) เป็น move ที่ถูกต้องมากในมุม positioning — thought leadership content สร้าง credibility consulting ได้ดีกว่า course catalog ทำได้เพียบ</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">H2 Structure — Homepage Content Architecture</div>
+      <div class="pos-now">❌ ปัจจุบัน: H2 ที่ 1 = "เน้นยุค AI x HUMAN โดยเฉพาะ" → H2 ที่ 2 = "หลักสูตร Signature" → H2 ที่ 3 = "หลักสูตรยอดนิยม" — เร็วมากที่จะกลายเป็น course catalog</div>
+      <div class="pos-should">✅ ควร insert "Why SolutionsIMPACT" section ก่อน course listing — บอกว่า transformation ที่แท้จริงต้องการ partner ที่เข้าใจ business ไม่ใช่แค่ trainer ที่สอนดี จากนั้น courses จะกลายเป็น evidence ของ approach แทน</div>
+    </div>
+
+    <div class="pos-item">
+      <div class="pos-label">สิ่งที่ทำได้เพิ่มใน si-blog-redesign (ขยาย scope)</div>
+      <div class="pos-should">
+        ✅ <strong>Custom Post Type: Insight/Case Study</strong> — สร้าง CPT แยกจาก blog post สำหรับ "ผลลัพธ์ที่เกิดขึ้นจริงกับลูกค้า" เชื่อมกับ industry/service area<br><br>
+        ✅ <strong>Author Profile Page</strong> — แสดง expertise ของ consultant/trainer แต่ละคน สร้าง credibility individual-level<br><br>
+        ✅ <strong>Topic Cluster Pages</strong> — เช่น /ai-transformation/, /leadership-development/ ที่ aggregate blog + courses + case studies ในหัวข้อเดียว = SEO + positioning ในคราวเดียวกัน
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Summary -->
+  <div class="summary">
+    <h3>Quick Wins — ทำได้ทันที ผลชัด</h3>
+    <ul>
+      <li><strong>ลบ user-switching + seo-engine ทันที</strong> — security risk + SEO conflict ไม่มีอะไรเสียเลย</li>
+      <li><strong>ติดตั้ง LiteSpeed Cache</strong> — เร็วขึ้น 3–10x ฟรี ทำได้ใน 15 นาที</li>
+      <li><strong>เปิด "Load forms only on form pages"</strong> ใน FluentForm → ลด JS load ทุกหน้าที่ไม่มี form</li>
+      <li><strong>เปลี่ยน Nav CTA</strong> จาก "Download คอร์สอบรม" → "ขอคำปรึกษา" — signal เดียวที่เปลี่ยน perception ได้เร็วที่สุด</li>
+      <li><strong>แก้ Schema ใน Rank Math</strong> จาก Article → Organization + ProfessionalService — ไม่ต้องแตะ code เลย</li>
+      <li><strong>เปิด EWWW WebP conversion</strong> — images เล็กลง 30–50% อัตโนมัติ</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

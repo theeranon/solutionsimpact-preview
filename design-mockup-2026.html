@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolutionsIMPACT — Design Mockup 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN SYSTEM TOKENS
+   ============================================================ */
+:root {
+  --bg:          #f8f7f5;
+  --white:       #ffffff;
+  --navy:        #002554;
+  --navy-light:  #003377;
+  --gold:        #FFC600;
+  --gold-light:  #FFD740;
+  --text:        #111827;
+  --text-2:      #374151;
+  --text-muted:  #6b7280;
+  --text-faint:  #9ca3af;
+  --border:      #e5e7eb;
+  --border-thin: 0.5px solid #e5e7eb;
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --shadow-sm:   0 1px 4px rgba(0,0,0,.06);
+  --shadow-md:   0 4px 20px rgba(0,0,0,.08);
+  --shadow-lg:   0 12px 48px rgba(0,37,84,.12);
+  --font-body:   'IBM Plex Sans Thai', sans-serif;
+  --font-head:   'Poppins', sans-serif;
+  --max-w:       1140px;
+  --section-py:  96px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ---- LAYOUT ---- */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+.section { padding: var(--section-py) 0; }
+.section--white { background: var(--white); }
+.section--navy { background: var(--navy); color: var(--white); }
+.section--gold { background: var(--gold); color: var(--navy); }
+
+/* ---- PAGE SWITCHER (for mockup navigation) ---- */
+.page-switcher {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: #1a1a1a; padding: 8px 24px;
+  display: flex; gap: 4px; align-items: center; overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+.page-switcher span { color: #888; font-size: 11px; font-family: monospace; margin-right: 8px; white-space: nowrap; }
+.page-btn {
+  background: #333; border: 1px solid #555; color: #ccc;
+  padding: 5px 14px; border-radius: 4px; font-size: 12px;
+  cursor: pointer; white-space: nowrap; transition: all .2s;
+  font-family: monospace;
+}
+.page-btn:hover, .page-btn.active { background: var(--gold); border-color: var(--gold); color: #000; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* ---- NAV ---- */
+.nav {
+  position: sticky; top: 36px; z-index: 100;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--border-thin);
+}
+.nav__inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 32px;
+  height: 64px; display: flex; align-items: center; gap: 32px;
+}
+.nav__logo {
+  font-family: var(--font-head);
+  font-weight: 700; font-size: 18px;
+  color: var(--navy); letter-spacing: -.3px;
+  flex-shrink: 0;
+}
+.nav__logo em { color: var(--gold); font-style: normal; }
+.nav__links {
+  display: flex; align-items: center; gap: 4px;
+  flex: 1; margin-left: 24px;
+  list-style: none;
+}
+.nav__links li { position: relative; }
+.nav__links a {
+  display: flex; align-items: center; gap: 4px;
+  padding: 8px 12px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: var(--text-2);
+  transition: all .2s;
+}
+.nav__links a:hover { background: #f3f4f6; color: var(--navy); }
+.nav__links .chevron { font-size: 10px; opacity: .5; }
+.nav__dropdown {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: var(--white); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg); border: var(--border-thin);
+  min-width: 220px; padding: 8px; opacity: 0; pointer-events: none;
+  transform: translateY(-8px); transition: all .2s;
+}
+.nav__links li:hover .nav__dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+.nav__dropdown a {
+  display: block; padding: 10px 14px; border-radius: 8px;
+  font-size: 14px; color: var(--text); border: none;
+}
+.nav__dropdown a:hover { background: #f8f7f5; color: var(--navy); }
+.nav__dropdown a span { display: block; font-size: 11px; color: var(--text-faint); font-weight: 400; }
+.nav__cta {
+  margin-left: auto;
+  background: var(--navy); color: var(--white) !important;
+  padding: 10px 20px !important; border-radius: 8px !important;
+  font-weight: 600 !important; font-size: 14px !important;
+  transition: all .2s !important;
+}
+.nav__cta:hover { background: var(--navy-light) !important; color: var(--white) !important; }
+
+/* ---- TYPOGRAPHY ---- */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.eyebrow--navy { color: var(--navy); }
+.eyebrow--white { color: rgba(255,255,255,.7); }
+
+h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
+h1 { font-size: clamp(36px, 5vw, 58px); font-weight: 700; letter-spacing: -1px; }
+h2 { font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; letter-spacing: -.5px; }
+h3 { font-size: clamp(20px, 2.5vw, 26px); font-weight: 600; }
+h4 { font-size: 18px; font-weight: 600; }
+
+.lead { font-size: 18px; line-height: 1.8; color: var(--text-2); }
+.lead--white { color: rgba(255,255,255,.8); }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 10px;
+  font-family: var(--font-head); font-weight: 600; font-size: 15px;
+  cursor: pointer; transition: all .25s; border: 2px solid transparent;
+  white-space: nowrap;
+}
+.btn--primary { background: var(--gold); color: var(--navy); }
+.btn--primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,198,0,.35); }
+.btn--outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+.btn--outline:hover { background: var(--navy); color: var(--white); }
+.btn--outline-white { background: transparent; color: var(--white); border-color: rgba(255,255,255,.4); }
+.btn--outline-white:hover { background: rgba(255,255,255,.1); }
+.btn--ghost { padding: 0; background: none; color: var(--navy); font-size: 14px; }
+.btn--ghost:hover { gap: 12px; }
+.btn-arrow { font-size: 18px; transition: transform .2s; }
+.btn--ghost:hover .btn-arrow { transform: translateX(4px); }
+
+/* ---- RIPPLE ---- */
+.ripple-wrap {
+  position: absolute; pointer-events: none; overflow: hidden;
+}
+.ripple-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+/* SVG Ripple fallback */
+.ripple-svg {
+  position: absolute; pointer-events: none;
+}
+.ripple-svg circle {
+  fill: none; stroke: currentColor;
+  transform-origin: center;
+  animation: ripple-pulse 3s ease-out infinite;
+}
+.ripple-svg circle:nth-child(2) { animation-delay: .6s; opacity: .7; }
+.ripple-svg circle:nth-child(3) { animation-delay: 1.2s; opacity: .5; }
+.ripple-svg circle:nth-child(4) { animation-delay: 1.8s; opacity: .3; }
+.ripple-svg circle:nth-child(5) { animation-delay: 2.4s; opacity: .15; }
+@keyframes ripple-pulse {
+  0% { r: 40px; opacity: .8; }
+  100% { r: 280px; opacity: 0; }
+}
+
+/* ============================================================
+   PAGE: HOMEPAGE
+   ============================================================ */
+
+/* HERO */
+.hero {
+  position: relative; overflow: hidden;
+  background: var(--navy);
+  min-height: 88vh;
+  display: flex; align-items: center;
+  padding: 80px 0;
+}
+.hero__ripple {
+  position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+  width: 680px; height: 680px; opacity: .55;
+}
+.hero__ripple-gold {
+  position: absolute; right: 160px; top: 50%; transform: translateY(-50%);
+  width: 280px; height: 280px; opacity: .3;
+}
+.hero__content { position: relative; z-index: 2; max-width: 680px; }
+.hero__title { color: var(--white); margin-bottom: 24px; }
+.hero__title em { color: var(--gold); font-style: normal; }
+.hero__subtitle { color: rgba(255,255,255,.75); font-size: 18px; line-height: 1.8; margin-bottom: 40px; max-width: 560px; }
+.hero__actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero__badge {
+  position: absolute; bottom: 40px; right: 32px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(12px); border-radius: 16px;
+  padding: 20px 28px; display: flex; align-items: center; gap: 20px;
+  z-index: 2;
+}
+.hero__badge-stat { text-align: center; }
+.hero__badge-num { font-family: var(--font-head); font-size: 28px; font-weight: 700; color: var(--gold); }
+.hero__badge-label { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 2px; }
+.hero__badge-divider { width: 1px; height: 40px; background: rgba(255,255,255,.2); }
+
+/* TRUST BAR */
+.trust-bar {
+  background: var(--white); border-bottom: var(--border-thin);
+  padding: 20px 0;
+}
+.trust-bar__inner {
+  display: flex; align-items: center; gap: 40px;
+  overflow-x: auto;
+}
+.trust-bar__label { font-size: 12px; color: var(--text-faint); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+.trust-bar__logos { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; }
+.trust-logo {
+  font-family: var(--font-head); font-size: 13px; font-weight: 700;
+  color: #c9cdd6; letter-spacing: -.3px; white-space: nowrap;
+}
+
+/* PROBLEM / POSITIONING */
+.positioning { padding: var(--section-py) 0; background: var(--white); }
+.positioning__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.positioning__quote {
+  font-family: var(--font-head); font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700; line-height: 1.35; color: var(--navy);
+  letter-spacing: -.5px;
+}
+.positioning__quote em { color: var(--gold); font-style: normal; }
+.positioning__body { color: var(--text-2); line-height: 1.8; }
+.positioning__body + .positioning__body { margin-top: 16px; }
+.gold-bar {
+  width: 48px; height: 4px; background: var(--gold);
+  border-radius: 2px; margin-bottom: 32px;
+}
+
+/* SOLUTIONS GRID */
+.solutions { background: var(--bg); }
+.solutions__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 56px;
+}
+.solution-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: var(--border-thin); padding: 40px 32px;
+  transition: all .3s; cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.solution-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--border); transition: background .3s;
+}
+.solution-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.solution-card:hover::before { background: var(--gold); }
+.solution-card__icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: #f3f4f6; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 24px;
+}
+.solution-card__title { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.solution-card__text { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; }
+.solution-card__link {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 600; color: var(--navy);
+  transition: gap .2s;
+}
+.solution-card:hover .solution-card__link { gap: 10px; }
+.solution-card--featured {
+  background: var(--navy); color: var(--white);
+  border-color: var(--navy);
+}
+.solution-card--featured .solution-card__title { color: var(--white); }
+.solution-card--featured .solution-card__text { color: rgba(255,255,255,.7); }
+.solution-card--featured .solution-card__link { color: var(--gold); }
+.solution-card--featured .solution-card__icon { background: rgba(255,255,255,.1); }
+.solution-card--featured::before { background: var(--gold); }
+
+/* FRAMEWORK TEASER */
+.framework-teaser {
+  background: var(--navy); position: relative; overflow: hidden;
+}
+.framework-teaser__ripple {
+  position: absolute; left: -120px; bottom: -120px;
+  width: 600px; height: 600px; opacity: .12;
+}
+.framework-teaser__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  position: relative; z-index: 2;
+}
+.impact-letters {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 48px;
+}
+.impact-letter {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 12px; padding: 16px 20px; min-width: 120px;
+  transition: all .2s;
+}
+.impact-letter:hover { background: rgba(255,198,0,.15); border-color: rgba(255,198,0,.4); }
+.impact-letter__char {
+  font-family: var(--font-head); font-size: 28px; font-weight: 800;
+  color: var(--gold); line-height: 1;
+}
+.impact-letter__word { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; }
+
+/* IMPACT VISUAL */
+.impact-visual {
+  position: relative; height: 440px; display: flex; align-items: center; justify-content: center;
+}
+.impact-ring {
+  position: absolute; border-radius: 50%; border: 1px solid rgba(255,198,0,.2);
+}
+.impact-core {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--gold); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 800; font-size: 18px; color: var(--navy);
+  position: relative; z-index: 2; box-shadow: 0 0 60px rgba(255,198,0,.4);
+}
+@keyframes slow-spin { to { transform: rotate(360deg); } }
+.impact-ring-1 { width: 200px; height: 200px; animation: slow-spin 20s linear infinite; border-color: rgba(255,198,0,.35); border-style: dashed; }
+.impact-ring-2 { width: 300px; height: 300px; animation: slow-spin 35s linear infinite reverse; border-color: rgba(255,198,0,.2); }
+.impact-ring-3 { width: 400px; height: 400px; animation: slow-spin 50s linear infinite; border-color: rgba(255,198,0,.1); }
+
+/* SOCIAL PROOF */
+.social-proof { background: var(--white); }
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; border: var(--border-thin); border-radius: var(--radius-lg);
+  overflow: hidden; margin-bottom: 64px;
+}
+.stat-block {
+  padding: 40px 32px;
+  border-right: var(--border-thin);
+}
+.stat-block:last-child { border-right: none; }
+.stat-block__num {
+  font-family: var(--font-head); font-size: 42px; font-weight: 800;
+  color: var(--navy); letter-spacing: -1px;
+}
+.stat-block__unit { color: var(--gold); }
+.stat-block__label { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
+.testimonial-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.testimonial-card {
+  background: var(--bg); border-radius: var(--radius-lg);
+  padding: 32px; border: var(--border-thin);
+}
+.testimonial-card__quote {
+  font-size: 16px; color: var(--text); line-height: 1.8;
+  font-style: italic; margin-bottom: 24px;
+}
+.testimonial-card__quote::before { content: '\201C'; color: var(--gold); font-size: 32px; line-height: 0; vertical-align: -12px; margin-right: 4px; font-style: normal; }
+.testimonial-card__author { display: flex; align-items: center; gap: 12px; }
+.testimonial-card__avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--navy); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--white);
+}
+.testimonial-card__name { font-size: 14px; font-weight: 600; color: var(--text); }
+.testimonial-card__role { font-size: 12px; color: var(--text-faint); }
+
+/* CTA BAND */
+.cta-band {
+  background: var(--gold); position: relative; overflow: hidden;
+  padding: 80px 0;
+}
+.cta-band__ripple {
+  position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+  width: 400px; height: 400px; opacity: .15;
+}
+.cta-band__content { position: relative; z-index: 2; text-align: center; max-width: 640px; margin: 0 auto; }
+.cta-band h2 { color: var(--navy); margin-bottom: 16px; }
+.cta-band p { color: rgba(0,37,84,.7); font-size: 18px; margin-bottom: 36px; }
+
+/* ============================================================
+   PAGE: INHOUSE TRAINING
+   ============================================================ */
+.inhouse-hero {
+  background: var(--navy); padding: 80px 0 96px;
+  position: relative; overflow: hidden;
+}
+.inhouse-hero__ripple {
+  position: absolute; right: -60px; top: -60px;
+  width: 560px; height: 560px; opacity: .4;
+}
+.inhouse-hero__content { position: relative; z-index: 2; max-width: 680px; }
+.inhouse-hero__tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,198,0,.15); border: 1px solid rgba(255,198,0,.3);
+  border-radius: 6px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: var(--gold);
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px;
+}
+.inhouse-hero h1 { color: var(--white); margin-bottom: 24px; }
+.inhouse-hero h1 strong { color: var(--gold); font-weight: inherit; }
+.inhouse-hero p { color: rgba(255,255,255,.75); font-size: 18px; line-height: 1.8; margin-bottom: 40px; max-width: 560px; }
+.inhouse-hero__form {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 16px; padding: 28px; max-width: 480px;
+  backdrop-filter: blur(12px);
+}
+.inhouse-hero__form h4 { color: var(--white); margin-bottom: 16px; font-size: 16px; }
+.form-row { display: flex; gap: 8px; }
+.form-input {
+  flex: 1; padding: 12px 16px; border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1);
+  color: var(--white); font-size: 14px; font-family: var(--font-body);
+  outline: none;
+}
+.form-input::placeholder { color: rgba(255,255,255,.4); }
+
+/* PROCESS STEPS */
+.process { background: var(--white); }
+.process__steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 56px; position: relative;
+}
+.process__steps::before {
+  content: ''; position: absolute; top: 32px; left: 10%; right: 10%;
+  height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+}
+.process-step { padding: 0 20px; text-align: center; position: relative; }
+.process-step__num {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 700; font-size: 18px; color: var(--navy);
+  margin: 0 auto 24px; position: relative; z-index: 1; transition: all .3s;
+}
+.process-step:hover .process-step__num { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.process-step__title { font-family: var(--font-head); font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+.process-step__text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* PROGRAMS */
+.programs { background: var(--bg); }
+.program-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px;
+}
+.program-card {
+  background: var(--white); border-radius: var(--radius-lg); overflow: hidden;
+  border: var(--border-thin); transition: all .3s;
+}
+.program-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.program-card__header {
+  background: var(--navy); padding: 32px;
+  border-left: 4px solid var(--gold); position: relative; overflow: hidden;
+}
+.program-card__ripple-bg {
+  position: absolute; right: -40px; bottom: -40px;
+  width: 160px; height: 160px; opacity: .12;
+}
+.program-card__tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.program-card__name { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+.program-card__sub { font-size: 13px; color: rgba(255,255,255,.6); }
+.program-card__body { padding: 28px 32px; }
+.program-card__feat { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.program-card__feat-icon { color: var(--gold); font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+.program-card__feat-text { font-size: 14px; color: var(--text-2); line-height: 1.5; }
+.program-card__footer {
+  padding: 0 32px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: var(--border-thin); padding-top: 20px; margin-top: 4px;
+}
+.program-card__duration { font-size: 13px; color: var(--text-muted); }
+.program-card__duration strong { color: var(--navy); font-family: var(--font-head); }
+
+/* CLIENT LOGOS */
+.clients { background: var(--white); padding: 64px 0; }
+.clients__grid {
+  display: flex; flex-wrap: wrap; gap: 0; justify-content: center;
+  border: var(--border-thin); border-radius: var(--radius-lg); overflow: hidden;
+  margin-top: 40px;
+}
+.client-logo {
+  padding: 28px 36px; border-right: var(--border-thin); border-bottom: var(--border-thin);
+  font-family: var(--font-head); font-size: 14px; font-weight: 700; color: #c5c8d0;
+  letter-spacing: -.3px; transition: color .2s;
+}
+.client-logo:hover { color: var(--navy); }
+
+/* ============================================================
+   PAGE: FRAMEWORK
+   ============================================================ */
+.framework-hero {
+  background: var(--bg); padding: 80px 0 64px;
+  border-bottom: var(--border-thin);
+}
+.framework-hero__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.framework-hero h1 { color: var(--navy); margin-bottom: 24px; }
+.framework-hero h1 em { color: var(--gold); font-style: normal; }
+
+/* RIPPLE DIAGRAM */
+.ripple-diagram {
+  position: relative; height: 480px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ripple-diagram__img {
+  width: 460px; height: 460px; position: absolute;
+  object-fit: contain; opacity: .9;
+}
+.ripple-diagram__labels {
+  position: absolute; width: 100%; height: 100%;
+}
+.ripple-label {
+  position: absolute; background: var(--white); border: var(--border-thin);
+  border-radius: 8px; padding: 8px 14px; box-shadow: var(--shadow-md);
+  font-size: 12px; font-weight: 600; color: var(--navy); white-space: nowrap;
+}
+.ripple-label::before { content: ''; position: absolute; }
+.rl-1 { top: 10%; left: -5%; }
+.rl-2 { top: 10%; right: -5%; }
+.rl-3 { top: 45%; left: -15%; }
+.rl-4 { top: 45%; right: -15%; }
+.rl-5 { bottom: 10%; left: -5%; }
+.rl-6 { bottom: 10%; right: -5%; }
+
+/* I.M.P.A.C.T. BREAKDOWN */
+.impact-breakdown { background: var(--white); }
+.impact-accordion { margin-top: 56px; }
+.impact-item {
+  border: var(--border-thin); border-radius: var(--radius-md);
+  overflow: hidden; margin-bottom: 12px;
+  transition: box-shadow .3s;
+}
+.impact-item:hover { box-shadow: var(--shadow-md); }
+.impact-item__header {
+  display: flex; align-items: center; gap: 20px;
+  padding: 24px 28px; cursor: pointer;
+  background: var(--white); transition: background .2s;
+}
+.impact-item:hover .impact-item__header { background: #fafafa; }
+.impact-item__char {
+  font-family: var(--font-head); font-size: 36px; font-weight: 800;
+  color: var(--gold); line-height: 1; width: 48px; flex-shrink: 0;
+}
+.impact-item__meta { flex: 1; }
+.impact-item__word { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--navy); }
+.impact-item__tagline { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+.impact-item__body {
+  padding: 0 28px 24px 96px;
+  font-size: 15px; color: var(--text-2); line-height: 1.8;
+}
+.impact-item__body ul { list-style: none; margin-top: 12px; }
+.impact-item__body li { display: flex; gap: 10px; margin-bottom: 8px; font-size: 14px; }
+.impact-item__body li::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+
+/* 3 PILLARS */
+.pillars { background: var(--bg); }
+.pillars__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px;
+}
+.pillar-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: var(--border-thin); padding: 40px 32px;
+  text-align: center; transition: all .3s;
+}
+.pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.pillar-card__icon {
+  width: 72px; height: 72px; border-radius: 20px; margin: 0 auto 24px;
+  background: var(--navy); display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+}
+.pillar-card__thai { font-size: 12px; color: var(--text-faint); margin-bottom: 4px; }
+.pillar-card__title { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+.pillar-card__desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+.pillar-card__tag {
+  display: inline-block; margin-top: 20px;
+  background: #f3f4f6; border-radius: 6px; padding: 5px 12px;
+  font-size: 12px; font-weight: 600; color: var(--navy); letter-spacing: .5px;
+}
+
+/* TPS SECTION */
+.tps-section { background: var(--navy); }
+.tps-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center;
+  position: relative; z-index: 2;
+}
+.tps-visual {
+  position: relative; height: 420px;
+  display: flex; align-items: center; justify-content: center;
+}
+.tps-center {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: var(--gold); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; position: relative; z-index: 3;
+  box-shadow: 0 0 60px rgba(255,198,0,.5);
+}
+.tps-center span:first-child { font-family: var(--font-head); font-size: 18px; font-weight: 800; color: var(--navy); }
+.tps-center span:last-child { font-size: 9px; font-weight: 700; color: rgba(0,37,84,.6); letter-spacing: 1px; }
+.tps-orbit {
+  position: absolute; border-radius: 50%; border: 1px solid rgba(255,198,0,.25);
+  display: flex; align-items: center; justify-content: center;
+}
+.tps-orbit-1 { width: 180px; height: 180px; }
+.tps-orbit-2 { width: 280px; height: 280px; border-style: dashed; }
+.tps-orbit-3 { width: 380px; height: 380px; border-color: rgba(255,198,0,.1); }
+.tps-node {
+  position: absolute; background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2); border-radius: 8px;
+  padding: 8px 14px; font-size: 11px; font-weight: 600; color: var(--white);
+  white-space: nowrap;
+}
+.tps-node-1 { top: -5%; left: 50%; transform: translateX(-50%); }
+.tps-node-2 { top: 50%; right: -8%; transform: translateY(-50%); }
+.tps-node-3 { bottom: -5%; left: 50%; transform: translateX(-50%); }
+.tps-node-4 { top: 50%; left: -8%; transform: translateY(-50%); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: #0d1827; color: rgba(255,255,255,.7);
+  padding: 64px 0 32px;
+}
+.footer__grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.footer__brand { }
+.footer__logo {
+  font-family: var(--font-head); font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 16px;
+}
+.footer__logo em { color: var(--gold); font-style: normal; }
+.footer__tagline { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,.5); margin-bottom: 24px; }
+.footer__col h5 { font-family: var(--font-head); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 20px; }
+.footer__links { list-style: none; }
+.footer__links li { margin-bottom: 10px; }
+.footer__links a { font-size: 14px; color: rgba(255,255,255,.6); transition: color .2s; }
+.footer__links a:hover { color: var(--white); }
+.footer__bottom {
+  border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: rgba(255,255,255,.3);
+}
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+.section-header { margin-bottom: 0; }
+.section-header--center { text-align: center; max-width: 640px; margin: 0 auto; }
+.section-header__title { color: var(--navy); }
+.section-header__title--white { color: var(--white); }
+.section-header__lead { color: var(--text-muted); margin-top: 16px; font-size: 17px; line-height: 1.8; }
+.section-header__lead--white { color: rgba(255,255,255,.7); }
+
+/* ============================================================
+   DESIGN SYSTEM PAGE
+   ============================================================ */
+.ds-page { background: var(--bg); padding: 40px 0; }
+.ds-section { margin-bottom: 64px; }
+.ds-section h3 { font-family: var(--font-head); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 24px; padding-bottom: 12px; border-bottom: var(--border-thin); }
+.color-swatches { display: flex; gap: 16px; flex-wrap: wrap; }
+.swatch { width: 100px; }
+.swatch__block { height: 64px; border-radius: 10px; border: 1px solid rgba(0,0,0,.06); }
+.swatch__name { font-size: 12px; font-weight: 600; color: var(--text); margin-top: 8px; }
+.swatch__hex { font-size: 11px; color: var(--text-faint); font-family: monospace; }
+.type-samples > * { margin-bottom: 16px; padding-bottom: 16px; border-bottom: var(--border-thin); }
+.component-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+.ds-note { font-size: 13px; color: var(--text-faint); margin-top: 8px; }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.mt-0  { margin-top: 0; }
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mt-40 { margin-top: 40px; }
+.mt-56 { margin-top: 56px; }
+.mb-0  { margin-bottom: 0; }
+.mb-8  { margin-bottom: 8px; }
+.text-center { text-align: center; }
+.text-navy { color: var(--navy); }
+.text-gold { color: var(--gold); }
+.text-white { color: var(--white); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+
+/* ============================================================
+   MEGA NAV
+   ============================================================ */
+.nav__mega {
+  position: absolute; top: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: var(--white); border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,37,84,.15), 0 0 0 1px rgba(0,0,0,.06);
+  width: 680px; padding: 24px; opacity: 0; pointer-events: none;
+  transition: all .22s cubic-bezier(.4,0,.2,1); z-index: 200;
+}
+.nav__links li:hover .nav__mega { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.nav__mega-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+.nav__mega-col h6 {
+  font-family: var(--font-head); font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-faint);
+  padding: 4px 10px 10px; border-bottom: var(--border-thin); margin-bottom: 6px;
+}
+.nav__mega-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px;
+  border-radius: 8px; transition: background .15s; text-decoration: none; border: none !important;
+}
+.nav__mega-item:hover { background: #f5f6f8 !important; }
+.nav__mega-icon {
+  width: 34px; height: 34px; border-radius: 8px; background: #f0f1f5;
+  display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+}
+.nav__mega-title { font-size: 13px; font-weight: 600; color: var(--navy); display: block; }
+.nav__mega-desc { font-size: 11px; color: var(--text-faint); margin-top: 1px; display: block; }
+.nav__mega-cta {
+  margin-top: 16px; background: var(--navy); border-radius: var(--radius-md);
+  padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.nav__mega-cta-text h5 { font-size: 13px; color: var(--white); font-weight: 600; margin-bottom: 2px; font-family: var(--font-head); }
+.nav__mega-cta-text p { font-size: 11px; color: rgba(255,255,255,.55); }
+.nav__mega-cta .btn { padding: 8px 16px !important; font-size: 13px !important; border-radius: 8px !important; white-space: nowrap; }
+
+/* ============================================================
+   INHOUSE ADDITIONS
+   ============================================================ */
+.inhouse-stats {
+  background: var(--white); border-bottom: var(--border-thin); padding: 32px 0;
+}
+.inhouse-stats__grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  border: var(--border-thin); border-radius: var(--radius-lg); overflow: hidden;
+}
+.inhouse-stat {
+  padding: 28px 24px; text-align: center; border-right: var(--border-thin);
+}
+.inhouse-stat:last-child { border-right: none; }
+.inhouse-stat__num { font-family: var(--font-head); font-size: 36px; font-weight: 800; color: var(--navy); letter-spacing: -1px; line-height: 1.1; }
+.inhouse-stat__num .unit { color: var(--gold); }
+.inhouse-stat__label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+.categories { background: var(--bg); }
+.categories__grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 48px; }
+.cat-card {
+  background: var(--white); border: var(--border-thin); border-radius: var(--radius-md);
+  padding: 28px 24px; cursor: pointer; transition: all .25s; position: relative; overflow: hidden;
+}
+.cat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: transparent; transition: background .25s; }
+.cat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.cat-card:hover::after { background: var(--gold); }
+.cat-card__icon { font-size: 28px; margin-bottom: 16px; }
+.cat-card__title { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.cat-card__desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+.cat-card__count { font-size: 11px; font-weight: 700; color: var(--gold); margin-top: 14px; letter-spacing: .5px; }
+
+.why-us { background: var(--white); }
+.why-table { border: var(--border-thin); border-radius: var(--radius-lg); overflow: hidden; margin-top: 48px; }
+.why-row { display: grid; grid-template-columns: 200px 1fr 1fr; }
+.why-header > div { padding: 14px 24px; font-family: var(--font-head); font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+.why-header .h-us { background: var(--navy); color: var(--white); }
+.why-header .h-other { background: #f6f7f8; color: var(--text-faint); }
+.why-row { display: grid; grid-template-columns: 200px 1fr 1fr; border-top: var(--border-thin); }
+.why-row:nth-child(even) { background: #fcfcfc; }
+.why-cell { padding: 16px 24px; font-size: 14px; display: flex; align-items: center; gap: 10px; border-right: var(--border-thin); }
+.why-cell:last-child { border-right: none; }
+.why-cell--topic { font-weight: 600; color: var(--text-2); font-size: 13px; }
+.why-cell--us { color: var(--navy); font-weight: 500; }
+.why-cell--us::before { content: '✓'; color: var(--gold); font-weight: 800; flex-shrink: 0; }
+.why-cell--other { color: var(--text-muted); font-size: 13px; }
+.why-cell--other::before { content: '✕'; color: #d1d5db; flex-shrink: 0; }
+
+/* ============================================================
+   FRAMEWORK ADDITIONS
+   ============================================================ */
+.fw-evidence { background: var(--bg); }
+.fw-evidence__grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-top: 48px; }
+.fw-ev-card {
+  background: var(--white); border: var(--border-thin); border-radius: var(--radius-md);
+  padding: 32px 24px; text-align: center;
+}
+.fw-ev-num { font-family: var(--font-head); font-size: 40px; font-weight: 800; color: var(--navy); letter-spacing: -1px; line-height: 1.1; }
+.fw-ev-num .acc { color: var(--gold); }
+.fw-ev-label { font-size: 13px; color: var(--text-muted); margin-top: 6px; line-height: 1.4; }
+.fw-quote-block {
+  background: var(--navy); border-radius: var(--radius-lg); padding: 48px 56px;
+  position: relative; overflow: hidden; margin-top: 32px;
+}
+.fw-quote-block::before {
+  content: '\201C'; position: absolute; top: 0; left: 28px;
+  font-size: 160px; color: rgba(255,198,0,.08); font-family: Georgia, serif; line-height: 1; pointer-events: none;
+}
+.fw-quote-text { font-size: 19px; color: var(--white); line-height: 1.85; font-style: italic; max-width: 760px; position: relative; z-index: 1; }
+.fw-quote-author { display: flex; align-items: center; gap: 16px; margin-top: 32px; position: relative; z-index: 1; }
+.fw-quote-avatar {
+  width: 48px; height: 48px; border-radius: 50%; background: rgba(255,198,0,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--gold); flex-shrink: 0;
+}
+.fw-quote-name { font-size: 15px; font-weight: 600; color: var(--white); }
+.fw-quote-role { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE SWITCHER (Mockup nav — won't appear in final site) -->
+<div class="page-switcher">
+  <span>MOCKUP PAGES →</span>
+  <button class="page-btn active" onclick="showPage('home')">🏠 Homepage</button>
+  <button class="page-btn" onclick="showPage('inhouse')">📋 Inhouse Training</button>
+  <button class="page-btn" onclick="showPage('framework')">⬡ Framework / IMPACT</button>
+  <button class="page-btn" onclick="showPage('design')">🎨 Design System</button>
+</div>
+
+<!-- ============================================================
+     PAGE: HOMEPAGE
+     ============================================================ -->
+<div id="page-home" class="page active">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__logo">Solutions<em>IMPACT</em></div>
+      <ul class="nav__links">
+        <li>
+          <a href="#">บริการ <span class="chevron">▾</span></a>
+          <div class="nav__mega">
+            <div class="nav__mega-cols">
+              <div class="nav__mega-col">
+                <h6>Inhouse Training</h6>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🤖</div>
+                  <div><span class="nav__mega-title">AI for Business &amp; Productivity</span><span class="nav__mega-desc">ปรับใช้ AI ในทุก Level ขององค์กร</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🎯</div>
+                  <div><span class="nav__mega-title">Future Leadership &amp; Management</span><span class="nav__mega-desc">ผู้นำในยุค AI Disruption</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">📱</div>
+                  <div><span class="nav__mega-title">Digital Skills &amp; Literacy</span><span class="nav__mega-desc">ทักษะดิจิทัลที่องค์กรต้องการ</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">💬</div>
+                  <div><span class="nav__mega-title">Communication &amp; Soft Skills</span><span class="nav__mega-desc">Presentation, EQ &amp; Teamwork</span></div>
+                </a>
+              </div>
+              <div class="nav__mega-col">
+                <h6>More Solutions</h6>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🔍</div>
+                  <div><span class="nav__mega-title">Consumer Insight &amp; Trends</span><span class="nav__mega-desc">Data-driven Market Understanding</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">⚡</div>
+                  <div><span class="nav__mega-title">Agile &amp; Project Management</span><span class="nav__mega-desc">OKR, Scrum &amp; Delivery Excellence</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">👥</div>
+                  <div><span class="nav__mega-title">HR &amp; Talent Development</span><span class="nav__mega-desc">Recruit, Retain &amp; Develop</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🌐</div>
+                  <div><span class="nav__mega-title">Public Programs</span><span class="nav__mega-desc">คอร์สเปิดรับสมัครทุกเดือน</span></div>
+                </a>
+              </div>
+            </div>
+            <div class="nav__mega-cta">
+              <div class="nav__mega-cta-text">
+                <h5>💬 ออกแบบโปรแกรมเฉพาะสำหรับองค์กรคุณ</h5>
+                <p>ปรึกษา Solution Designer ฟรี · ตอบภายใน 24 ชั่วโมง</p>
+              </div>
+              <a href="#" class="btn btn--primary">นัดคุยฟรี →</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#">I.M.P.A.C.T.™</a></li>
+        <li><a href="#">Insights</a></li>
+        <li><a href="#">เกี่ยวกับเรา</a></li>
+        <li><a href="#" class="nav__cta">ปรึกษาฟรี →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 01 · HERO -->
+  <section class="hero">
+    <div class="hero__ripple">
+      <img src="Ripple 2.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <svg class="ripple-svg" style="display:none; color:rgba(255,255,255,.12); width:100%; height:100%;" viewBox="0 0 560 560">
+        <circle cx="280" cy="280" r="40"/>
+        <circle cx="280" cy="280" r="40"/>
+        <circle cx="280" cy="280" r="40"/>
+        <circle cx="280" cy="280" r="40"/>
+        <circle cx="280" cy="280" r="40"/>
+      </svg>
+    </div>
+    <div class="container">
+      <div class="hero__content">
+        <div class="eyebrow eyebrow--white">Transformation Consulting · Thailand</div>
+        <h1 class="hero__title">
+          Transformation Partner<br>ของ<em>องค์กรชั้นนำ</em><br>ในยุค AI
+        </h1>
+        <p class="hero__subtitle">
+          SolutionsIMPACT ช่วยองค์กร 500+ แห่งสร้างผลลัพธ์จริงจากการพัฒนาคนและนำ AI มาใช้ในงาน — ไม่ใช่แค่ workshop ชั่วคราว แต่เป็น Transformation Engagement ที่วัดผลด้วย Business KPI จริง
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary">ปรึกษาฟรี 30 นาที <span class="btn-arrow">→</span></a>
+          <a href="#" class="btn btn--outline-white">ดูว่าเราทำอะไร</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__badge">
+      <div class="hero__badge-stat">
+        <div class="hero__badge-num">500<span style="font-size:20px">+</span></div>
+        <div class="hero__badge-label">องค์กรที่เห็นผลจริง</div>
+      </div>
+      <div class="hero__badge-divider"></div>
+      <div class="hero__badge-stat">
+        <div class="hero__badge-num">12<span style="font-size:20px">+</span></div>
+        <div class="hero__badge-label">ปีประสบการณ์</div>
+      </div>
+      <div class="hero__badge-divider"></div>
+      <div class="hero__badge-stat">
+        <div class="hero__badge-num">4.9<span style="font-size:16px; color:rgba(255,255,255,.5)">/5</span></div>
+        <div class="hero__badge-label">NPS Score</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · TRUST BAR -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="trust-bar__inner">
+        <div class="trust-bar__label">ไว้วางใจโดย</div>
+        <div class="trust-bar__logos">
+          <div class="trust-logo">SCG</div>
+          <div class="trust-logo">KBANK</div>
+          <div class="trust-logo">PTT GROUP</div>
+          <div class="trust-logo">CENTRAL</div>
+          <div class="trust-logo">BDMS</div>
+          <div class="trust-logo">AIS</div>
+          <div class="trust-logo">THAIBEV</div>
+          <div class="trust-logo">CP ALL</div>
+          <div class="trust-logo">GULF ENERGY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 · WHO WE ARE / POSITIONING -->
+  <section class="positioning">
+    <div class="container">
+      <div class="positioning__grid">
+        <div>
+          <div class="gold-bar"></div>
+          <div class="positioning__quote">
+            องค์กรที่ก้าวหน้า<br>ในยุค AI ต้องการ<br><em>มากกว่า Workshop</em>
+          </div>
+          <p style="margin-top:24px; font-size:15px; color:var(--text-muted); line-height:1.8;">
+            พนักงาน 50,000+ คนที่ผ่านมือเราบอกตรงกันว่า: การเรียนรู้ที่เปลี่ยนได้จริงต้องออกแบบมาเพื่อพวกเขา ไม่ใช่แค่ "content ดีๆ ที่หาได้ทั่วไป"
+          </p>
+        </div>
+        <div>
+          <p class="positioning__body">
+            SolutionsIMPACT เป็น <strong>Transformation Consulting Firm</strong> ที่ทำงานเคียงข้างองค์กรตั้งแต่ต้นจนจบ — จาก Diagnosis ไปถึง Delivery และ Measurement เราไม่ได้ขายหลักสูตร เราออกแบบระบบที่ทำให้คนเปลี่ยนได้จริง
+          </p>
+          <p class="positioning__body" style="margin-top:16px">
+            ด้วย I.M.P.A.C.T. Model™ ที่พัฒนากว่า 12 ปี ทุก engagement ของเราเชื่อมกับ business goal จริงๆ มี Data Report ที่ HR นำเสนอผู้บริหารได้ทันที และมี follow-up 90 วันเพื่อให้แน่ใจว่าการเปลี่ยนแปลงเกิดขึ้นจริง
+          </p>
+          <div style="display:flex;flex-direction:column;gap:14px;margin:28px 0;">
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="background:var(--gold);color:var(--navy);font-weight:700;font-size:11px;padding:4px 10px;border-radius:4px;flex-shrink:0;margin-top:3px;font-family:var(--font-head)">CONSULTING</span>
+              <div><strong>วิเคราะห์ก่อนเสมอ</strong> — ทำ Organizational Diagnosis เพื่อเข้าใจ root cause จริงก่อนออกแบบทุกครั้ง ไม่ใช่ copy-paste โปรแกรมเดิม</div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="background:var(--navy);color:var(--white);font-weight:700;font-size:11px;padding:4px 10px;border-radius:4px;flex-shrink:0;margin-top:3px;font-family:var(--font-head)">OUTCOME</span>
+              <div><strong>วัดผลด้วย KPI จริง</strong> — ทุก engagement มี Behavior Change Report ที่ 30, 60, 90 วัน ไม่ใช่แค่ satisfaction score หลัง session</div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <span style="background:var(--gold);color:var(--navy);font-weight:700;font-size:11px;padding:4px 10px;border-radius:4px;flex-shrink:0;margin-top:3px;font-family:var(--font-head)">PARTNER</span>
+              <div><strong>อยู่กับคุณระยะยาว</strong> — 70% ของลูกค้าของเรากลับมาทำงานซ้ำ เพราะเราทำงานเหมือน partner ไม่ใช่ vendor</div>
+            </div>
+          </div>
+          <a href="#" class="btn btn--ghost">ดูกระบวนการทำงานของเรา <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · SOLUTIONS / SERVICES -->
+  <section class="solutions section">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Solutions</div>
+        <h2 class="section-header__title">เราช่วยองค์กรคุณ<br>ได้ในแบบไหน?</h2>
+        <p class="section-header__lead">ตั้งแต่ Inhouse Transformation ระดับองค์กร ไปจนถึง Public Programs สำหรับ leader รายบุคคล — เราออกแบบทุกอย่างให้ตรงกับ context ของคุณ</p>
+      </div>
+      <div class="solutions__grid">
+
+        <div class="solution-card solution-card--featured">
+          <div class="solution-card__icon">🏢</div>
+          <div class="solution-card__title">Inhouse Transformation</div>
+          <p class="solution-card__text">Consulting Engagement แบบ end-to-end สำหรับ HR และผู้บริหาร — ตั้งแต่ Diagnosis จนถึง Measurement</p>
+          <ul style="list-style:none;padding:0;margin:16px 0 24px;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Organizational Diagnosis ก่อนออกแบบทุกครั้ง — รู้ root cause จริง</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Flagship: AI Hackathon &amp; Bootcamp, LeaderShift™, Transformative Trainer™</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Data Impact Report ให้ HR นำเสนอผู้บริหารได้ทันที</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Follow-up coaching และ support ครบ 90 วัน post-program</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);flex-shrink:0;font-size:10px;margin-top:5px">●</span> รองรับ 20–500+ คน ทุก industry</li>
+          </ul>
+          <a href="#" class="solution-card__link" style="color:var(--gold);">ออกแบบโปรแกรมสำหรับองค์กรคุณ →</a>
+        </div>
+
+        <div class="solution-card">
+          <div class="solution-card__icon">🌐</div>
+          <div class="solution-card__title">Public Programs</div>
+          <p class="solution-card__text">สำหรับ Leader, HR, และ Professional ที่ต้องการพัฒนาทักษะและนำไปใช้ได้จริงทันที — เรียนร่วมกับ Peers จากหลากหลาย Industry</p>
+          <ul style="list-style:none;padding:0;margin:16px 0 24px;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> 10+ หัวข้อ: AI for Work, Leadership, Change Management, Productivity</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Format 1–3 วัน — เข้มข้นและ practical ไม่ใช่ lecture</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Action Plan ที่เอาไปใช้ได้ใน 24 ชั่วโมงหลังจบ</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> Certificate + Access Alumni Community 10,000+ คน</li>
+          </ul>
+          <a href="#" class="solution-card__link">ดูรอบที่เปิดรับ →</a>
+        </div>
+
+        <div class="solution-card">
+          <div class="solution-card__icon">🤖</div>
+          <div class="solution-card__title">AI &amp; People Strategy</div>
+          <p class="solution-card__text">สำหรับ C-Level และเจ้าของธุรกิจ ที่ต้องการให้ทีมใช้ AI ได้จริง และวาง People Strategy ให้ชนะในยุค disruption</p>
+          <ul style="list-style:none;padding:0;margin:16px 0 24px;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> AI Readiness Assessment — รู้ชัดว่าองค์กรอยู่ตรงไหน</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> AI Hackathon &amp; Bootcamp — สร้าง use case จริงใน 2 วัน</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> People Strategy Roadmap สำหรับ 12–24 เดือน</li>
+            <li style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);flex-shrink:0;font-size:10px;margin-top:5px">●</span> ROI ชัดเจน วัดผลได้ภายใน 90 วัน</li>
+          </ul>
+          <a href="#" class="solution-card__link">วาง AI Strategy กับเรา →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · I.M.P.A.C.T. MODEL TEASER -->
+  <section class="framework-teaser section">
+    <div class="framework-teaser__ripple">
+      <img src="Ripple 2.png" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="container">
+      <div class="framework-teaser__grid">
+        <div>
+          <div class="eyebrow eyebrow--white">Proprietary Methodology</div>
+          <h2 style="color:var(--white); margin-bottom:20px">I.M.P.A.C.T. Model™<br>ระบบเปลี่ยนองค์กร<br>ที่พิสูจน์แล้ว</h2>
+          <p style="color:rgba(255,255,255,.75); font-size:17px; line-height:1.8; margin-bottom:24px">
+            ทำไม 70% ของ program ทั่วไปถึงไม่เกิดผลถาวร? เพราะออกแบบมาเพื่อ "สอน" ไม่ใช่เพื่อ "เปลี่ยน" I.M.P.A.C.T. Model™ คือ framework 6 มิติที่เราพัฒนาจากประสบการณ์ 500+ องค์กร เพื่อให้การเปลี่ยนแปลงเกิดขึ้นจริงและยั่งยืน
+          </p>
+          <div class="impact-letters">
+            <div class="impact-letter"><div class="impact-letter__char">I</div><div class="impact-letter__word">Insight</div></div>
+            <div class="impact-letter"><div class="impact-letter__char">M</div><div class="impact-letter__word">Mastery</div></div>
+            <div class="impact-letter"><div class="impact-letter__char">P</div><div class="impact-letter__word">Practicality</div></div>
+            <div class="impact-letter"><div class="impact-letter__char">A</div><div class="impact-letter__word">Adaptability</div></div>
+            <div class="impact-letter"><div class="impact-letter__char">C</div><div class="impact-letter__word">Connection</div></div>
+            <div class="impact-letter"><div class="impact-letter__char">T</div><div class="impact-letter__word">Transformation</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:28px 0 36px;">
+            <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);">
+              <div style="font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px;">I · Insight</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;">วิเคราะห์ root cause จริงก่อนออกแบบ — ไม่ใช่แค่อาการผิวเผิน</div>
+            </div>
+            <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);">
+              <div style="font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px;">M · Mastery</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;">ฝึกจนทำได้จริง ไม่ใช่แค่รู้จักในทฤษฎี</div>
+            </div>
+            <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);">
+              <div style="font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px;">P · Practicality</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;">ทุก session มี Action Plan เอาไปทำได้ใน 24 ชั่วโมง</div>
+            </div>
+            <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);">
+              <div style="font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px;">A · Adaptability</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;">ปรับตาม context, industry, และ KPI ขององค์กรคุณ</div>
+            </div>
+            <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);">
+              <div style="font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px;">C · Connection</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;">สร้าง internal community ที่ขับเคลื่อนการเปลี่ยนแปลงต่อเนื่อง</div>
+            </div>
+            <div style="background:rgba(255,198,0,.15);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,198,0,.3);">
+              <div style="font-family:var(--font-head);font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px;">T · Transformation</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;">วัด behavioral &amp; business change ที่ 30, 60, 90 วัน</div>
+            </div>
+          </div>
+          <a href="#" class="btn btn--primary">ดู I.M.P.A.C.T. Model™ เต็ม <span class="btn-arrow">→</span></a>
+        </div>
+        <div class="impact-visual">
+          <div class="impact-ring impact-ring-3"></div>
+          <div class="impact-ring impact-ring-2"></div>
+          <div class="impact-ring impact-ring-1"></div>
+          <div class="impact-core">IMPACT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · RESULTS / PROOF -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">ผลลัพธ์จริง</div>
+        <h2 class="section-header__title">ตัวเลขที่พิสูจน์ได้<br>จากองค์กรจริง</h2>
+        <p class="section-header__lead">เราไม่ได้แค่สัญญา — เรามีข้อมูลจาก 500+ engagements ที่ track ผลลัพธ์จริงในระยะยาว</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;">
+        <div style="background:var(--bg);border-radius:5px;padding:36px;border-left:4px solid var(--gold);">
+          <div style="font-family:var(--font-head);font-size:52px;font-weight:800;color:var(--navy);line-height:1;">+40%</div>
+          <div style="font-size:16px;font-weight:700;color:var(--navy);margin:10px 0 6px;">Team Productivity</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">ค่าเฉลี่ยของทีมที่ผ่าน AI Hackathon &amp; Bootcamp — วัดจาก output และ efficiency จริงใน 90 วันหลัง program</div>
+        </div>
+        <div style="background:var(--navy);border-radius:5px;padding:36px;">
+          <div style="font-family:var(--font-head);font-size:52px;font-weight:800;color:var(--gold);line-height:1;">90 วัน</div>
+          <div style="font-size:16px;font-weight:700;color:var(--white);margin:10px 0 6px;">เห็นผลลัพธ์จริง</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.6;">โดยเฉลี่ย องค์กรที่ร่วมงานเห็น measurable behavior change ภายใน 1 quarter — วัดโดย Behavior Change Assessment</div>
+        </div>
+        <div style="background:var(--bg);border-radius:5px;padding:36px;border-left:4px solid var(--navy);">
+          <div style="font-family:var(--font-head);font-size:52px;font-weight:800;color:var(--navy);line-height:1;">70%</div>
+          <div style="font-size:16px;font-weight:700;color:var(--navy);margin:10px 0 6px;">กลับมาทำต่อ</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">ของลูกค้าเลือกทำงานกับเราซ้ำหรือต่อยอด engagement — ตัวบ่งชี้ที่ดีที่สุดของคุณค่าที่เราสร้าง</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;">
+        <div style="background:var(--navy);border-radius:20px;padding:32px;display:flex;gap:20px;align-items:flex-start;">
+          <div style="font-size:36px;flex-shrink:0;line-height:1;margin-top:4px;">🏦</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:8px;">Case Study · ธนาคารชั้นนำ</div>
+            <div style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;line-height:1.3;">ทีม 120 คน นำ AI เข้างานจริงภายใน 60 วัน</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;">
+              <strong style="color:rgba(255,255,255,.5)">Challenge:</strong> ทีมมี AI tools แต่ไม่รู้จะ apply กับงานจริงอย่างไร<br>
+              <strong style="color:rgba(255,255,255,.5)">Solution:</strong> AI Hackathon 2 วัน + Team Coaching 4 สัปดาห์<br>
+              <strong style="color:rgba(255,255,255,.5)">Result:</strong> ลด manual work <strong style="color:var(--gold)">30%</strong>, สร้าง AI Champion 15 คนที่ขับเคลื่อนต่อได้เอง
+            </div>
+            <a href="#" style="font-size:13px;font-weight:600;color:var(--gold);">อ่าน Case Study เต็ม →</a>
+          </div>
+        </div>
+        <div style="background:var(--navy);border-radius:20px;padding:32px;display:flex;gap:20px;align-items:flex-start;">
+          <div style="font-size:36px;flex-shrink:0;line-height:1;margin-top:4px;">⚡</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:8px;">Case Study · กลุ่มพลังงานชั้นนำ</div>
+            <div style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;line-height:1.3;">เปลี่ยน Leadership Culture ทั้งองค์กรใน 6 เดือน</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;">
+              <strong style="color:rgba(255,255,255,.5)">Challenge:</strong> Manager layer ไม่สามารถ retain talent และ drive performance ได้<br>
+              <strong style="color:rgba(255,255,255,.5)">Solution:</strong> LeaderShift™ Program สำหรับ Manager 80 คน + Exec Coaching<br>
+              <strong style="color:rgba(255,255,255,.5)">Result:</strong> Employee Engagement เพิ่ม <strong style="color:var(--gold)">28%</strong> (Gallup Q12), Turnover ลด 15%
+            </div>
+            <a href="#" style="font-size:13px;font-weight:600;color:var(--gold);">อ่าน Case Study เต็ม →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · 4 AUDIENCE PATHS -->
+  <section class="section" style="background:var(--bg);">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">คุณเป็นใคร?</div>
+        <h2 class="section-header__title">เราช่วยแต่ละคน<br>ในแบบที่แตกต่างกัน</h2>
+        <p class="section-header__lead">ไม่ว่าคุณจะเป็น HR ที่ต้องการ solution ที่พิสูจน์ได้, ผู้บริหารที่อยากเห็น ROI ชัด, เจ้าของธุรกิจที่ต้องการให้ทีม perform, หรือ Professional ที่อยากก้าวหน้าในยุค AI</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:56px;">
+
+        <!-- HR Director -->
+        <div style="background:var(--white);border-radius:20px;padding:36px;border:1px solid var(--border);position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);"></div>
+          <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+            <div style="width:52px;height:52px;background:#fef9e7;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📋</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">HR Director / L&amp;D Manager</div>
+              <div style="font-family:var(--font-head);font-size:19px;font-weight:700;color:var(--navy);line-height:1.3">"อยากได้ Partner ที่ผู้บริหารเห็น ROI ได้จริง"</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">
+            คุณเหนื่อยกับการจัด training แล้วได้แค่ feedback form — เราช่วย HR ออกแบบโปรแกรมที่มี Impact Report ชัดเจน พิสูจน์ ROI กับผู้บริหารได้จริง และทีมนำไปใช้ได้จริงหลังจบ ไม่ใช่แค่ได้ certificate
+          </p>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Organizational Diagnosis ก่อนเสนอโปรแกรมทุกครั้ง</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Data Report ที่นำเสนอ Board ได้ใน 5 นาที</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Annual Training Plan ที่เชื่อมกับ Business KPI</div>
+          </div>
+          <a href="#" class="btn btn--outline" style="font-size:14px;padding:12px 24px;">ดู Inhouse Solutions →</a>
+        </div>
+
+        <!-- C-Level -->
+        <div style="background:var(--navy);border-radius:20px;padding:36px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);"></div>
+          <div style="position:absolute;right:-40px;bottom:-40px;width:200px;height:200px;opacity:.07;">
+            <img src="Ripple 2.png" alt="" onerror="this.style.display='none'">
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+            <div style="width:52px;height:52px;background:rgba(255,198,0,.15);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🎯</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">C-Level / Executive</div>
+              <div style="font-family:var(--font-head);font-size:19px;font-weight:700;color:var(--white);line-height:1.3">"อยากให้ทีม Perform ได้ในยุค AI Disruption"</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:20px;">
+            คุณเห็น AI wave ที่กำลังมา และรู้ว่า organization ต้องเปลี่ยน — เราช่วย C-suite วาง People Strategy, สร้าง AI-Ready Culture, และนำ LeaderShift™ program เพื่อให้ leadership layer พร้อมนำองค์กรผ่าน disruption
+          </p>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+            <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> AI &amp; People Strategy Roadmap 12–24 เดือน</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> LeaderShift™ Beyond AI — สำหรับ Executive team</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.8);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Board-level Impact Dashboard ทุกไตรมาส</div>
+          </div>
+          <a href="#" class="btn btn--primary" style="font-size:14px;padding:12px 24px;">ดู C-Suite Solutions →</a>
+        </div>
+
+        <!-- Business Owner -->
+        <div style="background:var(--white);border-radius:20px;padding:36px;border:1px solid var(--border);position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--navy);"></div>
+          <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+            <div style="width:52px;height:52px;background:#f0f4ff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🚀</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);margin-bottom:4px;">Business Owner / SME</div>
+              <div style="font-family:var(--font-head);font-size:19px;font-weight:700;color:var(--navy);line-height:1.3">"อยากให้ทีมเล็กๆ แข่งขันได้เหมือนองค์กรใหญ่"</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">
+            ทีมของคุณมีไม่มาก แต่ต้องทำได้เยอะ — เราช่วย SME และ Startup นำ AI tools มาเพิ่ม productivity จริง ไม่ต้องจ้างคนเพิ่ม และสร้าง leadership pipeline สำหรับการเติบโต
+          </p>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);font-weight:700;flex-shrink:0">✓</span> AI Hackathon สำหรับทีม 10–50 คน</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);font-weight:700;flex-shrink:0">✓</span> ลด operational cost โดยไม่ต้องจ้างคนเพิ่ม</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--navy);font-weight:700;flex-shrink:0">✓</span> ออกแบบ People System ที่ scale ตามธุรกิจ</div>
+          </div>
+          <a href="#" class="btn btn--outline" style="font-size:14px;padding:12px 24px;">ดู SME Solutions →</a>
+        </div>
+
+        <!-- Individual -->
+        <div style="background:var(--white);border-radius:20px;padding:36px;border:1px solid var(--border);position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);"></div>
+          <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+            <div style="width:52px;height:52px;background:#fef9e7;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">💡</div>
+            <div>
+              <div style="font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Individual Professional</div>
+              <div style="font-family:var(--font-head);font-size:19px;font-weight:700;color:var(--navy);line-height:1.3">"อยากพัฒนาตัวเองให้ก้าวหน้าในยุค AI"</div>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:20px;">
+            คุณรู้ว่า AI กำลังเปลี่ยน landscape ของทุก industry — เราช่วยให้คุณเรียนรู้ทักษะที่ market ต้องการจริงๆ และสร้าง professional brand ในฐานะ leader ที่ navigate ยุค disruption ได้
+          </p>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Public Programs เปิดรับทุกเดือน</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Certification ที่ HR และ recruiter จดจำ</div>
+            <div style="display:flex;gap:10px;font-size:13px;color:var(--text-2);"><span style="color:var(--gold);font-weight:700;flex-shrink:0">✓</span> Alumni community 10,000+ คน</div>
+          </div>
+          <a href="#" class="btn btn--outline" style="font-size:14px;padding:12px 24px;">ดู Public Programs →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · SOCIAL PROOF: STATS + TESTIMONIALS -->
+  <section class="social-proof section section--white">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-block">
+          <div class="stat-block__num">500<span class="stat-block__unit">+</span></div>
+          <div class="stat-block__label">องค์กรที่เราเป็น Transformation Partner</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-block__num">12<span class="stat-block__unit">+</span></div>
+          <div class="stat-block__label">ปีพัฒนา I.M.P.A.C.T. Model™</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-block__num">50K<span class="stat-block__unit">+</span></div>
+          <div class="stat-block__label">ผู้เรียนที่เปลี่ยนพฤติกรรมได้จริง</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-block__num">4.9<span class="stat-block__unit">/5</span></div>
+          <div class="stat-block__label">NPS Score — สูงสุดในอุตสาหกรรม</div>
+        </div>
+      </div>
+
+      <div class="section-header section-header--center" style="margin:64px auto 48px;">
+        <div class="eyebrow">เสียงจากลูกค้า</div>
+        <h2 class="section-header__title">ผลลัพธ์ที่พิสูจน์ได้<br>จากองค์กรจริง</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">ก่อนหน้านี้จัด training ทุกปีแต่ไม่เห็นผลจริง พอมาทำกับ SolutionsIMPACT ทีม HR ได้ Data Report ชัดเจน ผู้บริหารเห็น ROI และพนักงานนำไปใช้ได้จริงใน 30 วัน ไม่ใช่แค่บอกว่า "ชอบมาก"</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">วป</div>
+            <div>
+              <div class="testimonial-card__name">วรพงศ์ ประสิทธิ์</div>
+              <div class="testimonial-card__role">CHRO, กลุ่มบริษัทพลังงานชั้นนำ</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">เราต้องการให้ทีม 80 คนใช้ AI ได้จริง ไม่ใช่แค่รู้จัก SolutionsIMPACT วาง roadmap ให้ ทำ workshop ที่ลงมือจริง ภายใน 90 วันทีมเรา save เวลาได้กว่า 20% ต่อสัปดาห์ คุ้มค่ากว่าที่คาดไว้มาก</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">สม</div>
+            <div>
+              <div class="testimonial-card__name">สมชาย มณีรัตน์</div>
+              <div class="testimonial-card__role">COO, กลุ่มธนาคารชั้นนำ</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-card__quote">LeaderShift™ program เปลี่ยน manager ของเราจากคน "สั่งงาน" เป็น "โค้ช" จริงๆ ใน 6 เดือน Employee engagement ขึ้น 28% — และที่สำคัญกว่าคือ manager เองก็ happy กับงานมากขึ้น</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">กน</div>
+            <div>
+              <div class="testimonial-card__name">กนกวรรณ ศิริพงษ์</div>
+              <div class="testimonial-card__role">Chief People Officer, Retail Group</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 09 · CTA BAND -->
+  <section class="cta-band">
+    <div class="cta-band__ripple">
+      <img src="Ripple yellow 2.png" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="container">
+      <div class="cta-band__content">
+        <div class="eyebrow eyebrow--navy">พร้อมเริ่มต้น?</div>
+        <h2>คุย 30 นาที<br>เพื่อเปลี่ยนองค์กรของคุณ</h2>
+        <p>ไม่มีข้อผูกมัด ไม่มีการขาย — แค่คุยกันว่าองค์กรของคุณต้องการอะไร และเราช่วยได้อย่างไร ทีม Transformation Consultant พร้อมรับฟังคุณ</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="#" class="btn btn--outline">จองเวลาคุย 30 นาที →</a>
+          <a href="#" class="btn btn--outline" style="border-color:rgba(0,37,84,.35);">ดูโปรแกรมทั้งหมด</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Solutions<em>IMPACT</em></div>
+          <p class="footer__tagline">Transformation Consulting สำหรับองค์กรที่ต้องการผลลัพธ์จริง — ตั้งแต่ Diagnosis จนถึง Measurement</p>
+          <div style="font-size:13px; color:rgba(255,255,255,.4); margin-top:16px;">
+            📍 กรุงเทพมหานคร, ประเทศไทย<br>
+            📧 hello@solutionsimpact.com<br>
+            📞 02-xxx-xxxx
+          </div>
+        </div>
+        <div class="footer__col">
+          <h5>Solutions</h5>
+          <ul class="footer__links">
+            <li><a href="#">Inhouse Transformation</a></li>
+            <li><a href="#">Public Programs</a></li>
+            <li><a href="#">AI &amp; People Strategy</a></li>
+            <li><a href="#">Leadership Advisory</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Company</h5>
+          <ul class="footer__links">
+            <li><a href="#">I.M.P.A.C.T. Framework</a></li>
+            <li><a href="#">TPS™ System</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Insights / Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Connect</h5>
+          <ul class="footer__links">
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Line Official</a></li>
+            <li><a href="#">Podcast</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 SolutionsIMPACT. All rights reserved.</span>
+        <span>Privacy Policy · Terms of Service</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-home -->
+
+
+<!-- ============================================================
+     PAGE: INHOUSE TRAINING
+     ============================================================ -->
+<div id="page-inhouse" class="page">
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__logo">Solutions<em>IMPACT</em></div>
+      <ul class="nav__links">
+        <li>
+          <a href="#" style="color:var(--navy); font-weight:700">บริการ <span class="chevron">▾</span></a>
+          <div class="nav__mega">
+            <div class="nav__mega-cols">
+              <div class="nav__mega-col">
+                <h6>Inhouse Training</h6>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🤖</div>
+                  <div><span class="nav__mega-title">AI for Business &amp; Productivity</span><span class="nav__mega-desc">ปรับใช้ AI ในทุก Level ขององค์กร</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🎯</div>
+                  <div><span class="nav__mega-title">Future Leadership &amp; Management</span><span class="nav__mega-desc">ผู้นำในยุค AI Disruption</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">📱</div>
+                  <div><span class="nav__mega-title">Digital Skills &amp; Literacy</span><span class="nav__mega-desc">ทักษะดิจิทัลที่องค์กรต้องการ</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">💬</div>
+                  <div><span class="nav__mega-title">Communication &amp; Soft Skills</span><span class="nav__mega-desc">Presentation, EQ &amp; Teamwork</span></div>
+                </a>
+              </div>
+              <div class="nav__mega-col">
+                <h6>More Solutions</h6>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🔍</div>
+                  <div><span class="nav__mega-title">Consumer Insight &amp; Trends</span><span class="nav__mega-desc">Data-driven Market Understanding</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">⚡</div>
+                  <div><span class="nav__mega-title">Agile &amp; Project Management</span><span class="nav__mega-desc">OKR, Scrum &amp; Delivery Excellence</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">👥</div>
+                  <div><span class="nav__mega-title">HR &amp; Talent Development</span><span class="nav__mega-desc">Recruit, Retain &amp; Develop</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🌐</div>
+                  <div><span class="nav__mega-title">Public Programs</span><span class="nav__mega-desc">คอร์สเปิดรับสมัครทุกเดือน</span></div>
+                </a>
+              </div>
+            </div>
+            <div class="nav__mega-cta">
+              <div class="nav__mega-cta-text">
+                <h5>💬 ออกแบบโปรแกรมเฉพาะสำหรับองค์กรคุณ</h5>
+                <p>ปรึกษา Solution Designer ฟรี · ตอบภายใน 24 ชั่วโมง</p>
+              </div>
+              <a href="#" class="btn btn--primary">นัดคุยฟรี →</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#">I.M.P.A.C.T.™</a></li>
+        <li><a href="#">Insights</a></li>
+        <li><a href="#">เกี่ยวกับเรา</a></li>
+        <li><a href="#" class="nav__cta">ปรึกษาฟรี →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="inhouse-hero">
+    <div class="inhouse-hero__ripple">
+      <img src="Ripple 2.png" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 420px; gap:80px; align-items:center">
+        <div class="inhouse-hero__content">
+          <div class="inhouse-hero__tag">⚡ Organizational Transformation Engagement</div>
+          <h1>ออกแบบ<strong> AI & Future Skills</strong><br>เฉพาะสำหรับองค์กรคุณ</h1>
+          <p>Consulting Engagement แบบ end-to-end — เราทำงานเคียงข้างองค์กรตั้งแต่ Diagnosis, Design, Delivery จนถึง Measurement of Business Impact</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap">
+            <a href="#" class="btn btn--primary">ขอใบเสนอราคา <span class="btn-arrow">→</span></a>
+            <a href="#" class="btn btn--outline-white">ดูโปรแกรมทั้งหมด</a>
+          </div>
+        </div>
+        <div class="inhouse-hero__form">
+          <h4>💬 ปรึกษาทีมเรา ฟรี</h4>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <input class="form-input" placeholder="ชื่อ-นามสกุล" style="padding:12px 16px">
+            <input class="form-input" placeholder="อีเมลบริษัท" style="padding:12px 16px">
+            <input class="form-input" placeholder="ชื่อบริษัท / จำนวนพนักงาน" style="padding:12px 16px">
+            <a href="#" class="btn btn--primary" style="justify-content:center">นัดคุยฟรี 30 นาที →</a>
+          </div>
+          <p style="font-size:11px; color:rgba(255,255,255,.4); margin-top:12px; text-align:center">ไม่มีข้อผูกมัด · ตอบภายใน 24 ชั่วโมง</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="inhouse-stats">
+    <div class="container">
+      <div class="inhouse-stats__grid">
+        <div class="inhouse-stat">
+          <div class="inhouse-stat__num">200<span class="unit">K+</span></div>
+          <div class="inhouse-stat__label">ผู้เข้าร่วมต่อปี</div>
+        </div>
+        <div class="inhouse-stat">
+          <div class="inhouse-stat__num">500<span class="unit">+</span></div>
+          <div class="inhouse-stat__label">องค์กรที่เลือกเรา</div>
+        </div>
+        <div class="inhouse-stat">
+          <div class="inhouse-stat__num">12<span class="unit">+</span></div>
+          <div class="inhouse-stat__label">ปีประสบการณ์</div>
+        </div>
+        <div class="inhouse-stat">
+          <div class="inhouse-stat__num">4.9<span class="unit">/5</span></div>
+          <div class="inhouse-stat__label">NPS Score เฉลี่ย</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process section section--white">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">กระบวนการทำงาน</div>
+        <h2 class="section-header__title">จาก Discovery สู่ Transformation จริง</h2>
+      </div>
+      <div class="process__steps">
+        <div class="process-step">
+          <div class="process-step__num">01</div>
+          <div class="process-step__title">Discover</div>
+          <p class="process-step__text">ทำ Organizational Diagnosis เพื่อเข้าใจ gap, culture, และเป้าหมายจริง</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">02</div>
+          <div class="process-step__title">Design</div>
+          <p class="process-step__text">ออกแบบหลักสูตรและ journey ที่ตรงกับบริบทและ KPI ขององค์กร</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">03</div>
+          <div class="process-step__title">Deliver</div>
+          <p class="process-step__text">ดำเนินการโดย facilitator ระดับ senior พร้อม real-world exercises</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">04</div>
+          <div class="process-step__title">Sustain</div>
+          <p class="process-step__text">ติดตามผล วัด impact และให้ support ต่อเนื่อง 90 วัน post-training</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories section">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Training Categories</div>
+        <h2 class="section-header__title">ครอบคลุมทุก Capability ที่องค์กรต้องการ</h2>
+        <p class="section-header__lead">8 หมวดหมู่หลักสูตรออกแบบมาเพื่อตอบโจทย์ธุรกิจยุค AI อย่างครบวงจร</p>
+      </div>
+      <div class="categories__grid">
+        <div class="cat-card">
+          <div class="cat-card__icon">🤖</div>
+          <div class="cat-card__title">AI for Business</div>
+          <div class="cat-card__desc">ปรับใช้ AI ใน workflow จริง ทุก level ตั้งแต่พนักงานถึง C-suite</div>
+          <div class="cat-card__count">9 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">🎯</div>
+          <div class="cat-card__title">Future Leadership</div>
+          <div class="cat-card__desc">พัฒนาผู้นำยุค AI: decision-making, change leadership, resilience</div>
+          <div class="cat-card__count">6 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">📱</div>
+          <div class="cat-card__title">Digital Skills</div>
+          <div class="cat-card__desc">Digital literacy, data literacy, martech &amp; productivity tools</div>
+          <div class="cat-card__count">5 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">🔍</div>
+          <div class="cat-card__title">Consumer Insight</div>
+          <div class="cat-card__desc">Customer behavior, trend analysis, data-driven marketing</div>
+          <div class="cat-card__count">4 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">⚡</div>
+          <div class="cat-card__title">Agile &amp; Project Mgmt</div>
+          <div class="cat-card__desc">OKR implementation, Scrum, delivery excellence</div>
+          <div class="cat-card__count">4 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">💬</div>
+          <div class="cat-card__title">Communication &amp; Soft Skills</div>
+          <div class="cat-card__desc">Executive presentation, storytelling, EQ &amp; influence</div>
+          <div class="cat-card__count">7 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">👥</div>
+          <div class="cat-card__title">HR &amp; Talent Dev</div>
+          <div class="cat-card__desc">Modern HR, talent pipeline, internal trainer, L&amp;D strategy</div>
+          <div class="cat-card__count">5 หลักสูตร</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card__icon">🌱</div>
+          <div class="cat-card__title">Sustainable &amp; CSR</div>
+          <div class="cat-card__desc">ESG awareness, sustainable business, measurable impact</div>
+          <div class="cat-card__count">3 หลักสูตร</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us section section--white">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Our Difference</div>
+        <h2 class="section-header__title">Transformation Partner — ไม่ใช่แค่ Training Agency</h2>
+        <p class="section-header__lead">ความแตกต่างที่ทำให้องค์กรชั้นนำเลือกเรา เมื่อต้องการผลลัพธ์จริง</p>
+      </div>
+      <div class="why-table">
+        <div class="why-row why-header">
+          <div class="why-cell why-cell--topic" style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-faint); background:#f6f7f8">สิ่งที่สำคัญ</div>
+          <div class="why-cell h-us" style="background:var(--navy); color:var(--white); font-family:var(--font-head); font-size:13px; font-weight:700">★&nbsp; SolutionsIMPACT</div>
+          <div class="why-cell h-other" style="background:#f6f7f8; color:var(--text-faint); font-family:var(--font-head); font-size:12px; font-weight:700">Training Vendor ทั่วไป</div>
+        </div>
+        <div class="why-row">
+          <div class="why-cell why-cell--topic">เริ่มต้นด้วย</div>
+          <div class="why-cell why-cell--us">Organizational Diagnosis &amp; Needs Assessment</div>
+          <div class="why-cell why-cell--other">Catalog หลักสูตรที่มีอยู่แล้ว</div>
+        </div>
+        <div class="why-row">
+          <div class="why-cell why-cell--topic">วิธีออกแบบ</div>
+          <div class="why-cell why-cell--us">Custom-built ตาม Business KPI ขององค์กร</div>
+          <div class="why-cell why-cell--other">Off-the-shelf content ปรับชื่อบริษัท</div>
+        </div>
+        <div class="why-row">
+          <div class="why-cell why-cell--topic">การวัดผล</div>
+          <div class="why-cell why-cell--us">Business Impact: ROI &amp; KPI ที่ 30/60/90 วัน</div>
+          <div class="why-cell why-cell--other">Satisfaction survey หลัง training</div>
+        </div>
+        <div class="why-row">
+          <div class="why-cell why-cell--topic">หลัง Training จบ</div>
+          <div class="why-cell why-cell--us">Support ต่อเนื่อง + Behavior change tracking</div>
+          <div class="why-cell why-cell--other">ส่ง certificate แล้วจบ</div>
+        </div>
+        <div class="why-row">
+          <div class="why-cell why-cell--topic">บทบาทของเรา</div>
+          <div class="why-cell why-cell--us">Transformation Partner ที่เข้าใจธุรกิจ</div>
+          <div class="why-cell why-cell--other">ผู้ขายบริการ training</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs section">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Highlight Programs</div>
+        <h2 class="section-header__title">โปรแกรมเด่นประจำปี 2026</h2>
+        <p class="section-header__lead">Flagship programs ที่องค์กรชั้นนำเลือกใช้มากที่สุด</p>
+      </div>
+      <div class="program-cards">
+        <div class="program-card">
+          <div class="program-card__header">
+            <div style="position:absolute; right:-30px; bottom:-30px; width:140px; height:140px; opacity:.1">
+              <img src="Ripple 2.png" alt="" onerror="this.style.display='none'">
+            </div>
+            <div class="program-card__tag">🔥 MOST POPULAR</div>
+            <div class="program-card__name">AI Hackathon &amp; Bootcamp</div>
+            <div class="program-card__sub">สร้าง AI Use Cases จริงใน 2 วัน</div>
+          </div>
+          <div class="program-card__body">
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">ทีมสร้าง AI prototype ที่ใช้ได้จริงในงาน</span>
+            </div>
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">ไม่ต้องมีพื้นฐาน coding — มุ่งที่ business logic</span>
+            </div>
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">Coach ประจำทีม + follow-up 30 วัน</span>
+            </div>
+          </div>
+          <div class="program-card__footer">
+            <div class="program-card__duration"><strong>2 วัน</strong> · 20-80 คน</div>
+            <a href="#" class="btn btn--ghost">ดูรายละเอียด →</a>
+          </div>
+        </div>
+
+        <div class="program-card">
+          <div class="program-card__header">
+            <div class="program-card__tag">SIGNATURE</div>
+            <div class="program-card__name">Transformative Trainer™ Certification</div>
+            <div class="program-card__sub">สร้าง Internal Trainer ระดับ World-class</div>
+          </div>
+          <div class="program-card__body">
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">ผลิต Internal Trainer ที่สร้าง engagement จริง</span>
+            </div>
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">ใช้ neuroscience-based learning design</span>
+            </div>
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">Practicum + Certification โดย SolutionsIMPACT</span>
+            </div>
+          </div>
+          <div class="program-card__footer">
+            <div class="program-card__duration"><strong>3 วัน</strong> · 15-30 คน</div>
+            <a href="#" class="btn btn--ghost">ดูรายละเอียด →</a>
+          </div>
+        </div>
+
+        <div class="program-card">
+          <div class="program-card__header">
+            <div class="program-card__tag">LEADERSHIP</div>
+            <div class="program-card__name">LeaderShift™ Beyond AI</div>
+            <div class="program-card__sub">ผู้นำในยุค AI Disruption</div>
+          </div>
+          <div class="program-card__body">
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">ผู้นำเข้าใจ AI และตัดสินใจได้อย่างมั่นใจ</span>
+            </div>
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">สร้าง AI-ready culture ในองค์กร</span>
+            </div>
+            <div class="program-card__feat">
+              <span class="program-card__feat-icon">✦</span>
+              <span class="program-card__feat-text">Strategic roadmap สำหรับ C-suite</span>
+            </div>
+          </div>
+          <div class="program-card__footer">
+            <div class="program-card__duration"><strong>1-2 วัน</strong> · Executive group</div>
+            <a href="#" class="btn btn--ghost">ดูรายละเอียด →</a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:32px">
+        <a href="#" class="btn btn--outline">ดูโปรแกรมทั้งหมด 8+ หลักสูตร →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section class="clients">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">องค์กรที่เลือกเรา</div>
+        <h2 class="section-header__title">ไว้วางใจโดยองค์กรชั้นนำ</h2>
+      </div>
+      <div class="clients__grid">
+        <div class="client-logo">SCG</div>
+        <div class="client-logo">KBANK</div>
+        <div class="client-logo">PTT GROUP</div>
+        <div class="client-logo">CENTRAL RETAIL</div>
+        <div class="client-logo">BDMS</div>
+        <div class="client-logo">AIS</div>
+        <div class="client-logo">THAIBEV</div>
+        <div class="client-logo">CP ALL</div>
+        <div class="client-logo">BANGKOK BANK</div>
+        <div class="client-logo">DTAC / TRUE</div>
+        <div class="client-logo">SIAM CEMENT</div>
+        <div class="client-logo">GULF ENERGY</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="cta-band__ripple">
+      <img src="Ripple yellow 2.png" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="container">
+      <div class="cta-band__content">
+        <div class="eyebrow eyebrow--navy">มาเริ่มกันเลย</div>
+        <h2>บอกเราเรื่ององค์กรของคุณ</h2>
+        <p>ทีม Solution Designer พร้อมช่วยออกแบบโปรแกรมที่เหมาะสมที่สุดสำหรับ challenge ของคุณ</p>
+        <a href="#" class="btn btn--outline">นัดคุย 30 นาที ฟรี →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Solutions<em>IMPACT</em></div>
+          <p class="footer__tagline">Transformation Consulting สำหรับองค์กรที่ต้องการผลลัพธ์จริง — ไม่ใช่แค่ผู้ขายหลักสูตร</p>
+        </div>
+        <div class="footer__col">
+          <h5>Solutions</h5>
+          <ul class="footer__links">
+            <li><a href="#">Organizational Transformation</a></li>
+            <li><a href="#">Leadership Advisory</a></li>
+            <li><a href="#">AI Implementation</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Company</h5>
+          <ul class="footer__links">
+            <li><a href="#">IMPACT Framework</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Connect</h5>
+          <ul class="footer__links">
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Line Official</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 SolutionsIMPACT. All rights reserved.</span>
+        <span>Privacy Policy · Terms of Service</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-inhouse -->
+
+
+<!-- ============================================================
+     PAGE: FRAMEWORK / IMPACT
+     ============================================================ -->
+<div id="page-framework" class="page">
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__logo">Solutions<em>IMPACT</em></div>
+      <ul class="nav__links">
+        <li>
+          <a href="#">บริการ <span class="chevron">▾</span></a>
+          <div class="nav__mega">
+            <div class="nav__mega-cols">
+              <div class="nav__mega-col">
+                <h6>Inhouse Training</h6>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🤖</div>
+                  <div><span class="nav__mega-title">AI for Business &amp; Productivity</span><span class="nav__mega-desc">ปรับใช้ AI ในทุก Level ขององค์กร</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🎯</div>
+                  <div><span class="nav__mega-title">Future Leadership &amp; Management</span><span class="nav__mega-desc">ผู้นำในยุค AI Disruption</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">📱</div>
+                  <div><span class="nav__mega-title">Digital Skills &amp; Literacy</span><span class="nav__mega-desc">ทักษะดิจิทัลที่องค์กรต้องการ</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">💬</div>
+                  <div><span class="nav__mega-title">Communication &amp; Soft Skills</span><span class="nav__mega-desc">Presentation, EQ &amp; Teamwork</span></div>
+                </a>
+              </div>
+              <div class="nav__mega-col">
+                <h6>More Solutions</h6>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🔍</div>
+                  <div><span class="nav__mega-title">Consumer Insight &amp; Trends</span><span class="nav__mega-desc">Data-driven Market Understanding</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">⚡</div>
+                  <div><span class="nav__mega-title">Agile &amp; Project Management</span><span class="nav__mega-desc">OKR, Scrum &amp; Delivery Excellence</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">👥</div>
+                  <div><span class="nav__mega-title">HR &amp; Talent Development</span><span class="nav__mega-desc">Recruit, Retain &amp; Develop</span></div>
+                </a>
+                <a href="#" class="nav__mega-item">
+                  <div class="nav__mega-icon">🌐</div>
+                  <div><span class="nav__mega-title">Public Programs</span><span class="nav__mega-desc">คอร์สเปิดรับสมัครทุกเดือน</span></div>
+                </a>
+              </div>
+            </div>
+            <div class="nav__mega-cta">
+              <div class="nav__mega-cta-text">
+                <h5>💬 ออกแบบโปรแกรมเฉพาะสำหรับองค์กรคุณ</h5>
+                <p>ปรึกษา Solution Designer ฟรี · ตอบภายใน 24 ชั่วโมง</p>
+              </div>
+              <a href="#" class="btn btn--primary">นัดคุยฟรี →</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#" style="color:var(--navy); font-weight:700">I.M.P.A.C.T.™</a></li>
+        <li><a href="#">Insights</a></li>
+        <li><a href="#">เกี่ยวกับเรา</a></li>
+        <li><a href="#" class="nav__cta">ปรึกษาฟรี →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- FRAMEWORK HERO -->
+  <section class="framework-hero">
+    <div class="container">
+      <div class="framework-hero__grid">
+        <div>
+          <div class="eyebrow">THE IMPACT FRAMEWORK™</div>
+          <h1><em>I.M.P.A.C.T.</em><br>Framework™</h1>
+          <p class="lead mt-24">Proprietary framework ที่พัฒนาจากประสบการณ์กว่า 12 ปี และ 500+ องค์กร — 6 มิติที่ทำให้การเปลี่ยนแปลงเกิดขึ้นจริงและยั่งยืน</p>
+          <div class="gold-bar mt-32"></div>
+          <p style="font-size:15px; color:var(--text-2); line-height:1.8">ไม่ใช่แค่ Model ในกระดาษ แต่เป็น operating system ของการ transform องค์กรที่ถูกทดสอบมาแล้วนับร้อยครั้ง</p>
+          <div style="display:flex; gap:12px; margin-top:32px; flex-wrap:wrap">
+            <a href="#" class="btn btn--primary">ดาวน์โหลด Framework Overview →</a>
+            <a href="#" class="btn btn--outline">คุยกับผู้เชี่ยวชาญ</a>
+          </div>
+        </div>
+
+        <!-- RIPPLE DIAGRAM -->
+        <div class="ripple-diagram">
+          <img src="Ripple 2.png" class="ripple-diagram__img" alt="THE RIPPLE" onerror="this.style.display='none'; document.getElementById('fallback-ripple').style.display='flex'">
+          <!-- SVG Fallback -->
+          <div id="fallback-ripple" style="display:none; position:absolute; width:100%; height:100%; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" style="width:420px; height:420px;">
+              <circle cx="230" cy="230" r="30" fill="var(--navy)" stroke="var(--gold)" stroke-width="2"/>
+              <circle cx="230" cy="230" r="70" fill="none" stroke="var(--navy)" stroke-width="1.5" opacity=".8"/>
+              <circle cx="230" cy="230" r="110" fill="none" stroke="var(--navy)" stroke-width="1" opacity=".6"/>
+              <circle cx="230" cy="230" r="150" fill="none" stroke="var(--navy)" stroke-width="1" opacity=".4"/>
+              <circle cx="230" cy="230" r="190" fill="none" stroke="var(--navy)" stroke-width=".8" opacity=".25"/>
+              <circle cx="230" cy="230" r="220" fill="none" stroke="var(--navy)" stroke-width=".5" opacity=".1"/>
+              <text x="230" y="235" text-anchor="middle" font-family="Poppins" font-size="11" font-weight="700" fill="white">IMPACT</text>
+            </svg>
+          </div>
+          <!-- Labels -->
+          <div class="ripple-diagram__labels">
+            <div class="ripple-label rl-1" style="background:var(--navy); color:white; border-color:var(--navy)"><strong style="color:var(--gold)">I</strong> · Insight</div>
+            <div class="ripple-label rl-2"><strong style="color:var(--gold)">M</strong> · Mastery</div>
+            <div class="ripple-label rl-3"><strong style="color:var(--gold)">P</strong> · Practicality</div>
+            <div class="ripple-label rl-4"><strong style="color:var(--gold)">A</strong> · Adaptability</div>
+            <div class="ripple-label rl-5"><strong style="color:var(--gold)">C</strong> · Connection</div>
+            <div class="ripple-label rl-6" style="background:var(--gold); color:var(--navy); border-color:var(--gold)"><strong>T</strong> · Transformation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE -->
+  <section class="fw-evidence section">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Proven Track Record</div>
+        <h2 class="section-header__title">Framework ที่ผ่านการพิสูจน์แล้ว 12+ ปี</h2>
+        <p class="section-header__lead">ตัวเลขจริงจากการทำงานกับองค์กรชั้นนำทั่วประเทศไทย</p>
+      </div>
+      <div class="fw-evidence__grid">
+        <div class="fw-ev-card">
+          <div class="fw-ev-num">500<span class="acc">+</span></div>
+          <div class="fw-ev-label">องค์กรที่ใช้ Framework นี้</div>
+        </div>
+        <div class="fw-ev-card">
+          <div class="fw-ev-num">200K<span class="acc">+</span></div>
+          <div class="fw-ev-label">คนที่ผ่านโปรแกรมต่อปี</div>
+        </div>
+        <div class="fw-ev-card">
+          <div class="fw-ev-num">+40<span class="acc">%</span></div>
+          <div class="fw-ev-label">Productivity เฉลี่ยใน 90 วัน</div>
+        </div>
+        <div class="fw-ev-card">
+          <div class="fw-ev-num">4.9<span class="acc">/5</span></div>
+          <div class="fw-ev-label">NPS Score จากผู้ร่วมโปรแกรม</div>
+        </div>
+      </div>
+      <div class="fw-quote-block">
+        <p class="fw-quote-text">"หลังจากใช้ IMPACT Framework กับทีม 300 คน เราเห็น behavior change ที่วัดได้ภายใน 60 วัน — KPI ด้าน execution speed ดีขึ้น 38% และ cross-functional collaboration เพิ่มขึ้นอย่างชัดเจน"</p>
+        <div class="fw-quote-author">
+          <div class="fw-quote-avatar">VP</div>
+          <div>
+            <div class="fw-quote-name">VP of People &amp; Organization</div>
+            <div class="fw-quote-role">Fortune 500 Company · Thailand</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- I.M.P.A.C.T. BREAKDOWN -->
+  <section class="impact-breakdown section section--white">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Framework Deep Dive</div>
+        <h2 class="section-header__title">6 มิติที่ทำให้การเปลี่ยนแปลงเกิดจริง</h2>
+      </div>
+      <div class="impact-accordion mt-40">
+
+        <div class="impact-item">
+          <div class="impact-item__header">
+            <div class="impact-item__char">I</div>
+            <div class="impact-item__meta">
+              <div class="impact-item__word">Insight — เข้าใจลึกกว่าผิวเผิน</div>
+              <div class="impact-item__tagline">การเปลี่ยนแปลงต้องเริ่มจากความเข้าใจที่แท้จริง ไม่ใช่แค่ข้อมูล</div>
+            </div>
+          </div>
+          <div class="impact-item__body">
+            <p>Insight ใน IMPACT Framework หมายถึงการมองเห็นสาเหตุที่แท้จริง ไม่ใช่แค่อาการ — เราช่วยองค์กรทำ deep diagnosis ก่อนเสมอ</p>
+            <ul>
+              <li>Organizational Diagnosis ก่อนออกแบบโปรแกรมทุกครั้ง</li>
+              <li>ระบุ root cause ไม่ใช่แค่ symptom</li>
+              <li>เข้าใจ culture และ hidden dynamics ขององค์กร</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="impact-item">
+          <div class="impact-item__header">
+            <div class="impact-item__char">M</div>
+            <div class="impact-item__meta">
+              <div class="impact-item__word">Mastery — เชี่ยวชาญในสิ่งที่ทำ</div>
+              <div class="impact-item__tagline">ความรู้ต้องถูกฝึกจนเป็น muscle memory ไม่ใช่แค่รู้แต่ทำไม่ได้</div>
+            </div>
+          </div>
+          <div class="impact-item__body">
+            <p>Mastery ไม่ใช่การรู้ทฤษฎี แต่คือการฝึกซ้ำจนสามารถทำได้ในสถานการณ์จริง โดยไม่ต้องนึก</p>
+            <ul>
+              <li>Spaced repetition และ deliberate practice ในทุกโปรแกรม</li>
+              <li>Simulation-based learning ที่จำลองสถานการณ์จริง</li>
+              <li>Skill assessment ก่อนและหลังโปรแกรม</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="impact-item">
+          <div class="impact-item__header">
+            <div class="impact-item__char">P</div>
+            <div class="impact-item__meta">
+              <div class="impact-item__word">Practicality — ทำได้จริงในงานจริง</div>
+              <div class="impact-item__tagline">ทุก concept ต้องแปลงเป็น action ที่ทำได้ใน 24 ชั่วโมงหลังการเรียน</div>
+            </div>
+          </div>
+          <div class="impact-item__body">
+            <p>เราออกแบบทุก session ให้มี "90-Day Action Plan" — ผู้เข้าร่วมรู้ชัดว่าต้องทำอะไร เมื่อไหร่ และอย่างไรหลังจากจบโปรแกรม</p>
+            <ul>
+              <li>Action Planning Session ท้าย session ทุกครั้ง</li>
+              <li>Accountability partner system</li>
+              <li>Implementation toolkit และ template พร้อมใช้</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="impact-item">
+          <div class="impact-item__header">
+            <div class="impact-item__char">A</div>
+            <div class="impact-item__meta">
+              <div class="impact-item__word">Adaptability — ปรับตัวได้ในทุกสถานการณ์</div>
+              <div class="impact-item__tagline">โลกเปลี่ยนเร็ว ทักษะที่สอนต้องพาคนรอดในอนาคตได้</div>
+            </div>
+          </div>
+          <div class="impact-item__body">
+            <p>เราไม่สอนแค่ทักษะปัจจุบัน แต่สร้าง "learning agility" — ความสามารถในการเรียนรู้ ปรับตัว และ thrive ในความไม่แน่นอน</p>
+            <ul>
+              <li>Future Skills mapping สำหรับแต่ละ role</li>
+              <li>AI fluency ที่ทันสมัยและ applicable</li>
+              <li>Growth mindset เป็นพื้นฐานทุกโปรแกรม</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="impact-item">
+          <div class="impact-item__header">
+            <div class="impact-item__char">C</div>
+            <div class="impact-item__meta">
+              <div class="impact-item__word">Connection — เชื่อมโยงกัน ขับเคลื่อนด้วยกัน</div>
+              <div class="impact-item__tagline">การเปลี่ยนแปลงที่ยั่งยืนต้องเกิดจาก community ไม่ใช่คนเดียว</div>
+            </div>
+          </div>
+          <div class="impact-item__body">
+            <p>เราสร้าง community of practice ภายในองค์กร เพื่อให้การเรียนรู้และการเปลี่ยนแปลงขยายออกไปด้วยตัวเอง</p>
+            <ul>
+              <li>Internal champion และ change agent program</li>
+              <li>Alumni network และ ongoing learning community</li>
+              <li>Peer coaching และ knowledge sharing culture</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="impact-item" style="border-color:var(--gold)">
+          <div class="impact-item__header" style="background:#fffef5">
+            <div class="impact-item__char">T</div>
+            <div class="impact-item__meta">
+              <div class="impact-item__word">Transformation — เปลี่ยนแปลงที่จับต้องได้</div>
+              <div class="impact-item__tagline">ผลลัพธ์สุดท้ายคือการเปลี่ยนที่วัดได้และเห็นได้</div>
+            </div>
+          </div>
+          <div class="impact-item__body">
+            <p>T คือปลายทางของ framework — การเปลี่ยนแปลงที่วัดได้ในตัวชี้วัดทางธุรกิจจริง ไม่ใช่แค่ feedback score หลัง session</p>
+            <ul>
+              <li>Business impact measurement (ROI, KPI เปรียบเทียบก่อน-หลัง)</li>
+              <li>Behavior change assessment ที่ 30, 60, 90 วัน</li>
+              <li>Culture shift tracking ระยะยาว</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 PILLARS -->
+  <section class="pillars section">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="eyebrow">Our Approach</div>
+        <h2 class="section-header__title">3 เสาหลักของ SolutionsIMPACT</h2>
+        <p class="section-header__lead">DNA ขององค์กรเราที่อยู่เบื้องหลังทุก solution</p>
+      </div>
+      <div class="pillars__grid">
+        <div class="pillar-card">
+          <div class="pillar-card__icon">🔍</div>
+          <div class="pillar-card__thai">#เข้าใจธุรกิจจริง</div>
+          <div class="pillar-card__title">Consulting</div>
+          <p class="pillar-card__desc">เราเริ่มต้นด้วยการเข้าใจ business model, challenge, และ context ขององค์กรก่อนเสมอ — ไม่ใช่แค่มา deliver content</p>
+          <div class="pillar-card__tag">Business-first Mindset</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-card__icon">⚙️</div>
+          <div class="pillar-card__thai">#ทำจนใช้ได้จริง</div>
+          <div class="pillar-card__title">Implementation</div>
+          <p class="pillar-card__desc">ทุก intervention ถูกออกแบบมาเพื่อ implement ได้จริง ไม่ใช่แค่ concept สวยงาม — เราอยู่กับลูกค้าจนเห็นผล</p>
+          <div class="pillar-card__tag">Execution-focused</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-card__icon">🎓</div>
+          <div class="pillar-card__thai">#เปลี่ยนพฤติกรรมจริง</div>
+          <div class="pillar-card__title">Transformation</div>
+          <p class="pillar-card__desc">ไม่ใช่แค่ program ที่สนุกแล้วลืม แต่ออกแบบเพื่อให้เกิด behavior change ที่ยั่งยืนโดยใช้ learning science</p>
+          <div class="pillar-card__tag">Science-backed Learning</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TPS -->
+  <section class="tps-section section" style="position:relative; overflow:hidden">
+    <div style="position:absolute; right:-100px; top:50%; transform:translateY(-50%); width:500px; height:500px; opacity:.08">
+      <img src="Ripple 2.png" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="container">
+      <div class="tps-grid">
+        <div>
+          <div class="eyebrow eyebrow--white">Proprietary System</div>
+          <h2 style="color:var(--white); margin-bottom:20px">Transformative<br>Productivity System™</h2>
+          <p style="color:rgba(255,255,255,.7); line-height:1.8; margin-bottom:24px">TPS™ คือระบบที่รวม IMPACT Framework, AI Tools, และ Behavioral Science เข้าไว้ด้วยกัน — เพื่อเพิ่ม productivity และ effectiveness ของทีมอย่างวัดได้</p>
+          <p style="color:rgba(255,255,255,.7); line-height:1.8; margin-bottom:32px">พัฒนาจากการทำงานกับองค์กรกว่า 500 แห่ง และ validated ด้วยข้อมูลจริง</p>
+          <a href="#" class="btn btn--primary">ดู TPS™ ในการใช้งานจริง →</a>
+        </div>
+        <div class="tps-visual">
+          <div class="tps-orbit tps-orbit-3">
+            <div class="tps-node tps-node-1">AI Tools Integration</div>
+            <div class="tps-node tps-node-2">Behavioral Science</div>
+            <div class="tps-node tps-node-3">Measurement & ROI</div>
+            <div class="tps-node tps-node-4">Learning Design</div>
+          </div>
+          <div class="tps-orbit tps-orbit-2"></div>
+          <div class="tps-orbit tps-orbit-1"></div>
+          <div class="tps-center">
+            <span>TPS™</span>
+            <span>SYSTEM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="cta-band__ripple">
+      <img src="Ripple yellow 2.png" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="container">
+      <div class="cta-band__content">
+        <div class="eyebrow eyebrow--navy">นำ Framework ไปใช้</div>
+        <h2>IMPACT Framework™<br>ในองค์กรของคุณ</h2>
+        <p>คุยกับ Lead Consultant ของเราเพื่อดูว่า IMPACT Framework จะสร้าง transformation ให้องค์กรคุณได้อย่างไร</p>
+        <a href="#" class="btn btn--outline">ปรึกษาเรา ฟรี →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">Solutions<em>IMPACT</em></div>
+          <p class="footer__tagline">Transformation Consulting สำหรับองค์กรที่ต้องการผลลัพธ์จริง — ไม่ใช่แค่ผู้ขายหลักสูตร</p>
+        </div>
+        <div class="footer__col">
+          <h5>Solutions</h5>
+          <ul class="footer__links">
+            <li><a href="#">Organizational Transformation</a></li>
+            <li><a href="#">Leadership Advisory</a></li>
+            <li><a href="#">AI Implementation</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Company</h5>
+          <ul class="footer__links">
+            <li><a href="#">IMPACT Framework</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Connect</h5>
+          <ul class="footer__links">
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Line Official</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 SolutionsIMPACT. All rights reserved.</span>
+        <span>Privacy Policy · Terms of Service</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-framework -->
+
+
+<!-- ============================================================
+     PAGE: DESIGN SYSTEM
+     ============================================================ -->
+<div id="page-design" class="page">
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__logo">Solutions<em>IMPACT</em></div>
+      <ul class="nav__links">
+        <li><a href="#" style="color:var(--text-faint); pointer-events:none">Design System Reference</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="ds-page">
+    <div class="container">
+      <div style="padding:48px 0 32px">
+        <div class="eyebrow">Design Reference</div>
+        <h1 style="font-size:36px; color:var(--navy)">SolutionsIMPACT Design System 2026</h1>
+        <p style="color:var(--text-muted); margin-top:12px">Base: Blog Design · Extended: Brand Guidelines 2.0 · Reference: McKinsey/Gartner</p>
+      </div>
+
+      <!-- COLORS -->
+      <div class="ds-section">
+        <h3>Core Colors</h3>
+        <div class="color-swatches">
+          <div class="swatch"><div class="swatch__block" style="background:#002554"></div><div class="swatch__name">Navy</div><div class="swatch__hex">#002554</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#FFC600"></div><div class="swatch__name">Gold</div><div class="swatch__hex">#FFC600</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#f8f7f5; border:1px solid #e5e7eb"></div><div class="swatch__name">Background</div><div class="swatch__hex">#f8f7f5</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#ffffff; border:1px solid #e5e7eb"></div><div class="swatch__name">White</div><div class="swatch__hex">#ffffff</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#111827"></div><div class="swatch__name">Text</div><div class="swatch__hex">#111827</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#6b7280"></div><div class="swatch__name">Muted</div><div class="swatch__hex">#6b7280</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#9ca3af"></div><div class="swatch__name">Faint</div><div class="swatch__hex">#9ca3af</div></div>
+          <div class="swatch"><div class="swatch__block" style="background:#e5e7eb; border:1px solid #d1d5db"></div><div class="swatch__name">Border</div><div class="swatch__hex">#e5e7eb</div></div>
+        </div>
+      </div>
+
+      <!-- TYPOGRAPHY -->
+      <div class="ds-section">
+        <h3>Typography</h3>
+        <div class="type-samples">
+          <div><span style="font-size:11px; color:var(--text-faint)">DISPLAY / H1 — Poppins 700</span><h1 style="font-size:52px; color:var(--navy)">Transformation Partner</h1></div>
+          <div><span style="font-size:11px; color:var(--text-faint)">H2 — Poppins 700</span><h2 style="color:var(--navy)">IMPACT Framework™ 2026</h2></div>
+          <div><span style="font-size:11px; color:var(--text-faint)">H3 — Poppins 600</span><h3 style="color:var(--navy)">Inhouse Transformation Solutions</h3></div>
+          <div><span style="font-size:11px; color:var(--text-faint)">EYEBROW — Poppins 600 / 11px / 2px tracking / UPPERCASE</span><div class="eyebrow eyebrow--navy">Solutions · Framework · Impact</div></div>
+          <div><span style="font-size:11px; color:var(--text-faint)">BODY LEAD — IBM Plex Sans Thai 18px</span><p class="lead">ไม่ใช่แค่ Training — เราออกแบบ Transformation System ที่วัดผลได้จริงด้วย I.M.P.A.C.T. Model™</p></div>
+          <div><span style="font-size:11px; color:var(--text-faint)">BODY — IBM Plex Sans Thai 16px</span><p>SolutionsIMPACT ช่วยองค์กรในการพัฒนาบุคลากรและนำ AI มาปรับใช้อย่างเป็นระบบ ผ่านกระบวนการที่ออกแบบมาเพื่อการเปลี่ยนแปลงที่ยั่งยืนและวัดได้</p></div>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="ds-section">
+        <h3>Buttons</h3>
+        <div class="component-row">
+          <a href="#" class="btn btn--primary">Primary Button →</a>
+          <a href="#" class="btn btn--outline">Outline Button</a>
+          <a href="#" class="btn btn--outline-white" style="background:var(--navy)">Outline White</a>
+          <a href="#" class="btn btn--ghost">Ghost Button <span class="btn-arrow">→</span></a>
+        </div>
+        <p class="ds-note">Primary = Gold bg + Navy text · Outline = Navy border · Ghost = Text only with arrow</p>
+      </div>
+
+      <!-- CARDS -->
+      <div class="ds-section">
+        <h3>Card Components</h3>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px">
+          <div class="solution-card">
+            <div class="solution-card__icon">🎯</div>
+            <div class="solution-card__title">Standard Card</div>
+            <p class="solution-card__text">White bg, thin border, gold top accent on hover, 20px border-radius</p>
+            <a href="#" class="solution-card__link">Learn more →</a>
+          </div>
+          <div class="solution-card solution-card--featured">
+            <div class="solution-card__icon">⭐</div>
+            <div class="solution-card__title">Featured Card</div>
+            <p class="solution-card__text">Navy bg, always gold top accent, white text, gold link color</p>
+            <a href="#" class="solution-card__link">Learn more →</a>
+          </div>
+          <div class="testimonial-card" style="margin:0">
+            <p class="testimonial-card__quote">Testimonial card — bg-gray, rounded, italic quote with gold opening mark</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">AU</div>
+              <div>
+                <div class="testimonial-card__name">Author Name</div>
+                <div class="testimonial-card__role">Role, Company</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIPPLE ELEMENT -->
+      <div class="ds-section">
+        <h3>THE RIPPLE — Brand Element</h3>
+        <div style="display:flex; gap:32px; align-items:center; background:var(--navy); padding:40px; border-radius:20px">
+          <div style="text-align:center">
+            <img src="Ripple 2.png" style="width:200px; height:200px; object-fit:contain;" alt="Ripple Navy" onerror="this.outerHTML='<div style=\'width:200px;height:200px;border-radius:50%;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:12px\'>Ripple 2.png<br>(Navy)</div>'">
+            <p style="color:rgba(255,255,255,.5); font-size:12px; margin-top:12px">Ripple 2.png — Navy<br>Use: Dark backgrounds</p>
+          </div>
+          <div style="text-align:center">
+            <img src="Ripple yellow 2.png" style="width:200px; height:200px; object-fit:contain;" alt="Ripple Gold" onerror="this.outerHTML='<div style=\'width:200px;height:200px;border-radius:50%;border:2px solid rgba(255,198,0,.4);display:flex;align-items:center;justify-content:center;color:rgba(255,198,0,.5);font-size:12px\'>Ripple yellow 2.png<br>(Gold)</div>'">
+            <p style="color:rgba(255,255,255,.5); font-size:12px; margin-top:12px">Ripple yellow 2.png — Gold<br>Use: Gold/CTA sections</p>
+          </div>
+          <div style="color:rgba(255,255,255,.7); font-size:14px; line-height:1.8; max-width:320px">
+            <p style="color:white; font-weight:600; margin-bottom:12px">THE RIPPLE — Visual Identity</p>
+            <p>Concentric wave pattern = <em style="color:var(--gold)">Domino Effect</em> ของการเปลี่ยนแปลง ที่กระจายออกจากจุดศูนย์กลาง</p>
+            <p style="margin-top:12px">ใช้เป็น background element ที่ opacity 10–55% เสมอ ไม่ใช่ foreground</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPACING -->
+      <div class="ds-section">
+        <h3>Spacing & Layout</h3>
+        <div style="font-size:14px; color:var(--text-2); line-height:2">
+          <div>Section padding: <strong>96px</strong> top/bottom</div>
+          <div>Container max-width: <strong>1140px</strong> · padding: 32px</div>
+          <div>Card padding: <strong>40px 32px</strong></div>
+          <div>Grid gap (cards): <strong>24px</strong></div>
+          <div>Grid gap (2-col): <strong>80px</strong></div>
+          <div>Border radius — small: <strong>8px</strong> · medium: <strong>14px</strong> · large: <strong>20px</strong></div>
+          <div>Border: <strong>0.5px solid #e5e7eb</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /page-design -->
+
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

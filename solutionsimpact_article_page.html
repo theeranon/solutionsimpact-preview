@@ -1,0 +1,143 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.art-wrap { padding: 1.5rem 0; max-width: 680px; }
+.breadcrumb { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 1.5rem; display: flex; gap: 6px; align-items: center; }
+.breadcrumb span { color: var(--color-text-tertiary); }
+.cat-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 99px; background: #e8edf7; color: #1B2D6E; margin-bottom: 1rem; }
+.art-title { font-size: 26px; font-weight: 500; color: var(--color-text-primary); line-height: 1.35; margin-bottom: 1rem; }
+.art-sub { font-size: 16px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 1.5rem; border-left: 3px solid #FFC700; padding-left: 1rem; }
+.art-meta { display: flex; gap: 16px; font-size: 12px; color: var(--color-text-tertiary); align-items: center; padding-bottom: 1.25rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.75rem; flex-wrap: wrap; }
+.meta-author { display: flex; align-items: center; gap: 8px; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; background: #1B2D6E; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #FFC700; flex-shrink: 0; }
+.meta-dot { width: 3px; height: 3px; background: var(--color-border-secondary); border-radius: 50%; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.75rem; }
+.stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+.stat-num { font-size: 26px; font-weight: 500; color: #1B2D6E; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 11px; color: var(--color-text-secondary); line-height: 1.4; }
+.prose h2 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin: 1.75rem 0 0.75rem; }
+.prose p { font-size: 15px; color: var(--color-text-primary); line-height: 1.75; margin-bottom: 1rem; }
+.prose strong { font-weight: 500; }
+.callout { background: #1B2D6E; border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
+.callout p { color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.7; margin: 0; }
+.callout p strong { color: #FFC700; font-weight: 500; }
+.insight-box { border: 0.5px solid var(--color-border-tertiary); border-left: 3px solid #FFC700; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+.insight-box p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 2rem 0 1.5rem; padding-top: 1.25rem; border-top: 0.5px solid var(--color-border-tertiary); }
+.tag { font-size: 12px; padding: 4px 12px; border-radius: 99px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); }
+.cta-box { background: #1B2D6E; border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+.cta-box h3 { font-size: 16px; font-weight: 500; color: #fff; margin-bottom: 8px; }
+.cta-box p { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 1.25rem; line-height: 1.6; }
+.cta-btn { display: inline-block; background: #FFC700; color: #1B2D6E; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: var(--border-radius-md); border: none; cursor: pointer; }
+.related-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.related-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; cursor: pointer; }
+.related-card:hover { border-color: var(--color-border-secondary); }
+.r-cat { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 99px; display: inline-block; margin-bottom: 8px; }
+.r-transform { background: #e8edf7; color: #1B2D6E; }
+.r-leadership { background: #FFF5CC; color: #7A5800; }
+.r-change { background: #FAECE7; color: #993C1D; }
+.related-card h4 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; margin-bottom: 6px; }
+.related-card span { font-size: 11px; color: var(--color-text-tertiary); }
+.progress-bar { height: 3px; background: var(--color-border-tertiary); border-radius: 99px; margin-bottom: 1.5rem; overflow: hidden; }
+.progress-fill { height: 100%; width: 35%; background: #FFC700; border-radius: 99px; }
+</style>
+
+<div class="art-wrap">
+  <h2 class="sr-only">SolutionsIMPACT single article page mockup</h2>
+
+  <div class="breadcrumb">
+    <span>Insights</span>
+    <span>/</span>
+    <span>Transformation</span>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+
+  <span class="cat-badge">Transformation</span>
+  <h1 class="art-title">ทำไม 70% ของโปรเจค Change Management ถึงล้มเหลว — และจะแก้ยังไง</h1>
+  <p class="art-sub">ปัญหาไม่ได้อยู่ที่ strategy ที่ดีไม่พอ แต่อยู่ที่การขาด "adoption" จากคนในองค์กร ซึ่งเป็นสิ่งที่ที่ปรึกษาส่วนใหญ่ไม่ได้ช่วยแก้</p>
+
+  <div class="art-meta">
+    <div class="meta-author">
+      <div class="avatar">JT</div>
+      <span>James Theeranon</span>
+    </div>
+    <div class="meta-dot"></div>
+    <span>15 เม.ย. 2569</span>
+    <div class="meta-dot"></div>
+    <span>7 min read</span>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">70%</div>
+      <div class="stat-label">ของ change initiatives ล้มเหลวก่อนบรรลุเป้า</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3×</div>
+      <div class="stat-label">ROI สูงขึ้นเมื่อมี adoption plan ตั้งแต่แรก</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">18 เดือน</div>
+      <div class="stat-label">เวลาเฉลี่ยที่เสียไปกับโปรเจคที่ไม่ได้ผล</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>McKinsey รายงานมาตั้งแต่ปี 2008 ว่า 70% ของ organizational change programs ไม่บรรลุเป้าหมาย ตัวเลขนี้ไม่ได้ดีขึ้นในทศวรรษที่ผ่านมา แม้ว่าบริษัทจะลงทุนด้าน consulting และ training มากขึ้นกว่าเดิม</p>
+    <p>คำถามคือ — ถ้าเราใช้เงินมากขึ้น ใช้ที่ปรึกษาเก่งขึ้น แล้วทำไมผลลัพธ์ยังเหมือนเดิม?</p>
+
+    <h2>สาเหตุที่แท้จริง: ปัญหาอยู่ที่ adoption ไม่ใช่ strategy</h2>
+    <p>เมื่อโปรเจค transformation ล้มเหลว ผู้บริหารมักโทษ implementation ที่ช้า หรือทีมที่ไม่ได้ความร่วมมือ แต่จากประสบการณ์ที่ SolutionsIMPACT ลงมือทำกับองค์กรหลายสิบแห่ง รากของปัญหาคือ <strong>ไม่มีใครออกแบบ "journey ของคนในองค์กร"</strong> ตั้งแต่ต้น</p>
+
+    <div class="callout">
+      <p><strong>Strategy ที่ดีที่สุดยังล้มเหลวได้</strong> ถ้าคนที่ต้องเปลี่ยนพฤติกรรมไม่เข้าใจว่า "ทำไมฉันถึงต้องเปลี่ยน" และ "ฉันได้อะไรจากการเปลี่ยนนี้"</p>
+    </div>
+
+    <h2>3 สิ่งที่องค์กรที่ประสบความสำเร็จทำแตกต่างออกไป</h2>
+    <p>จากการวิเคราะห์โปรเจคที่ได้ผลและที่ล้มเหลว เราพบ pattern ที่ชัดเจน 3 ข้อที่แยกองค์กรที่ผ่านการเปลี่ยนแปลงได้จริงออกจากองค์กรที่ไม่ได้ผล</p>
+
+    <div class="insight-box">
+      <p><strong>1. พวกเขาทำให้ middle manager เป็น "นักแปลภาษา"</strong> ไม่ใช่แค่ผู้ส่งสาร — middle manager ที่ดีต้องแปล vision ของ CEO ให้กลายเป็นงานที่ทีมของตัวเองทำได้จริงในวันพรุ่งนี้</p>
+    </div>
+    <div class="insight-box">
+      <p><strong>2. พวกเขาวัดผล behavior ไม่ใช่แค่ output</strong> — ถ้าโปรเจค digital transformation วัดแค่จำนวน system ที่ deploy แต่ไม่วัดว่าคนใช้จริงไหม ตัวเลขจะดีแต่ผลลัพธ์จะเป็นศูนย์</p>
+    </div>
+    <div class="insight-box">
+      <p><strong>3. พวกเขาเริ่ม "adoption planning" พร้อมกับ strategy planning</strong> — ไม่ใช่หลังจาก strategy เสร็จแล้วค่อยมาคิดว่าจะ communicate ยังไง</p>
+    </div>
+  </div>
+
+  <div class="tag-row">
+    <span class="tag">Change Management</span>
+    <span class="tag">Transformation</span>
+    <span class="tag">Organizational Design</span>
+    <span class="tag">Leadership</span>
+  </div>
+
+  <div class="cta-box">
+    <h3>กำลังเผชิญกับ transformation ที่ติดหล่มอยู่?</h3>
+    <p>SolutionsIMPACT ช่วยองค์กรออกแบบ adoption strategy และลงมือทำจนเห็นผลจริง ไม่ใช่แค่รายงาน</p>
+    <button class="cta-btn" onclick="sendPrompt('อยากรู้เพิ่มเติมเกี่ยวกับ transformation consulting ของ SolutionsIMPACT')">คุยกับทีมเรา →</button>
+  </div>
+
+  <div class="related-title">บทความที่เกี่ยวข้อง</div>
+  <div class="related-grid">
+    <div class="related-card">
+      <span class="r-cat r-leadership">Leadership</span>
+      <h4>Middle manager คือหัวใจของ transformation — ไม่ใช่ CEO</h4>
+      <span>5 min read</span>
+    </div>
+    <div class="related-card">
+      <span class="r-cat r-change">Change Management</span>
+      <h4>เมื่อ training จบแล้ว แต่ไม่มีอะไรเปลี่ยน</h4>
+      <span>4 min read</span>
+    </div>
+    <div class="related-card">
+      <span class="r-cat r-transform">Transformation</span>
+      <h4>วิธีวัด ROI ของ organizational transformation อย่างจริงจัง</h4>
+      <span>8 min read</span>
+    </div>
+  </div>
+</div>

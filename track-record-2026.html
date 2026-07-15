@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Track Record | SolutionsIMPACT</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/cine.css">
+<style>
+  :root{
+    /* Brand scales: Downriver 950 #002554 · Supernova 500 #FFC600 (Brand Guideline 2025 p.12) */
+    --navy:#002554; --navy-light:#004CB3; --navy-deep:#001a3d;
+    --gold:#FFC600; --gold-light:#FFE51B;
+    --bg:#f8f7f5; --white:#fff;
+    --text:#111827; --muted:#5b6472; --faint:#9ca3af;
+    --border:#e5e7eb;
+    /* Poppins = EN เท่านั้น (ไม่มี glyph ไทย) — อักษรไทยใน heading ต้อง fallback ไป IBM Plex Sans Thai เสมอ */
+    --font-head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --font-body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --max-w:1140px;
+    --radius:5px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{font-family:var(--font-body);color:var(--text);background:var(--bg);line-height:1.7;font-size:17px}
+  h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25;text-wrap:balance}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+  .eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:'';width:28px;height:2px;background:var(--gold)}
+  .eyebrow.on-light{color:var(--navy)}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(0,26,61,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav-in{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .2s}
+  .nav-links a:hover,.nav-links a:focus-visible{color:#fff}
+  .nav-links a.active{color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-head);font-weight:600;font-size:15px;padding:13px 26px;border-radius:8px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover,.btn-gold:focus-visible{background:var(--gold-light);transform:translateY(-1px)}
+  .btn-sm{padding:10px 20px;font-size:14px}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  .hero{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;right:-240px;top:-200px;width:700px;height:700px;background:url('assets/Ripple 1.svg') center/contain no-repeat;opacity:.28}
+  .hero-in{max-width:var(--max-w);margin:0 auto;padding:96px 24px 80px;position:relative;z-index:1}
+  .hero h1{font-size:clamp(34px,4.8vw,54px);font-weight:800;margin:24px 0 10px;letter-spacing:-.01em}
+  .hero h1 .gold{color:var(--gold)}
+  .hero .sub{font-size:19px;font-weight:300;color:rgba(255,255,255,.82);max-width:620px;margin:20px 0 0}
+
+  section{padding:96px 0}
+  .sec-head{max-width:720px;margin-bottom:56px}
+  .sec-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;color:var(--navy);margin:18px 0 14px}
+  .sec-head p{color:var(--muted);font-size:17.5px}
+
+  /* ===== METHOD STRIP ===== */
+  .method{background:var(--navy);color:#fff;padding:56px 0}
+  .method-in{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+  .method .m-title{font-family:var(--font-head);font-weight:700;font-size:19px;color:var(--gold);white-space:nowrap}
+  .method p{font-size:16px;color:rgba(255,255,255,.8);max-width:720px}
+  @media(max-width:760px){.method-in{grid-template-columns:1fr;gap:16px}}
+
+  /* ===== CASES ===== */
+  .cases{background:var(--white)}
+  .case-block{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start;padding:56px 0;border-bottom:1px solid var(--border)}
+  .case-block:first-of-type{padding-top:0}
+  .case-block:last-of-type{border-bottom:none;padding-bottom:0}
+  .case-tag{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+  .case-block h3{font-size:clamp(22px,2.6vw,28px);font-weight:700;color:var(--navy);margin-bottom:18px}
+  .case-block .story{color:var(--muted);font-size:16.5px;display:flex;flex-direction:column;gap:14px}
+  .case-block blockquote{margin-top:22px;padding-left:24px;border-left:4px solid var(--gold);font-family:var(--font-head);font-weight:600;font-size:18px;color:var(--navy);line-height:1.5}
+  .case-block .attrib{font-size:13.5px;color:var(--faint);margin-top:8px;padding-left:28px}
+  .case-stats{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .cs{background:var(--bg);padding:24px 30px;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .cs .n{font-family:var(--font-head);font-size:30px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .cs .l{font-size:14px;color:var(--muted);text-align:right}
+  @media(max-width:860px){.case-block{grid-template-columns:1fr;gap:36px}}
+
+  /* ===== FINAL CTA ===== */
+  .final{background:var(--navy-deep);color:#fff;text-align:center;position:relative;overflow:hidden}
+  .final::before{content:'';position:absolute;left:50%;bottom:-420px;transform:translateX(-50%);width:900px;height:900px;background:url('assets/Ripple yellow 1.svg') center/contain no-repeat;opacity:.18}
+  .final .wrap{position:relative;z-index:1;max-width:760px}
+  .final h2{font-size:clamp(30px,4.2vw,46px);font-weight:800;margin:20px 0 18px}
+  .final h2 .gold{color:var(--gold)}
+  .final p{color:rgba(255,255,255,.72);font-size:18px;max-width:560px;margin:0 auto 40px}
+
+  footer{background:#001229;color:rgba(255,255,255,.6);padding:56px 0 40px;font-size:14px}
+  .foot{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot ul{list-style:none;display:flex;gap:28px;flex-wrap:wrap}
+  .foot a{color:rgba(255,255,255,.6);text-decoration:none}
+  .foot a:hover,.foot a:focus-visible{color:#fff}
+  .foot .f-note{width:100%;border-top:1px solid rgba(255,255,255,.08);margin-top:36px;padding-top:24px;font-size:12.5px;color:rgba(255,255,255,.35)}
+</style>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:38px;display:block"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">หน้าแรก</a></li>
+      <li><a href="hackathon-journey-2026.html">Hackathon Journey</a></li>
+      <li><a href="executive-programs-2026.html">Executive Programs</a></li>
+      <li><a href="track-record-2026.html" class="active">Results</a></li>
+      <li><a href="insights-2026.html">Insights</a></li>
+    </ul>
+    <a class="btn btn-gold btn-sm" href="#cta">นัดคุยกลยุทธ์</a>
+  </div>
+</nav>
+
+<header class="hero-cine">
+  <div class="cine-photo"><div class="cine-tag">From The Field</div></div>
+  <canvas class="cine-ripple"></canvas>
+  <div class="cine-in">
+    <span class="cine-eyebrow cine-rev cine-d1">Track Record</span>
+    <h1 class="cine-word cine-rev cine-d2">RESULTS</h1>
+    <p class="cine-thai cine-rev cine-d3">สิ่งที่เกิดขึ้นแล้ว <span class="u">เล่าแทนเราได้ดีที่สุด</span></p>
+    <p class="cine-sub cine-rev cine-d4">ทุกเคสในหน้านี้คือโปรแกรมที่ส่งมอบแล้ว และทุกตัวเลขมาจากหน้างานจริง</p>
+    <div class="cine-ctas cine-rev cine-d4">
+      <a class="cine-btn gold" href="#cta">นัดคุยกลยุทธ์ →</a>
+    </div>
+  </div>
+</header>
+
+<div class="method">
+  <div class="method-in">
+    <div class="m-title">วิธีที่เราวัด</div>
+    <p>ก่อนเริ่มทุกโปรแกรม เราตกลงกับลูกค้าว่าความสำเร็จวัดด้วยตัวเลขใด (IMPACT Baseline)
+    เก็บตัวเลขก่อนเริ่ม เทียบหลังจบ ตามตัวชี้วัดที่ฝ่ายการเงินของลูกค้าร่วมเลือก 
+    ทุกเลขในหน้านี้จึงเป็นเลขที่องค์กรลูกค้าเป็นคนกำหนดเอง</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CASE LIST — เพิ่ม/แก้เคสที่นี่ที่เดียว
+     · เคสใหม่ = ก๊อป <article class="case-block"> ... </article> วางต่อท้าย
+     · กฎเหล็ก: ใช้เฉพาะตัวเลขจากโปรเจกต์ที่จบแล้ว ห้ามใส่ตัวเลขคาดการณ์
+     · ชื่อลูกค้า: ใส่ได้เมื่อได้รับอนุญาตแล้วเท่านั้น ระหว่างนั้นใช้คำอธิบายอุตสาหกรรม
+     · ตอน build เป็น WordPress theme ส่วนนี้จะเป็น custom post type "case"
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="cases">
+  <div class="wrap">
+
+    <article class="case-block">
+      <div>
+        <div class="case-tag">Enterprise AI Hackathon · อุตสาหกรรมอาหาร · 2026</div>
+        <h3>จากคำถามว่า AI ใช้งานจริงได้แค่ไหน สู่โปรเจกต์กว่า 100 โปรเจกต์ที่ใช้งานอยู่ในองค์กร</h3>
+        <div class="story">
+          <p>องค์กรอาหารระดับประเทศตั้งเป้าให้ AI เกิดขึ้นจริงในงานประจำวันของพนักงาน
+          จึงเลือกแนวทางใหม่ ให้ทีมของตัวเองลงมือสร้างใน Hackathon ที่มี mentor ประกบทุกทีม</p>
+          <p>รุ่นแรกจบด้วยโปรเจกต์ใช้งานจริงกว่า 100 โปรเจกต์ จากผู้เข้าร่วมสามร้อยคน
+          นำเสนอต่อหน้าผู้บริหาร C-Level ที่ร่วมตัดสินด้วยตนเอง</p>
+        </div>
+        <blockquote>หลังเห็นผลรุ่นแรก ลูกค้าขยายขอบเขตโปรแกรมเป็นห้าเท่า</blockquote>
+        <div class="attrib">ข้อสังเกตของทีมออกแบบโปรแกรม SolutionsIMPACT</div>
+      </div>
+      <div class="case-stats">
+        <div class="cs"><span class="n">100+</span><span class="l">โปรเจกต์ใช้งานจริงจากรุ่นเดียว</span></div>
+        <div class="cs"><span class="n">300</span><span class="l">ผู้เข้าร่วมต่อรุ่น พร้อมผู้บริหาร C-Level ร่วมตัดสิน</span></div>
+        <div class="cs"><span class="n">5×</span><span class="l">การขยายขอบเขตโปรแกรมหลังจบรุ่นแรก</span></div>
+        <div class="cs"><span class="n">600</span><span class="l">โปรเจกต์ตามขอบเขตงานที่ลูกค้าขยายแล้ว</span></div>
+      </div>
+    </article>
+
+    <!-- ✏️ เคสถัดไป: ก๊อปบล็อกนี้ไปแก้ (ลบ comment ออกเมื่อใช้จริง)
+    <article class="case-block">
+      <div>
+        <div class="case-tag">[ชื่อโปรแกรม · อุตสาหกรรม · ปี]</div>
+        <h3>[หัวเรื่อง: ตั้งจาก "ก่อน → หลัง" ที่เกิดขึ้นจริง]</h3>
+        <div class="story">
+          <p>[ย่อหน้า 1: บริบท — ลูกค้าคือใคร (เท่าที่เปิดเผยได้) เจอโจทย์อะไร เคยลองอะไรมาแล้ว]</p>
+          <p>[ย่อหน้า 2: สิ่งที่เกิดขึ้นในโปรแกรม และผลที่วัดได้หลังจบ]</p>
+        </div>
+        <blockquote>[คำพูดจริงจากลูกค้า หรือ observation สั้นๆ ของทีม]</blockquote>
+        <div class="attrib">[ที่มาของคำพูด]</div>
+      </div>
+      <div class="case-stats">
+        <div class="cs"><span class="n">[เลข]</span><span class="l">[หน่วย/คำอธิบาย]</span></div>
+        <div class="cs"><span class="n">[เลข]</span><span class="l">[หน่วย/คำอธิบาย]</span></div>
+        <div class="cs"><span class="n">[เลข]</span><span class="l">[หน่วย/คำอธิบาย]</span></div>
+      </div>
+    </article>
+    -->
+
+  </div>
+</section>
+
+<section class="photoband">
+  <div class="pb-in">
+    <div class="pb-head">
+      <span class="cine-eyebrow">From The Field</span>
+      <h2>ภาพจาก <span class="g">สนามจริง</span></h2>
+      <p>ทุกตัวเลขในหน้านี้มาจากห้องเหล่านี้ ที่คนสามร้อยคนลงมือสร้างพร้อมกัน</p>
+    </div>
+    <div class="pb-grid">
+      <div class="pslot tall"><div class="tag">Photo 01</div><div class="cap">ฮอลล์ 300 คนในวันงาน</div></div>
+      <div class="pslot"><div class="tag">Photo 02</div><div class="cap">ทีมกำลังสร้างโปรเจกต์</div></div>
+      <div class="pslot"><div class="tag">Photo 03</div><div class="cap">ผลงานที่ใช้งานได้จริง</div></div>
+      <div class="pslot"><div class="tag">Photo 04</div><div class="cap">นำเสนอต่อผู้บริหาร</div></div>
+      <div class="pslot"><div class="tag">Photo 05</div><div class="cap">ผู้บริหาร C-Level ร่วมตัดสิน</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="cta">
+  <div class="wrap">
+    <span class="eyebrow">Your Turn</span>
+    <h2>เคสถัดไปในหน้านี้<br><span class="gold">อาจเป็นขององค์กรคุณ</span></h2>
+    <p>เริ่มจากบทสนทนา 30 นาทีกับทีมออกแบบโปรแกรม เรื่องโจทย์ขององค์กรคุณ และจุดเริ่มต้นที่วัดผลได้จริง</p>
+    <a class="btn btn-gold" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์ →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:34px;display:block">
+      <p style="margin-top:14px;max-width:300px">Your Transformation Partner<br>999/9 Central World, กรุงเทพฯ 10330</p>
+    </div>
+    <ul>
+      <li><a href="hackathon-journey-2026.html">Hackathon Journey</a></li>
+      <li><a href="executive-programs-2026.html">Executive Programs</a></li>
+      <li><a href="track-record-2026.html">Results</a></li>
+      <li><a href="insights-2026.html">Insights</a></li>
+      <li><a href="#cta">Contact</a></li>
+    </ul>
+    <div class="f-note">© 2026 SolutionsIMPACT · training@solutionsimpact.com · 02-107-6374</div>
+  </div>
+</footer>
+<script src="assets/cine.js"></script>
+</html>
