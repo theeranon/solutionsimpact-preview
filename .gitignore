@@ -1,5 +1,6 @@
 # internal build docs / tooling — not for the public preview
 CLAUDE.md
 DESIGN.md
+panpho-writing-skill.md
 .claude/
 .DS_Store
