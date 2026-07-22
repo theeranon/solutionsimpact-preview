@@ -20,6 +20,21 @@
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:22px 0 40px}
   @media(max-width:980px){.grid{grid-template-columns:1fr 1fr}}
   @media(max-width:560px){.grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+  /* featured V5 */
+  .feat{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border:1px solid var(--gold);border-radius:16px;overflow:hidden;margin:8px 0 30px;text-decoration:none;color:inherit;background:rgba(8,20,44,.5);transition:transform .3s}
+  .feat:hover{transform:translateY(-4px)}
+  .feat .th{position:relative;min-height:230px;background:radial-gradient(120% 120% at 70% 20%,#01204a,#000a18);overflow:hidden}
+  .feat .th::after{content:'';position:absolute;left:16%;top:44%;width:44px;height:44px;border:2px solid rgba(255,198,0,.5);border-radius:50%;box-shadow:0 0 0 16px rgba(255,198,0,.14),0 0 0 34px rgba(90,150,255,.1)}
+  .feat .th b{position:absolute;left:26px;top:44px;font-family:var(--head);font-weight:900;font-size:52px;color:#fff;letter-spacing:-.03em}
+  .feat .th b i{color:var(--gold);font-style:normal}
+  .feat .th .pt{position:absolute;right:14px;bottom:12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.4);border:1px dashed rgba(255,255,255,.3);padding:4px 9px;border-radius:4px}
+  .feat .fb{padding:34px 36px;display:flex;flex-direction:column;justify-content:center}
+  .feat .rec{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .feat h2{font-family:var(--head);font-weight:900;color:#fff;font-size:26px;margin:12px 0 10px}
+  .feat p{color:var(--mute);font-size:15px;max-width:52ch}
+  .feat .go{margin-top:20px;font-family:var(--mono);font-size:13px;color:#fff}
+  .feat .go::after{content:' →';color:var(--gold)}
+  @media(max-width:720px){.feat{grid-template-columns:1fr}}
   .card{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(8,20,44,.5);
     display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.16,.8,.24,1),border-color .3s;text-decoration:none;color:inherit}
   .card:hover{transform:translateY(-5px);border-color:rgba(120,170,255,.45)}
@@ -51,12 +66,21 @@
 <header>
   <div class="wrap">
     <span class="kick">SolutionsIMPACT · Website Preview</span>
-    <h1>สี่แนวทางดีไซน์ ให้เลือกเทียบ<span class="o">.</span></h1>
+    <h1>ห้าแนวทางดีไซน์ ให้เลือกเทียบ<span class="o">.</span></h1>
     <p class="sub">เว็บชุดเดียวกัน เนื้อหาเดียวกัน ต่างกันที่ภาษาการออกแบบและการเขียน เปิดดูได้ทุกหน้า ทุกอุปกรณ์</p>
   </div>
 </header>
 
 <div class="wrap">
+  <a class="feat" href="index-v5.html">
+    <div class="th"><b>TRANSF<i>O</i>RM</b><span class="pt">Real Hackathon Footage</span></div>
+    <div class="fb">
+      <span class="rec">★ ทิศทางล่าสุด · แนะนำ</span>
+      <h2>V5 · Cinematic Photo-Led</h2>
+      <p>กลับไปทิศที่พี่ approve ตั้งแต่ต้น (แบบ Tony Robbins) — ดำ cinematic, TRANSFORMATION คำใหญ่, IMPACT Ripple มีชีวิต, ภาพจริงนำทุก section, copy อารมณ์+ชัด+ไปข้างหน้า · รอวางรูป Hackathon จริง</p>
+      <span class="go">เปิดดู V5</span>
+    </div>
+  </a>
   <div class="grid">
     <a class="card" href="index.html">
       <div class="thumb t1"><span class="v">V1</span></div>
