@@ -4,356 +4,404 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SolutionsIMPACT | ทีมของคุณ ไปได้ไกลกว่าที่คิด</title>
 <meta name="description" content="โปรแกรม transformation สำหรับองค์กรระดับ Enterprise ที่ทีมของคุณลงมือสร้างเอง มี mentor ประกบ และวัดผลเป็นตัวเลขร่วมกับฝ่ายการเงิน">
-<meta name="theme-color" content="#0d1117">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#002554">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0d1117; --ink2:#151b23; --navy:#002554; --gold:#FFC600; --gold-hi:#ffd633;
-    --cream:#f7f5f0; --muted:#6b7280; --line:rgba(255,255,255,.14);
-    --head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --navy:#002554; --navy-lift:#043a86; --ink:#000; --ink2:#232325;
+    --gold:#FFC600; --paper:#fff;
+    --disp:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
     --body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
-    --max:1260px;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --max:1320px; --pad:36px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{font-family:var(--body);background:var(--ink);color:#fff;line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
   img{display:block;max-width:100%}
   a{color:inherit;text-decoration:none}
   ::selection{background:var(--gold);color:var(--navy)}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 30px}
-  h1,h2,h3{font-family:var(--head);font-weight:800;line-height:1.06;letter-spacing:-.025em;text-wrap:balance}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+  @media(max-width:640px){:root{--pad:22px}}
 
-  .eyebrow{font-family:var(--head);font-size:11.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--head);font-weight:700;
-    font-size:15px;padding:17px 36px;border-radius:3px;transition:transform .18s,background .18s,color .18s;border:2px solid transparent;cursor:pointer}
-  .btn-gold{background:var(--gold);color:#0d1117;border-color:var(--gold)}
-  .btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px)}
-  .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
-  .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
-  .lnk{font-family:var(--head);font-weight:700;font-size:14px;color:var(--gold)}
-  .lnk::after{content:' ›';font-size:17px}
+  /* TR display type: BIG, weight 500, very tight tracking, leading 0.9 */
+  .disp{font-family:var(--disp);font-weight:500;letter-spacing:-.05em;line-height:.9}
+  .disp .th{font-family:var(--body);font-weight:500;letter-spacing:-.01em;line-height:1.16;display:block}
+  h1,h2,h3{font-family:var(--disp);font-weight:500;letter-spacing:-.04em;line-height:1.06}
 
-  /* photo helper — TR uses full-colour photography with a dark scrim */
-  .ph{position:relative;overflow:hidden;background:#111}
-  .ph>img{width:100%;height:100%;object-fit:cover}
-  .sc{position:absolute;inset:0;z-index:2;pointer-events:none}
-  .demo{position:absolute;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.55);color:rgba(255,255,255,.62);
-    font-family:var(--head);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px}
+  /* mono section label with a dot — TR signature */
+  .lab{font-family:var(--mono);font-size:13px;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:9px}
+  .lab::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none}
+  .lab.on-dark{color:#fff}
 
-  .notice{background:var(--navy);color:rgba(255,255,255,.82);font-family:var(--head);font-size:11.5px;
-    letter-spacing:.04em;text-align:center;padding:9px 18px;position:relative;z-index:60}
-  .notice b{color:var(--gold)}
+  /* pill buttons — border-radius 9999px, padding 16/32, weight 500 */
+  .pill{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--disp);
+    font-weight:500;font-size:15px;padding:16px 32px;border-radius:9999px;border:1px solid transparent;transition:.2s}
+  .pill-w{background:#fff;color:var(--ink)}
+  .pill-w:hover{background:var(--gold);color:var(--navy)}
+  .pill-d{background:var(--navy);color:#fff}
+  .pill-d:hover{background:var(--gold);color:var(--navy)}
+  .pill-glass{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28);backdrop-filter:blur(6px)}
+  .pill-glass:hover{background:rgba(255,255,255,.24)}
+  .pill-line{border-color:rgba(0,0,0,.25);color:var(--ink)}
+  .pill-line:hover{border-color:var(--navy);background:var(--navy);color:#fff}
 
-  /* ---------- NAV ---------- */
-  nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-in{max-width:var(--max);margin:0 auto;padding:0 30px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:22px}
-  .nav-links{display:flex;gap:30px;list-style:none}
-  .nav-links a{font-family:var(--head);font-size:13.5px;font-weight:600;color:rgba(255,255,255,.8)}
+  /* photo + the signature colour wash rising from the bottom */
+  .shot{position:relative;overflow:hidden;background:#0a1626}
+  .shot>img{width:100%;height:100%;object-fit:cover}
+  .wash{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(to top, var(--navy) 0%, rgba(0,37,84,.72) 34%, rgba(0,37,84,0) 72%)}
+  .wash.soft{background:linear-gradient(to top, rgba(0,37,84,.95) 0%, rgba(0,37,84,.35) 45%, rgba(0,37,84,.05) 100%)}
+  .demo{position:absolute;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.55);color:rgba(255,255,255,.6);
+    font-family:var(--mono);font-size:9.5px;text-transform:uppercase;padding:5px 9px}
+
+  /* Ken Burns — slow drift, the honest stand-in for video */
+  @keyframes kb{0%{transform:scale(1.06) translate3d(0,0,0)}100%{transform:scale(1.16) translate3d(-1.4%,-1.6%,0)}}
+  .kb>img{animation:kb 22s ease-in-out infinite alternate}
+  @media(prefers-reduced-motion:reduce){.kb>img{animation:none}}
+
+  .strip{background:var(--navy);color:#fff;text-align:center;font-family:var(--mono);font-size:12px;padding:9px 18px}
+  .strip b{color:var(--gold);font-weight:500}
+
+  /* ---------- NAV (black, slim) ---------- */
+  nav{background:var(--ink);position:sticky;top:0;z-index:60}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:0 var(--pad);height:62px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .wordmark{font-family:var(--disp);font-weight:500;font-size:15px;letter-spacing:.16em;color:#fff;text-transform:uppercase}
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{font-family:var(--disp);font-size:14px;font-weight:400;color:rgba(255,255,255,.9)}
   .nav-links a:hover{color:var(--gold)}
-  .nav-cta{font-family:var(--head);font-size:13.5px;font-weight:700;background:var(--gold);color:#0d1117;padding:11px 22px;border-radius:3px}
-  .nav-cta:hover{background:var(--gold-hi)}
-  @media(max-width:940px){.nav-links{display:none}}
+  .nav-right{display:flex;align-items:center;gap:16px}
+  .nav-right .pill{padding:10px 22px;font-size:13.5px}
+  @media(max-width:980px){.nav-links{display:none}}
 
-  /* ---------- HERO ---------- */
-  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
-  .hero .ph{position:absolute;inset:0}
-  .hero .sc{background:
-      radial-gradient(120% 78% at 50% 52%, rgba(13,17,23,.86) 0%, rgba(13,17,23,.68) 46%, rgba(13,17,23,.5) 100%),
-      linear-gradient(180deg,rgba(13,17,23,.72) 0%,rgba(13,17,23,.42) 42%,rgba(13,17,23,.95) 100%)}
-  .hero-in{position:relative;z-index:5;width:100%;text-align:center;padding:100px 30px}
-  .hero h1{font-size:clamp(34px,5.6vw,74px);color:#fff;max-width:20ch;margin:22px auto 0}
-  .hero h1 .g{color:var(--gold)}
-  .hero p.sub{color:rgba(255,255,255,.86);font-size:clamp(16px,1.7vw,20px);max-width:56ch;margin:22px auto 0;font-weight:300}
-  .hero .acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
-  @media(max-width:760px){
-    .hero{min-height:0}
-    .hero-in{padding:72px 24px}
-    .hero .sc{background:linear-gradient(180deg,rgba(13,17,23,.7) 0%,rgba(13,17,23,.72) 45%,rgba(13,17,23,.95) 100%)}
-  }
+  /* ---------- HERO : headline bottom-left, card bottom-right ---------- */
+  .hero{position:relative;min-height:94vh;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
+  .hero .shot{position:absolute;inset:0}
+  .hero-in{position:relative;z-index:5;width:100%;padding-bottom:58px}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:end}
+  .hero .disp{font-size:clamp(38px,7.2vw,76px);color:#fff;max-width:15ch}
+  .hero .disp .th{margin-top:12px;font-size:clamp(21px,2.5vw,32px);color:#fff}
+  .hero .disp .g{color:var(--gold)}
+  .hero .sub{color:rgba(255,255,255,.84);font-size:17.5px;max-width:46ch;margin-top:22px;font-weight:300}
+  .hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  /* next-cohort card */
+  .nxt{border-radius:14px;overflow:hidden;position:relative;aspect-ratio:16/10;background:#0a1626}
+  .nxt .shot{position:absolute;inset:0}
+  .nxt .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5}
+  .nxt-lab{margin-bottom:12px}
+  @media(max-width:900px){.hero{min-height:0;padding-top:70px}.hero-grid{grid-template-columns:1fr;gap:28px}.hero-in{padding-bottom:40px}}
 
-  /* ---------- SECTION SHELL ---------- */
-  section{padding:96px 0}
-  .sec-head{text-align:center;max-width:760px;margin:0 auto 52px}
-  .sec-head h2{font-size:clamp(28px,3.9vw,50px);color:#fff;margin-top:16px}
-  .sec-head p{color:rgba(255,255,255,.68);font-size:18px;margin-top:16px}
-  .light{background:var(--cream);color:var(--ink)}
-  .light .sec-head h2{color:var(--ink)}
-  .light .sec-head p{color:var(--muted)}
-  .light .eyebrow{color:#a37b00}
+  /* ---------- CAROUSEL that bleeds off the right edge ---------- */
+  .rail-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .rail-head h2{font-size:clamp(26px,3vw,32px);letter-spacing:-.045em}
+  .rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;
+    scrollbar-width:none;-ms-overflow-style:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail>*{scroll-snap-align:start;flex:none}
+  .ecard{width:340px;border-radius:14px;overflow:hidden;position:relative;aspect-ratio:3/4;display:flex;align-items:flex-end}
+  .ecard .shot{position:absolute;inset:0}
+  .ecard .e-in{position:relative;z-index:5;padding:22px}
+  .ecard .badge{font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:4px 10px;border-radius:9999px}
+  .ecard h3{color:#fff;font-size:24px;margin:12px 0 8px}
+  .ecard p{color:rgba(255,255,255,.8);font-size:14.5px}
+  .ecard .meta{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.66);margin-top:12px;text-transform:uppercase}
+  @media(max-width:560px){.ecard{width:78vw}}
 
-  /* ---------- PROGRAM CARDS (TR event-card pattern) ---------- */
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .card{position:relative;min-height:430px;display:flex;flex-direction:column;justify-content:flex-end;
-    overflow:hidden;border-radius:4px;transition:transform .25s}
-  .card:hover{transform:translateY(-6px)}
-  .card .ph{position:absolute;inset:0}
-  .card .sc{background:linear-gradient(180deg,rgba(13,17,23,.15) 30%,rgba(13,17,23,.93) 100%)}
-  .card .c-in{position:relative;z-index:5;padding:28px}
-  .card .badge{display:inline-block;font-family:var(--head);font-size:10.5px;font-weight:800;letter-spacing:.12em;
-    text-transform:uppercase;background:var(--gold);color:#0d1117;padding:5px 11px;margin-bottom:14px}
-  .card h3{font-size:24px;color:#fff}
-  .card p{color:rgba(255,255,255,.78);font-size:15px;margin-top:10px}
-  .card .meta{font-family:var(--head);font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);margin-top:16px;
-    padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
-  .card .lnk{display:inline-block;margin-top:14px}
-  @media(max-width:900px){.cards{grid-template-columns:1fr}.card{min-height:340px}}
+  /* ---------- FULL-BLEED PORTRAIT statement ---------- */
+  .portrait{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--navy)}
+  .portrait .shot{position:absolute;inset:0}
+  .portrait .wash{background:linear-gradient(to top, rgba(0,37,84,.92) 0%, rgba(0,37,84,.5) 50%, rgba(0,37,84,.55) 100%)}
+  .portrait .in{position:relative;z-index:5;max-width:880px;padding:0 var(--pad)}
+  .portrait .disp{font-size:clamp(34px,6.4vw,76px);color:#fff}
+  .portrait p{color:rgba(255,255,255,.84);font-size:18px;max-width:44ch;margin:20px auto 30px}
+  @media(max-width:900px){.portrait{min-height:0;padding:88px 0}}
 
-  /* ---------- PILLARS (TR circular tile grid) ---------- */
-  .pillars{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
-  .pil{text-align:center}
-  .pil .ph{aspect-ratio:1;border-radius:50%;margin-bottom:16px;border:3px solid transparent;transition:border-color .2s,transform .2s}
-  .pil:hover .ph{border-color:var(--gold);transform:translateY(-4px)}
-  .pil .ph .sc{background:linear-gradient(180deg,rgba(0,37,84,.25),rgba(0,37,84,.55))}
-  .pil h4{font-family:var(--head);font-weight:700;font-size:15px;color:var(--ink)}
-  .pil p{font-size:13px;color:var(--muted);margin-top:6px}
-  @media(max-width:1000px){.pillars{grid-template-columns:repeat(3,1fr);gap:24px}}
-  @media(max-width:560px){.pillars{grid-template-columns:repeat(2,1fr)}}
+  /* ---------- WHITE : mono label + huge stacked list + photo ---------- */
+  .stack{padding:104px 0}
+  .stack-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .stack .list{margin-top:26px}
+  .stack .list a{display:block;font-family:var(--disp);font-weight:500;letter-spacing:-.05em;line-height:1.02;
+    font-size:clamp(30px,4.6vw,58px);color:var(--ink);padding:9px 0;transition:color .18s,padding-left .18s}
+  .stack .list a:hover{color:var(--navy);padding-left:12px}
+  .stack .list a span{color:#b9bcc2;font-size:.42em;font-family:var(--mono);letter-spacing:0;vertical-align:middle;margin-right:14px}
+  .stack .note{color:#5b6270;font-size:17px;max-width:46ch;margin-top:26px}
+  .stack .pic{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden}
+  .stack .pic .shot{position:absolute;inset:0}
+  @media(max-width:900px){.stack-grid{grid-template-columns:1fr;gap:34px}.stack .pic{aspect-ratio:16/11}}
 
-  /* ---------- RESULTS SPLIT (TR "equals results") ---------- */
-  .results{background:var(--cream);color:var(--ink)}
-  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-  .res-grid h2{font-size:clamp(28px,3.8vw,48px);color:var(--ink);margin:16px 0 20px}
-  .res-grid h2 .g{color:#a37b00}
-  .res-grid .intro{color:var(--muted);font-size:17.5px;max-width:46ch}
-  .bignums{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:38px}
-  .bn .n{font-family:var(--head);font-weight:900;font-size:clamp(46px,6vw,80px);color:var(--navy);line-height:.94;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-  .bn .l{font-size:14px;color:var(--muted);margin-top:8px;max-width:22ch;line-height:1.5}
-  .src{font-family:var(--head);font-size:12px;font-weight:600;color:var(--muted);margin-top:30px;padding-top:14px;border-top:1px solid #ddd8cc}
-  .res-shot{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden}
-  .res-shot .ph{position:absolute;inset:0}
-  @media(max-width:900px){.res-grid{grid-template-columns:1fr;gap:34px}.res-shot{aspect-ratio:16/10}}
+  /* ---------- TESTIMONIAL rail : quote BELOW the card ---------- */
+  .voices{padding:96px 0 104px;background:var(--paper)}
+  .vcard{width:300px}
+  .vcard .pic{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:#0a1626}
+  .vcard .pic .shot{position:absolute;inset:0}
+  .vcard .lock{position:absolute;left:18px;bottom:18px;z-index:5;color:#fff;font-family:var(--disp);font-weight:500;line-height:1.06}
+  .vcard .lock small{display:block;font-family:var(--mono);font-size:10px;text-transform:uppercase;opacity:.8;margin-bottom:4px}
+  .vcard .lock b{font-size:19px;font-weight:500;letter-spacing:-.03em}
+  .vcard .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6}
+  .vcard .q{color:var(--ink);font-size:16px;line-height:1.55;margin-top:18px}
+  .vcard .who{font-family:var(--mono);font-size:12px;color:#6b7280;margin-top:10px}
+  @media(max-width:560px){.vcard{width:76vw}}
 
-  /* ---------- TESTIMONIALS ---------- */
-  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .q{background:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:32px 30px;display:flex;flex-direction:column}
-  .q .mark{font-family:var(--head);font-weight:900;font-size:46px;color:var(--gold);line-height:.7;margin-bottom:14px}
-  .q p{color:rgba(255,255,255,.88);font-size:17px;line-height:1.66;flex:1}
-  .q .who{display:flex;align-items:center;gap:13px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
-  .q .who .ph{width:48px;height:48px;border-radius:50%;flex:none}
-  .q .who .nm{font-family:var(--head);font-weight:700;font-size:14.5px;color:#fff}
-  .q .who .rl{font-size:12.5px;color:rgba(255,255,255,.55)}
-  .placeholder-note{text-align:center;font-family:var(--head);font-size:12.5px;color:rgba(255,255,255,.45);margin-top:26px}
-  @media(max-width:900px){.quotes{grid-template-columns:1fr}}
+  /* ---------- CENTRED STATEMENT ---------- */
+  .say{padding:118px 0;text-align:center;background:var(--gold);color:var(--navy)}
+  .say .disp{font-size:clamp(34px,6.2vw,76px);color:var(--navy);max-width:16ch;margin:18px auto 0}
+  .say p{color:rgba(0,37,84,.8);font-size:18.5px;max-width:52ch;margin:22px auto 0}
+  .say .lab{color:var(--navy)}
+  .say .lab::before{background:var(--navy)}
 
-  /* ---------- BAND ---------- */
-  .band{position:relative;min-height:62vh;display:flex;align-items:center;overflow:hidden}
-  .band .ph{position:absolute;inset:0}
-  .band .sc{background:linear-gradient(90deg,rgba(13,17,23,.92) 0%,rgba(13,17,23,.6) 55%,rgba(13,17,23,.25) 100%)}
-  .band .in{position:relative;z-index:5}
-  .band h2{font-size:clamp(28px,4.4vw,56px);color:#fff;max-width:18ch}
-  .band h2 .g{color:var(--gold)}
-  .band p{color:rgba(255,255,255,.82);font-size:18px;max-width:46ch;margin-top:18px}
-  .band .acts{margin-top:30px}
-  @media(max-width:760px){.band{min-height:0;padding:80px 0}.band .sc{background:linear-gradient(180deg,rgba(13,17,23,.55),rgba(13,17,23,.92))}}
+  /* ---------- RESULTS ---------- */
+  .res{padding:0 0 104px}
+  .res h2{font-size:clamp(28px,4.8vw,61px);letter-spacing:-.05em;line-height:.92;max-width:16ch}
+  .res .g{color:var(--navy)}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:44px;border-top:1px solid #e5e3dd;padding-top:34px}
+  .nums .n{font-family:var(--disp);font-weight:500;font-size:clamp(40px,5.4vw,72px);letter-spacing:-.05em;line-height:.9;color:var(--navy)}
+  .nums .n b{color:var(--gold);font-weight:500;-webkit-text-stroke:1px var(--navy)}
+  .nums .l{font-size:14px;color:#5b6270;margin-top:10px;max-width:22ch;line-height:1.5}
+  .src{font-family:var(--mono);font-size:12px;color:#8a8f99;margin-top:26px}
+  @media(max-width:820px){.nums{grid-template-columns:1fr 1fr}}
 
   /* ---------- FINALE ---------- */
-  .finale{position:relative;min-height:86vh;display:flex;align-items:center;text-align:center;overflow:hidden}
-  .finale .ph{position:absolute;inset:0}
-  .finale .sc{background:linear-gradient(180deg,rgba(13,17,23,.8),rgba(13,17,23,.88))}
-  .finale .in{position:relative;z-index:5;max-width:900px;margin:0 auto;padding:0 30px}
-  .finale h2{font-size:clamp(32px,6vw,80px);color:#fff;line-height:1.02}
-  .finale h2 .g{color:var(--gold)}
-  .finale p{color:rgba(255,255,255,.86);font-size:19px;max-width:48ch;margin:22px auto 34px}
-  @media(max-width:760px){.finale{min-height:0;padding:88px 0}}
+  .fin{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--navy)}
+  .fin .shot{position:absolute;inset:0}
+  .fin .wash{background:
+      radial-gradient(90% 62% at 50% 42%, rgba(0,20,48,.62) 0%, rgba(0,20,48,.3) 60%, rgba(0,20,48,.1) 100%),
+      linear-gradient(to top, rgba(0,37,84,.9) 0%, rgba(0,37,84,.34) 42%, rgba(0,20,48,.08) 100%)}
+  .fin .shot>img{filter:brightness(1.5) contrast(1.02) saturate(1.15)}
+  .fin .in{position:relative;z-index:5;max-width:900px;padding:0 var(--pad)}
+  .fin .disp{font-size:clamp(36px,7vw,84px);color:#fff}
+  .fin .disp .g{color:var(--gold)}
+  .fin p{color:rgba(255,255,255,.85);font-size:18.5px;max-width:44ch;margin:22px auto 32px}
+  @media(max-width:900px){.fin{min-height:0;padding:96px 0}}
 
   /* ---------- FOOTER ---------- */
-  footer{background:#080b10;padding:60px 0 40px;border-top:1px solid var(--line)}
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:64px 0 40px}
   .foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
-  .foot p,.foot a{font-size:14px;color:rgba(255,255,255,.55);line-height:1.9}
+  .foot p,.foot a{font-size:14px;color:rgba(255,255,255,.6);line-height:1.9}
   .foot a:hover{color:var(--gold)}
   .foot ul{list-style:none}
-  .foot .lab{font-family:var(--head);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
-  .foot .note{grid-column:1/-1;border-top:1px solid var(--line);margin-top:18px;padding-top:18px;font-size:12.5px;color:rgba(255,255,255,.36)}
+  .foot .lab{margin-bottom:12px;color:#fff}
+  .foot .note{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.14);margin-top:20px;padding-top:20px;font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.38)}
   @media(max-width:760px){.foot{grid-template-columns:1fr 1fr}}
 
-  .vbadge{position:fixed;right:16px;bottom:16px;z-index:70;background:var(--gold);color:#0d1117;font-family:var(--head);
-    font-weight:800;font-size:12px;letter-spacing:.03em;text-transform:uppercase;padding:11px 16px;border-radius:3px}
-  .vbadge:hover{background:#fff}
+  .vbadge{position:fixed;right:16px;bottom:16px;z-index:70;background:var(--gold);color:var(--navy);
+    font-family:var(--mono);font-size:12px;padding:11px 18px;border-radius:9999px}
 </style>
 
-<div class="notice"><b>ตัวอย่างเท่านั้น</b> — ภาพและคำรับรองในหน้านี้เป็นตัวแทนชั่วคราว รอสวมด้วยภาพ Hackathon และคำรับรองจริงของ SolutionsIMPACT</div>
+<div class="strip"><b>ตัวอย่างเท่านั้น</b> — ภาพและคำรับรองเป็นตัวแทนชั่วคราว รอสวมด้วยภาพและวิดีโอ Hackathon จริง</div>
 
 <nav>
   <div class="nav-in">
-    <a href="index-v7.html"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:32px"></a>
+    <a class="wordmark" href="index-v7.html">SolutionsIMPACT</a>
     <ul class="nav-links">
       <li><a href="#programs">โปรแกรม</a></li>
-      <li><a href="#pillars">สิ่งที่ทีมสร้างได้</a></li>
+      <li><a href="#areas">สิ่งที่ทีมสร้างได้</a></li>
+      <li><a href="#voices">เสียงจากห้องนั้น</a></li>
       <li><a href="#results">ผลลัพธ์</a></li>
-      <li><a href="#voices">เสียงจากลูกค้า</a></li>
     </ul>
-    <a class="nav-cta" href="#finale">นัดคุยกลยุทธ์</a>
+    <div class="nav-right"><a class="pill pill-w" href="#fin">นัดคุยกลยุทธ์</a></div>
   </div>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="ph"><img src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนกำลังฟังการนำเสนอ" width="1800" height="1200" fetchpriority="high"><span class="demo">ภาพตัวอย่าง</span></div>
-  <div class="sc"></div>
-  <div class="hero-in">
-    <span class="eyebrow">Your Transformation Partner</span>
-    <h1>ทีมของคุณ <span class="g">ไปได้ไกลกว่าที่คิด</span></h1>
-    <p class="sub">เริ่มจากโจทย์จริงในองค์กร ลงมือสร้างจนใช้งานได้จริง วัดผลเป็นตัวเลขที่ชัดเจน แล้วก้าวต่อไปทั้งองค์กร</p>
-    <div class="acts">
-      <a class="btn btn-gold" href="#finale">นัดคุยกลยุทธ์ 30 นาที</a>
-      <a class="btn btn-ghost" href="#results">ดูผลลัพธ์จริง</a>
+  <div class="shot kb"><img src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนกำลังฟังการนำเสนอ" width="1800" height="1200" fetchpriority="high"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="wash"></div>
+  <div class="wrap hero-in">
+    <div class="hero-grid">
+      <div>
+        <h1 class="disp">ทีมของคุณ<br><span class="g">ไปได้ไกลกว่าที่คิด</span></h1>
+        <p class="sub">เริ่มจากโจทย์จริงในองค์กร ลงมือสร้างจนใช้งานได้จริง วัดผลเป็นตัวเลขที่ชัดเจน แล้วก้าวต่อไปทั้งองค์กร</p>
+        <div class="acts">
+          <a class="pill pill-w" href="#fin">นัดคุยกลยุทธ์ 30 นาที</a>
+          <a class="pill pill-glass" href="#results">ดูผลลัพธ์จริง</a>
+        </div>
+      </div>
+      <div>
+        <span class="lab on-dark nxt-lab">รุ่นถัดไป</span>
+        <div class="nxt">
+          <div class="shot"><img src="assets/demo-photos/energy-stage.jpg" alt="บรรยากาศเวทีและผู้เข้าร่วม" width="1800" height="1200" loading="lazy" decoding="async"></div>
+          <div class="wash soft"></div>
+          <span class="pill pill-glass play">▶ ดูบรรยากาศ</span>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
-<!-- PROGRAMS -->
-<section id="programs">
+<!-- PROGRAMS RAIL -->
+<section style="padding:96px 0 24px" id="programs">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Programs</span>
-      <h2>เลือกความลึกที่องค์กรคุณพร้อมก้าว</h2>
-      <p>เริ่มจากห้องผู้บริหาร ขยายสู่ทีม แล้วก้าวต่อทั้งองค์กร แต่ละระดับจบสมบูรณ์ในตัวเอง</p>
+    <div class="rail-head">
+      <div><span class="lab">โปรแกรมของเรา</span><h2 style="margin-top:14px">เลือกความลึกที่องค์กรคุณพร้อมก้าว</h2></div>
+      <span class="lab" style="color:#8a8f99">เลื่อนดูทางขวา →</span>
     </div>
-    <div class="cards">
-      <a class="card" href="#finale">
-        <div class="ph"><img src="assets/demo-photos/pitch-01.jpg" alt="ผู้บริหารกำลังฟังการนำเสนอ" width="1800" height="1200" loading="lazy" decoding="async"></div>
-        <div class="sc"></div>
-        <div class="c-in">
-          <span class="badge">ครึ่งวัน – หนึ่งวัน</span>
-          <h3>Executive Session</h3>
-          <p>ทีมนำได้เห็น AI ทำงานกับโจทย์จริงขององค์กร ก่อนตัดสินใจว่าจะพาองค์กรไปทางไหน</p>
-          <div class="meta">สำหรับผู้บริหาร · เริ่มต้น ฿200,000</div>
-          <span class="lnk">ดูรายละเอียด</span>
-        </div>
+  </div>
+  <div class="wrap" style="padding-right:0">
+    <div class="rail">
+      <a class="ecard" href="#fin">
+        <div class="shot"><img src="assets/demo-photos/pitch-01.jpg" alt="ผู้บริหารฟังการนำเสนอ" width="1800" height="1200" loading="lazy" decoding="async"></div>
+        <div class="wash"></div>
+        <div class="e-in"><span class="badge">ครึ่งวัน – หนึ่งวัน</span><h3>Executive Session</h3><p>ทีมนำได้เห็น AI ทำงานกับโจทย์จริงขององค์กร ก่อนตัดสินใจว่าจะพาองค์กรไปทางไหน</p><div class="meta">ผู้บริหาร · เริ่มต้น ฿200,000</div></div>
       </a>
-      <a class="card" href="#finale">
-        <div class="ph"><img src="assets/demo-photos/build-01.jpg" alt="ทีมงานกำลังลงมือสร้างใน Hackathon" width="1800" height="1200" loading="lazy" decoding="async"></div>
-        <div class="sc"></div>
-        <div class="c-in">
-          <span class="badge">3 / 4 / 6–8 วัน</span>
-          <h3>Hackathon Journey</h3>
-          <p>ทีมของคุณสร้างโปรเจกต์ใช้จริง จบด้วยผลงานที่นำเสนอผู้บริหาร และวัด ROI ได้</p>
-          <div class="meta">ทีมงานจริง โจทย์จริง · มี mentor ประกบทุกทีม</div>
-          <span class="lnk">ดูรายละเอียด</span>
-        </div>
+      <a class="ecard" href="#fin">
+        <div class="shot"><img src="assets/demo-photos/build-01.jpg" alt="ทีมงานลงมือสร้างใน Hackathon" width="1800" height="1200" loading="lazy" decoding="async"></div>
+        <div class="wash"></div>
+        <div class="e-in"><span class="badge">3 / 4 / 6–8 วัน</span><h3>Hackathon Journey</h3><p>ทีมของคุณสร้างโปรเจกต์ใช้จริง จบด้วยผลงานที่นำเสนอผู้บริหาร และวัด ROI ได้</p><div class="meta">ทีมงานจริง · mentor ประกบทุกทีม</div></div>
       </a>
-      <a class="card" href="#finale">
-        <div class="ph"><img src="assets/demo-photos/crowd-01.jpg" alt="พนักงานจำนวนมากในงานขององค์กร" width="1600" height="1067" loading="lazy" decoding="async"></div>
-        <div class="sc"></div>
-        <div class="c-in">
-          <span class="badge">3–8 เดือน</span>
-          <h3>Enterprise Rollout</h3>
-          <p>ขยายผลจาก Hackathon สู่ทั้งองค์กร พร้อมระบบวัดผล และ PM ดูแลตลอดโครงการ</p>
-          <div class="meta">หลายรุ่นต่อเนื่อง · ออกแบบเฉพาะองค์กร</div>
-          <span class="lnk">ดูรายละเอียด</span>
-        </div>
+      <a class="ecard" href="#fin">
+        <div class="shot"><img src="assets/demo-photos/crowd-01.jpg" alt="พนักงานจำนวนมากในงานขององค์กร" width="1600" height="1067" loading="lazy" decoding="async"></div>
+        <div class="wash"></div>
+        <div class="e-in"><span class="badge">3–8 เดือน</span><h3>Enterprise Rollout</h3><p>ขยายผลจาก Hackathon สู่ทั้งองค์กร พร้อมระบบวัดผล และ PM ดูแลตลอดโครงการ</p><div class="meta">หลายรุ่นต่อเนื่อง · ออกแบบเฉพาะองค์กร</div></div>
+      </a>
+      <a class="ecard" href="#fin">
+        <div class="shot"><img src="assets/demo-photos/mentor-01.jpg" alt="mentor ให้คำแนะนำทีม" width="1800" height="1200" loading="lazy" decoding="async"></div>
+        <div class="wash"></div>
+        <div class="e-in"><span class="badge">ตลอดโปรแกรม</span><h3>Mentor ประจำทีม</h3><p>คนที่เคยสร้างของจริงมาก่อน นั่งประกบทีมคุณตั้งแต่ชั่วโมงแรกจนขึ้นเวที</p><div class="meta">รวมอยู่ในทุกแพ็ก</div></div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- PILLARS -->
-<section class="light" id="pillars">
+<!-- FULL-BLEED PORTRAIT STATEMENT -->
+<section class="portrait">
+  <div class="shot kb"><img src="assets/demo-photos/room-01.jpg" alt="ทีมงานกำลังลงมือทำงานร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="wash"></div>
+  <div class="in">
+    <h2 class="disp">เมื่อ 300 คนลงมือพร้อมกัน</h2>
+    <p>ทุกทีมมี mentor ประกบตั้งแต่ชั่วโมงแรก และก่อนวันสุดท้ายจะจบ ของที่เคยค้างอยู่ในที่ประชุมก็เปิดใช้งานได้จริง</p>
+    <a class="pill pill-w" href="#programs">ดูว่าเกิดอะไรขึ้นบ้าง</a>
+  </div>
+</section>
+
+<!-- WHITE STACK LIST -->
+<section class="stack" id="areas">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">What Your Team Builds</span>
-      <h2>หกจุดที่ทีมของคุณ เปลี่ยนงานประจำวันให้เป็นผลงาน</h2>
-      <p>ทุกโปรเจกต์เริ่มจากงานที่ทีมทำอยู่ทุกวัน ไม่ใช่โจทย์สมมติในห้องเรียน</p>
+    <div class="stack-grid">
+      <div>
+        <span class="lab">สิ่งที่ทีมของคุณสร้างได้</span>
+        <div class="list">
+          <a href="#fin"><span>01</span>งานเอกสาร</a>
+          <a href="#fin"><span>02</span>สรุปข้อมูล</a>
+          <a href="#fin"><span>03</span>งานบริการ</a>
+          <a href="#fin"><span>04</span>วางแผนงาน</a>
+          <a href="#fin"><span>05</span>งานวิเคราะห์</a>
+          <a href="#fin"><span>06</span>งานหน้างาน</a>
+        </div>
+        <p class="note">ทุกโปรเจกต์เริ่มจากงานที่ทีมทำอยู่ทุกวัน ไม่ใช่โจทย์สมมติในห้องเรียน</p>
+      </div>
+      <div class="pic">
+        <div class="shot"><img src="assets/demo-photos/board-01.jpg" alt="ทีมงานออกแบบทางแก้ร่วมกัน" width="1800" height="1201" loading="lazy" decoding="async"></div>
+        <div class="wash soft"></div>
+      </div>
     </div>
-    <div class="pillars">
-      <div class="pil"><div class="ph"><img src="assets/demo-photos/desks-01.jpg" alt="งานเอกสารที่ทำซ้ำทุกวัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานเอกสาร</h4><p>งานซ้ำที่กินเวลาทุกสัปดาห์</p></div>
-      <div class="pil"><div class="ph"><img src="assets/demo-photos/table-01.jpg" alt="การรวบรวมและสรุปข้อมูล" width="1800" height="1200" loading="lazy" decoding="async"><span class="sc"></span></div><h4>สรุปข้อมูล</h4><p>รายงานที่ต้องทำทุกเดือน</p></div>
-      <div class="pil"><div class="ph"><img src="assets/demo-photos/team-01.jpg" alt="งานบริการลูกค้า" width="1800" height="1200" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานบริการ</h4><p>คำถามลูกค้าที่ซ้ำกันทุกวัน</p></div>
-      <div class="pil"><div class="ph"><img src="assets/demo-photos/board-01.jpg" alt="การวางแผนงาน" width="1800" height="1201" loading="lazy" decoding="async"><span class="sc"></span></div><h4>วางแผนงาน</h4><p>ประสานงานข้ามทีม</p></div>
-      <div class="pil"><div class="ph"><img src="assets/demo-photos/work-01.jpg" alt="งานวิเคราะห์" width="1600" height="1067" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานวิเคราะห์</h4><p>ตัวเลขที่ต้องดูทุกวัน</p></div>
-      <div class="pil"><div class="ph"><img src="assets/demo-photos/work-02.jpg" alt="งานปฏิบัติการหน้างาน" width="1600" height="1067" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานหน้างาน</h4><p>ขั้นตอนที่ติดขัดประจำ</p></div>
+  </div>
+</section>
+
+<!-- VOICES : quote below the card -->
+<section class="voices" id="voices">
+  <div class="wrap">
+    <div class="rail-head">
+      <div><span class="lab">เสียงจากห้องนั้น</span><h2 style="margin-top:14px">คนที่อยู่ในห้อง พูดว่าอย่างไร</h2></div>
+      <span class="lab" style="color:#8a8f99">เลื่อนดูทางขวา →</span>
     </div>
+  </div>
+  <div class="wrap" style="padding-right:0">
+    <div class="rail">
+      <div class="vcard">
+        <div class="pic">
+          <div class="shot"><img src="assets/demo-photos/portrait-01.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div>
+          <div class="wash soft"></div>
+          <span class="pill pill-glass play">▶ ดูคลิป</span>
+          <div class="lock"><small>SolutionsIMPACT</small><b>Executive Session</b></div>
+        </div>
+        <p class="q">พื้นที่สำหรับคำรับรองจริงจากผู้บริหารที่ร่วมโปรแกรม</p>
+        <div class="who">รอชื่อจริง · ตำแหน่ง องค์กร</div>
+      </div>
+      <div class="vcard">
+        <div class="pic">
+          <div class="shot"><img src="assets/demo-photos/portrait-02.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div>
+          <div class="wash soft"></div>
+          <span class="pill pill-glass play">▶ ดูคลิป</span>
+          <div class="lock"><small>SolutionsIMPACT</small><b>Hackathon Journey</b></div>
+        </div>
+        <p class="q">พื้นที่สำหรับคำรับรองจากหัวหน้าทีมที่ลงมือสร้างเอง</p>
+        <div class="who">รอชื่อจริง · ตำแหน่ง องค์กร</div>
+      </div>
+      <div class="vcard">
+        <div class="pic">
+          <div class="shot"><img src="assets/demo-photos/portrait-03.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div>
+          <div class="wash soft"></div>
+          <span class="pill pill-glass play">▶ ดูคลิป</span>
+          <div class="lock"><small>SolutionsIMPACT</small><b>Enterprise Rollout</b></div>
+        </div>
+        <p class="q">พื้นที่สำหรับคำรับรองจากฝ่ายการเงินที่ร่วมตั้งเกณฑ์วัดผล</p>
+        <div class="who">รอชื่อจริง · ตำแหน่ง องค์กร</div>
+      </div>
+      <div class="vcard">
+        <div class="pic">
+          <div class="shot"><img src="assets/demo-photos/team-01.jpg" alt="ภาพตัวแทนทีมงาน" width="1800" height="1200" loading="lazy" decoding="async"></div>
+          <div class="wash soft"></div>
+          <span class="pill pill-glass play">▶ ดูคลิป</span>
+          <div class="lock"><small>SolutionsIMPACT</small><b>In the room</b></div>
+        </div>
+        <p class="q">พื้นที่สำหรับบรรยากาศจริงในวันนำเสนอผลงาน</p>
+        <div class="who">รอคลิปจริงจากงาน</div>
+      </div>
+    </div>
+    <p class="src" style="margin-top:22px">เราไม่ใส่คำรับรองสมมติ ช่องเหล่านี้รอคำพูดจริงจากลูกค้าที่ร่วมโปรแกรม</p>
+  </div>
+</section>
+
+<!-- CENTRED STATEMENT -->
+<section class="say">
+  <div class="wrap">
+    <span class="lab" style="justify-content:center">The New Way</span>
+    <h2 class="disp">ทีมของคุณลงมือเอง<br>องค์กรถึงก้าวต่อได้</h2>
+    <p>เครื่องมือยุคนี้ทำให้คนหน้างานสร้างของที่ใช้ได้จริงด้วยตัวเอง สิ่งที่เปลี่ยนเกมจึงไม่ใช่ความรู้ที่เพิ่มขึ้น แต่คือทีมของคุณได้ลงมือ และได้เห็นผลงานเกิดขึ้นจริงกับมือ</p>
   </div>
 </section>
 
 <!-- RESULTS -->
-<section class="results" id="results">
+<section class="res" id="results">
   <div class="wrap">
-    <div class="res-grid">
-      <div>
-        <span class="eyebrow">The Proof</span>
-        <h2>SolutionsIMPACT <span class="g">คือผลลัพธ์ที่วัดได้</span></h2>
-        <p class="intro">องค์กรอาหารระดับประเทศให้ทีมของตัวเองลงมือใน Hackathon กับเรา รุ่นแรกได้โปรเจกต์ใช้งานจริงกว่าร้อยตัว และหลังเห็นผล องค์กรก็ขยายขอบเขตต่อเป็นห้าเท่า</p>
-        <div class="bignums">
-          <div class="bn"><div class="n">100+</div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
-          <div class="bn"><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
-          <div class="bn"><div class="n">5×</div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
-          <div class="bn"><div class="n">600</div><div class="l">โปรเจกต์ตามขอบเขตงานที่ขยายแล้ว</div></div>
-        </div>
-        <div class="src">ที่มา · โปรแกรมที่ SolutionsIMPACT ส่งมอบแล้ว ปี 2026</div>
-      </div>
-      <div class="res-shot"><div class="ph"><img src="assets/demo-photos/laptops-01.jpg" alt="ทีมงานกำลังสร้างผลงานร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div></div>
+    <span class="lab">ผลลัพธ์ที่วัดได้</span>
+    <h2 style="margin-top:16px">SolutionsIMPACT <span class="g">คือผลลัพธ์</span></h2>
+    <div class="nums">
+      <div><div class="n">100<b>+</b></div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
+      <div><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
+      <div><div class="n">5<b>×</b></div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
+      <div><div class="n">600</div><div class="l">โปรเจกต์ตามขอบเขตงานที่ขยายแล้ว</div></div>
     </div>
-  </div>
-</section>
-
-<!-- BAND -->
-<section class="band">
-  <div class="ph"><img src="assets/demo-photos/room-01.jpg" alt="ทีมงานเต็มห้องกำลังทำงานร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
-  <div class="sc"></div>
-  <div class="wrap in">
-    <span class="eyebrow">In the room</span>
-    <h2 style="margin-top:18px">เมื่อ 300 คนลงมือพร้อมกัน <span class="g">โจทย์บนโต๊ะกลายเป็นระบบที่ใช้จริง</span></h2>
-    <p>ทุกทีมมี mentor ประกบตั้งแต่ชั่วโมงแรก และก่อนวันสุดท้ายจะจบ ของที่เคยค้างอยู่ในที่ประชุมก็เปิดใช้งานได้จริง</p>
-    <div class="acts"><a class="btn btn-gold" href="#finale">เริ่มบทสนทนากับเรา</a></div>
-  </div>
-</section>
-
-<!-- VOICES -->
-<section id="voices">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Voices</span>
-      <h2>เสียงจากคนที่อยู่ในห้องนั้น</h2>
-    </div>
-    <div class="quotes">
-      <div class="q">
-        <div class="mark">“</div>
-        <p>พื้นที่สำหรับคำรับรองจริงจากผู้บริหารที่ร่วมโปรแกรม รอเก็บจากลูกค้าจริงของ SolutionsIMPACT</p>
-        <div class="who"><div class="ph"><img src="assets/demo-photos/portrait-01.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div><div><div class="nm">รอชื่อจริง</div><div class="rl">ตำแหน่ง · องค์กร</div></div></div>
-      </div>
-      <div class="q">
-        <div class="mark">“</div>
-        <p>พื้นที่สำหรับคำรับรองจากหัวหน้าทีมที่ลงมือสร้างเอง รอเก็บจากลูกค้าจริงของ SolutionsIMPACT</p>
-        <div class="who"><div class="ph"><img src="assets/demo-photos/portrait-02.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div><div><div class="nm">รอชื่อจริง</div><div class="rl">ตำแหน่ง · องค์กร</div></div></div>
-      </div>
-      <div class="q">
-        <div class="mark">“</div>
-        <p>พื้นที่สำหรับคำรับรองจากฝ่ายการเงินที่ร่วมตั้งเกณฑ์วัดผล รอเก็บจากลูกค้าจริงของ SolutionsIMPACT</p>
-        <div class="who"><div class="ph"><img src="assets/demo-photos/portrait-03.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div><div><div class="nm">รอชื่อจริง</div><div class="rl">ตำแหน่ง · องค์กร</div></div></div>
-      </div>
-    </div>
-    <p class="placeholder-note">เราไม่ใส่คำรับรองสมมติ ช่องเหล่านี้รอคำพูดจริงจากลูกค้าที่ร่วมโปรแกรม</p>
+    <div class="src">ที่มา · โปรแกรมที่ SolutionsIMPACT ส่งมอบแล้ว ปี 2026</div>
   </div>
 </section>
 
 <!-- FINALE -->
-<section class="finale" id="finale">
-  <div class="ph"><img src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนอยู่ร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
-  <div class="sc"></div>
+<section class="fin" id="fin">
+  <div class="shot kb"><img src="assets/demo-photos/energy-hands.jpg" alt="ผู้คนทั้งห้องยกมือขึ้นพร้อมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="wash"></div>
   <div class="in">
-    <span class="eyebrow">Start a Conversation</span>
-    <h2 style="margin-top:20px">พร้อมให้ทีมของคุณ <span class="g">ไปได้ไกลกว่าที่คิด</span> หรือยัง</h2>
+    <span class="lab on-dark" style="justify-content:center">เริ่มบทสนทนา</span>
+    <h2 class="disp" style="margin-top:18px">พร้อมให้ทีมของคุณ<br><span class="g">ไปได้ไกลกว่าที่คิด</span></h2>
     <p>เริ่มจากบทสนทนา 30 นาที เรื่องโจทย์ขององค์กรคุณ จบบทสนทนา คุณจะเห็นชัดขึ้นว่าควรเริ่มตรงไหน และควรวัดผลด้วยอะไร</p>
-    <a class="btn btn-gold" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์ 30 นาที</a>
+    <a class="pill pill-w" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์ 30 นาที</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot">
     <div>
-      <img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:30px;margin-bottom:14px">
+      <div class="wordmark" style="margin-bottom:14px">SolutionsIMPACT</div>
       <p>Your Transformation Partner<br>999/9 Central World กรุงเทพฯ 10330</p>
     </div>
-    <ul>
-      <span class="lab">Programs</span>
+    <ul><span class="lab on-dark">โปรแกรม</span>
       <li><a href="#programs">Executive Session</a></li>
       <li><a href="#programs">Hackathon Journey</a></li>
       <li><a href="#programs">Enterprise Rollout</a></li>
     </ul>
-    <div><span class="lab">Contact</span><p>training@solutionsimpact.com<br>02-107-6374</p></div>
-    <div class="note">© 2026 SolutionsIMPACT — Your Transformation Partner · ภาพและคำรับรองในหน้านี้เป็นตัวอย่างชั่วคราว</div>
+    <div><span class="lab on-dark">ติดต่อ</span><p>training@solutionsimpact.com<br>02-107-6374</p></div>
+    <div class="note">© 2026 SolutionsIMPACT — ภาพและคำรับรองในหน้านี้เป็นตัวอย่างชั่วคราว</div>
   </div>
 </footer>
 
