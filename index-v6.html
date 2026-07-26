@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolutionsIMPACT | Your Transformation Partner</title>
+<meta name="description" content="โปรแกรม transformation สำหรับองค์กรระดับ Enterprise ที่ทีมของคุณลงมือสร้างเอง มี mentor ประกบ และวัดผลเป็นตัวเลขร่วมกับฝ่ายการเงิน">
+<meta property="og:title" content="SolutionsIMPACT | ทีมของคุณ ไปได้ไกลกว่าที่คิด">
+<meta property="og:description" content="เริ่มจากโจทย์จริงในองค์กร ลงมือสร้างจนใช้งานได้จริง วัดผลเป็นตัวเลขที่ชัดเจน แล้วก้าวต่อไปทั้งองค์กร">
+<meta property="og:image" content="assets/demo-photos/hero-room.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#002554">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#002554; --navy-deep:#00152e; --gold:#FFC600;
+    --bone:#f4f2ed; --ink:#14171c; --muted:#5d636d; --faint:#9aa0a8; --hair:#ddd9d0;
+    --head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --max:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--body);color:var(--ink);background:var(--bone);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  ::selection{background:var(--gold);color:var(--navy)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+  h1,h2,h3{font-family:var(--head);line-height:1.02;letter-spacing:-.025em;font-weight:800;text-wrap:balance}
+
+  /* ---------- DUOTONE PHOTO SYSTEM (the art direction) ---------- */
+  .duo{position:relative;isolation:isolate;background:var(--navy);overflow:hidden}
+  .duo>img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.06);mix-blend-mode:screen}
+  .duo::after{content:'';position:absolute;inset:0;background:var(--gold);mix-blend-mode:multiply;opacity:.3;pointer-events:none}
+  .duo.deep::after{opacity:.2}
+  .scrim{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .plate{position:absolute;left:0;top:0;z-index:3;background:var(--gold);color:var(--navy);font-family:var(--head);
+    font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px}
+  .demo-tag{position:absolute;right:0;bottom:0;z-index:3;background:rgba(0,10,24,.6);color:rgba(255,255,255,.7);
+    font-family:var(--head);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px}
+
+  .kick{font-family:var(--head);font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--navy)}
+  .kick.on-photo{color:var(--gold)}
+  .cap{font-family:var(--head);font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--muted);
+    padding-top:12px;border-top:1px solid var(--hair);margin-top:16px}
+  .cap b{color:var(--navy)}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:14.5px;
+    padding:16px 30px;text-decoration:none;transition:transform .18s,background .18s,color .18s;border:2px solid transparent}
+  .btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+  .btn-gold:hover{transform:translateY(-2px)}
+  .btn-line{border-color:currentColor;color:#fff}
+  .btn-line:hover{background:#fff;color:var(--navy);border-color:#fff}
+  .btn-navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .btn-navy:hover{transform:translateY(-2px)}
+  .arw{font-family:var(--head);font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:.06em;
+    text-decoration:none;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:3px}
+  .arw::after{content:' →'}
+
+  /* ---------- NAV ---------- */
+  nav{position:absolute;top:0;left:0;right:0;z-index:40}
+  .hero{isolation:auto}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:26px 32px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+  .nav-links{display:flex;gap:30px;list-style:none}
+  .nav-links a{font-family:var(--head);font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(255,255,255,.85);text-decoration:none;padding-bottom:3px;border-bottom:2px solid transparent}
+  .nav-links a:hover{border-color:var(--gold);color:#fff}
+  @media(max-width:900px){.nav-links{display:none}}
+
+  /* ---------- HERO : full-bleed photo, film-poster type ---------- */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero .duo{position:absolute;inset:0;z-index:0}
+  .hero .scrim{background:
+      linear-gradient(180deg,rgba(0,17,39,.6) 0%,rgba(0,17,39,.2) 30%,rgba(0,17,39,.82) 74%,rgba(0,17,39,.94) 100%),
+      linear-gradient(90deg,rgba(0,17,39,.88) 0%,rgba(0,17,39,.55) 42%,rgba(0,17,39,.12) 78%)}
+  .hero-in{position:relative;z-index:5;width:100%;padding:0 32px 62px}
+  .hero .kick{color:var(--gold);display:block;margin-bottom:20px}
+  .hero h1{font-size:clamp(34px,9.1vw,128px);color:#fff;text-transform:uppercase;font-weight:900;
+    line-height:.86;letter-spacing:-.05em;white-space:nowrap}
+  .hero h1 .o{color:var(--gold)}
+  .hero .thai{font-family:var(--body);font-weight:700;color:#fff;font-size:clamp(21px,3vw,36px);
+    line-height:1.3;margin-top:24px;max-width:20ch}
+  .hero .thai u{text-decoration:none;box-shadow:inset 0 -.42em 0 rgba(255,198,0,.85);color:#fff}
+  .hero .sub{color:rgba(255,255,255,.86);font-size:clamp(15.5px,1.5vw,18.5px);max-width:52ch;margin-top:18px;font-weight:300;line-height:1.66}
+  .hero .acts{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+  .hero .strip{display:flex;gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.28);flex-wrap:wrap}
+  .hero .st{padding:20px 34px 0 0}
+  .hero .st+.st{padding-left:34px;border-left:1px solid rgba(255,255,255,.28)}
+  .hero .st .n{font-family:var(--head);font-weight:900;font-size:clamp(28px,3.4vw,44px);color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+  .hero .st .l{font-size:12.5px;color:rgba(255,255,255,.72);margin-top:8px;max-width:20ch;line-height:1.45}
+  @media(max-width:760px){
+    .hero .st{padding:16px 0}
+    .hero .st+.st{padding-left:0;border-left:0;border-top:1px solid rgba(255,255,255,.2)}
+    .hero{min-height:0;padding-top:96px}
+    .hero .scrim{background:linear-gradient(180deg,rgba(0,17,39,.52) 0%,rgba(0,17,39,.42) 26%,rgba(0,17,39,.72) 58%,rgba(0,17,39,.93) 100%)}
+    .hero-in{padding-bottom:44px}
+    .hero .strip{margin-top:30px}
+    .band{height:auto;min-height:340px}
+  }
+
+  /* ---------- PLATE : full-bleed photo band ---------- */
+  .band{position:relative;height:74vh;min-height:440px;display:flex;align-items:flex-end}
+  .band .duo{position:absolute;inset:0;z-index:0}
+  .band .scrim{background:linear-gradient(180deg,rgba(0,17,39,.15) 40%,rgba(0,17,39,.85) 100%)}
+  .band .in{position:relative;z-index:4;width:100%;padding-bottom:44px}
+  .band h2{color:#fff;font-size:clamp(26px,4.4vw,56px);max-width:19ch;line-height:1.04}
+  .band h2 .g{color:var(--gold)}
+  .band p{color:rgba(255,255,255,.86);font-size:17.5px;max-width:48ch;margin-top:16px}
+
+  /* ---------- SPREAD : editorial text on bone ---------- */
+  .spread{padding:96px 0}
+  .spread-grid{display:grid;grid-template-columns:.42fr .58fr;gap:56px;align-items:start}
+  .spread h2{font-size:clamp(28px,3.8vw,46px);color:var(--navy);line-height:1.06}
+  .spread .body{font-size:18px;color:#2c3138;line-height:1.8}
+  .spread .body p+p{margin-top:18px}
+  .spread .body b{color:var(--navy);font-weight:700}
+  @media(max-width:860px){.spread-grid{grid-template-columns:1fr;gap:26px}}
+
+  /* two-column contrast list */
+  .versus{display:grid;grid-template-columns:1fr 1fr;margin-top:56px;border-top:2px solid var(--navy)}
+  .versus .side{padding:30px 34px 34px 0}
+  .versus .side+.side{padding-left:34px;border-left:1px solid var(--hair)}
+  .versus .k{font-family:var(--head);font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px}
+  .versus .side.a .k{color:var(--faint)}
+  .versus .side.b .k{color:var(--navy)}
+  .versus ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .versus li{font-size:16.5px;padding-left:24px;position:relative;line-height:1.5}
+  .versus li::before{content:'';position:absolute;left:0;top:10px;width:9px;height:9px}
+  .versus .side.a li::before{border:1.5px solid var(--faint)}
+  .versus .side.b li::before{background:var(--gold)}
+  @media(max-width:760px){.versus{grid-template-columns:1fr}.versus .side+.side{padding-left:0;border-left:0;border-top:1px solid var(--hair);margin-top:8px}}
+
+  /* ---------- PHOTO ESSAY GRID ---------- */
+  .essay{padding:20px 0 96px}
+  .essay-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+  .essay-head h2{font-size:clamp(26px,3.4vw,42px);color:var(--navy)}
+  .eg{display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-auto-rows:236px;gap:14px}
+  .eg .cell{position:relative;overflow:hidden}
+  .eg .cell.tall{grid-row:span 2}
+  .eg .cell .duo{position:absolute;inset:0}
+  .eg .cell .txt{position:absolute;left:16px;bottom:14px;right:16px;z-index:4;color:#fff;font-family:var(--head);font-weight:600;font-size:14px;text-shadow:0 2px 14px rgba(0,10,24,.6)}
+  .eg .cell .scrim{background:linear-gradient(180deg,transparent 45%,rgba(0,17,39,.8) 100%)}
+  @media(max-width:820px){.eg{grid-template-columns:1fr 1fr;grid-auto-rows:190px}.eg .cell.tall{grid-row:span 1}}
+
+  /* ---------- PROOF : number beside tall photo ---------- */
+  .proof{background:var(--navy);color:#fff;padding:88px 0}
+  .proof-grid{display:grid;grid-template-columns:1fr .82fr;gap:56px;align-items:center}
+  .proof .kick{color:var(--gold)}
+  .proof h2{color:#fff;font-size:clamp(26px,3.6vw,44px);margin:18px 0 20px;max-width:20ch}
+  .proof p{color:rgba(255,255,255,.78);font-size:17.5px;max-width:50ch}
+  .proof .nums{display:grid;grid-template-columns:repeat(3,1fr);margin-top:40px;border-top:1px solid rgba(255,255,255,.24)}
+  .proof .nums .c{padding:22px 20px 0 0}
+  .proof .nums .c+.c{padding-left:22px;border-left:1px solid rgba(255,255,255,.24)}
+  .proof .nums .n{font-family:var(--head);font-weight:900;font-size:clamp(34px,4.4vw,58px);color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+  .proof .nums .l{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:10px;line-height:1.45}
+  .proof .shot{position:relative;aspect-ratio:4/5;min-height:340px}
+  .proof .shot .duo{position:absolute;inset:0}
+  @media(max-width:900px){.proof-grid{grid-template-columns:1fr;gap:32px}.proof .shot{aspect-ratio:16/10;min-height:0}}
+
+  /* ---------- PATH ---------- */
+  .path{padding:92px 0}
+  .path h2{font-size:clamp(26px,3.6vw,44px);color:var(--navy);margin:16px 0 12px}
+  .path .intro{color:var(--muted);font-size:17.5px;max-width:54ch;margin-bottom:34px}
+  .prow{display:grid;grid-template-columns:64px 1.4fr 2fr auto;gap:24px;align-items:baseline;padding:26px 0;
+    border-top:1px solid var(--hair);text-decoration:none;color:var(--ink);transition:padding-left .16s}
+  .prow:first-of-type{border-top:2px solid var(--navy)}
+  .prow:hover{padding-left:10px}
+  .prow .n{font-family:var(--head);font-weight:900;font-size:17px;color:var(--gold)}
+  .prow .nm{font-family:var(--head);font-weight:800;font-size:21px;color:var(--navy)}
+  .prow .nm small{display:block;font-family:var(--body);font-weight:400;font-size:13px;color:var(--faint);margin-top:6px}
+  .prow .ds{font-size:15.5px;color:var(--muted);line-height:1.55}
+  .prow .go{font-family:var(--head);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--navy);white-space:nowrap}
+  .prow .go::after{content:' →';color:var(--gold)}
+  @media(max-width:860px){.prow{grid-template-columns:1fr;gap:8px}.prow .ds,.prow .go{grid-column:1}}
+
+  /* ---------- CLOSE : full-bleed photo + CTA ---------- */
+  .close{position:relative;min-height:78vh;display:flex;align-items:center;text-align:center}
+  .close .duo{position:absolute;inset:0;z-index:0}
+  .close .scrim{background:linear-gradient(180deg,rgba(0,17,39,.72),rgba(0,17,39,.9))}
+  .close .in{position:relative;z-index:4;margin:0 auto;max-width:840px}
+  .close h2{color:#fff;font-size:clamp(30px,5.4vw,70px);line-height:1.02}
+  .close h2 .g{color:var(--gold)}
+  .close p{color:rgba(255,255,255,.84);font-size:18.5px;margin:20px auto 34px;max-width:46ch}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-deep);color:rgba(255,255,255,.62);padding:56px 0 38px}
+  .foot{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px}
+  .foot p,.foot a{font-size:14px;color:rgba(255,255,255,.62);text-decoration:none;line-height:1.9}
+  .foot a:hover{color:#fff}
+  .foot ul{list-style:none}
+  .foot .lab{font-family:var(--head);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+  .foot .note{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.14);margin-top:18px;padding-top:18px;font-size:12.5px;color:rgba(255,255,255,.4)}
+  @media(max-width:760px){.foot{grid-template-columns:1fr 1fr}}
+
+  .vbadge{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--gold);color:var(--navy);font-family:var(--head);
+    font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:11px 16px;text-decoration:none}
+  .vbadge:hover{background:#fff}
+  .photonote{background:var(--navy);color:rgba(255,255,255,.68);font-family:var(--head);font-size:11.5px;
+    letter-spacing:.05em;text-align:center;padding:9px 20px}
+  .photonote b{color:var(--gold)}
+</style>
+
+<div class="photonote"><b>ตัวอย่างเท่านั้น</b> — ภาพทั้งหมดในหน้านี้เป็นภาพตัวแทนชั่วคราว รอสวมด้วยภาพ Hackathon จริงของ SolutionsIMPACT</div>
+
+
+<!-- HERO -->
+<header class="hero">
+<nav>
+  <div class="nav-in">
+    <a href="index-v6.html"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:34px"></a>
+    <ul class="nav-links">
+      <li><a href="#room">Hackathon</a></li>
+      <li><a href="#path">Programs</a></li>
+      <li><a href="#proof">Results</a></li>
+      <li><a href="#close">Contact</a></li>
+    </ul>
+    <a class="btn btn-gold" style="padding:12px 20px;font-size:13px" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์</a>
+  </div>
+</nav>
+
+  <div class="duo deep">
+    <img width="1800" height="1200" fetchpriority="high" decoding="async" src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนกำลังฟังการนำเสนอ">
+    <span class="demo-tag">ภาพตัวอย่าง รอภาพจริง</span>
+  </div>
+  <div class="scrim"></div>
+  <div class="wrap hero-in">
+    <span class="kick">Your Transformation Partner</span>
+    <h1>TRANSF<span class="o">O</span>RMATION</h1>
+    <p class="thai">ทีมของคุณ <u>ไปได้ไกลกว่าที่คิด</u></p>
+    <p class="sub">เริ่มจากโจทย์จริงในองค์กร ลงมือสร้างจนใช้งานได้จริง วัดผลเป็นตัวเลขที่ชัดเจน แล้วก้าวต่อไปทั้งองค์กร</p>
+    <div class="acts">
+      <a class="btn btn-gold" href="#close">นัดคุยกลยุทธ์ 30 นาที</a>
+      <a class="btn btn-line" href="#proof">ดูผลงานจริง</a>
+    </div>
+    <div class="strip">
+      <div class="st"><div class="n">100+</div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
+      <div class="st"><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
+      <div class="st"><div class="n">5×</div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- PLATE 01 : full-bleed band -->
+<section class="band" id="room">
+  <div class="duo">
+    <img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/build-01.jpg" alt="ทีมงานกำลังลงมือสร้างในห้อง Hackathon">
+    <span class="plate">Plate 01 — In the room</span>
+  </div>
+  <div class="scrim"></div>
+  <div class="wrap in">
+    <h2>เมื่อ 300 คนลงมือพร้อมกัน <span class="g">โจทย์บนโต๊ะกลายเป็นระบบที่ใช้จริง</span></h2>
+    <p>ทุกทีมมี mentor ประกบตั้งแต่ชั่วโมงแรก และก่อนวันสุดท้ายจะจบ ของที่เคยค้างอยู่ในที่ประชุมก็เปิดใช้งานได้จริง</p>
+  </div>
+</section>
+
+<!-- SPREAD -->
+<section class="spread">
+  <div class="wrap">
+    <div class="spread-grid">
+      <div>
+        <span class="kick">The New Way</span>
+        <h2 style="margin-top:16px">โลกเปลี่ยนวิธีทำงานไปแล้ว องค์กรที่ก้าวต่อ คือองค์กรที่ทีมลงมือสร้างเอง</h2>
+      </div>
+      <div class="body">
+        <p>เครื่องมือยุคนี้ทำให้คนหน้างานสร้างของที่ใช้ได้จริงด้วยตัวเอง สิ่งที่เปลี่ยนเกมจึงไม่ใช่ความรู้ที่เพิ่มขึ้น แต่คือ<b>ทีมของคุณได้ลงมือ และได้เห็นผลงานเกิดขึ้นจริงกับมือ</b></p>
+        <p>เราจึงออกแบบทุกโปรแกรมกลับด้าน ไม่ได้เริ่มที่ห้องเรียน แต่เริ่มที่โจทย์จริงบนโต๊ะของทีมคุณ แล้วตกลงร่วมกับฝ่ายการเงินตั้งแต่ก่อนวันแรกว่าคำว่าสำเร็จ หน้าตาเป็นตัวเลขอะไร</p>
+      </div>
+    </div>
+    <div class="versus">
+      <div class="side a">
+        <div class="k">สิ่งที่องค์กรคุณมีอยู่แล้ว</div>
+        <ul>
+          <li>ทีมที่เข้าใจหน้างานลึกที่สุดในองค์กร</li>
+          <li>โจทย์จริงที่รอคนลงมือแก้</li>
+          <li>ประสบการณ์ที่สั่งสมมาหลายปี</li>
+          <li>ผู้บริหารที่อยากเห็นการเปลี่ยนแปลง</li>
+        </ul>
+      </div>
+      <div class="side b">
+        <div class="k">สิ่งที่เราเติมเข้าไป</div>
+        <ul>
+          <li>กระบวนการที่เปลี่ยนความเข้าใจ ให้กลายเป็นผลงาน</li>
+          <li>mentor ประจำทีม ที่เคยสร้างของจริงมาก่อน</li>
+          <li>เกณฑ์วัดผลที่ตกลงร่วมกับฝ่ายการเงินตั้งแต่ต้น</li>
+          <li>เวทีที่พาผลงานไปถึงสายตาผู้บริหาร</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO ESSAY -->
+<section class="essay">
+  <div class="wrap">
+    <div class="essay-head">
+      <div><span class="kick">Plate 02 — The Journey</span><h2 style="margin-top:14px">ห้าวันที่เปลี่ยนวิธีทำงานของทีม</h2></div>
+      <a class="arw" href="#path">ดูโปรแกรมทั้งหมด</a>
+    </div>
+    <div class="eg">
+      <div class="cell tall"><div class="duo"><img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/room-01.jpg" alt="ทีมงานเต็มห้องกำลังทำงานร่วมกัน"></div><div class="scrim"></div><div class="txt">วันแรก ทุกทีมเลือกโจทย์จากหน้างานจริง</div></div>
+      <div class="cell"><div class="duo"><img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/mentor-01.jpg" alt="mentor กำลังให้คำแนะนำทีม"></div><div class="scrim"></div><div class="txt">mentor ประกบรายทีม</div></div>
+      <div class="cell"><div class="duo"><img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/board-01.jpg" alt="ทีมงานคุยกันหน้าไวท์บอร์ด"></div><div class="scrim"></div><div class="txt">ออกแบบทางแก้ร่วมกัน</div></div>
+      <div class="cell"><div class="duo"><img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/desks-01.jpg" alt="ทีมงานลงมือสร้างที่โต๊ะทำงาน"></div><div class="scrim"></div><div class="txt">ลงมือสร้างจนใช้งานได้</div></div>
+      <div class="cell"><div class="duo"><img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/pitch-01.jpg" alt="ทีมนำเสนอผลงานต่อผู้บริหาร"></div><div class="scrim"></div><div class="txt">วันนำเสนอต่อผู้บริหาร</div></div>
+    </div>
+    <p class="cap"><b>Plate 02.</b> จากวันแรกที่ลงมือ ถึงวันที่ผลงานขึ้นเวที ใช้เวลาไม่กี่วัน</p>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof" id="proof">
+  <div class="wrap">
+    <div class="proof-grid">
+      <div>
+        <span class="kick">Proof · อุตสาหกรรมอาหาร · 2026</span>
+        <h2>รุ่นเดียว ทีมขององค์กร สร้างโปรเจกต์ใช้จริงกว่าร้อยตัว</h2>
+        <p>องค์กรอาหารระดับประเทศให้ทีมของตัวเองลงมือใน Hackathon กับเรา รุ่นแรกได้โปรเจกต์ใช้งานจริงกว่า 100 โปรเจกต์ จากผู้เข้าร่วม 300 คน และหลังเห็นผล องค์กรก็ขยายขอบเขตต่อเป็นห้าเท่า</p>
+        <div class="nums">
+          <div class="c"><div class="n">100+</div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
+          <div class="c"><div class="n">5×</div><div class="l">ขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
+          <div class="c"><div class="n">600</div><div class="l">โปรเจกต์ตามขอบเขตที่ขยายแล้ว</div></div>
+        </div>
+      </div>
+      <div class="shot"><div class="duo"><img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/laptops-01.jpg" alt="ทีมงานกำลังสร้างผลงานร่วมกัน"><span class="plate">Plate 03</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PATH -->
+<section class="path" id="path">
+  <div class="wrap">
+    <span class="kick">How We Work</span>
+    <h2>เส้นทาง Transformation สามระดับ</h2>
+    <p class="intro">เริ่มจากห้องผู้บริหาร ขยายสู่ทีม แล้วก้าวต่อทั้งองค์กร แต่ละระดับจบสมบูรณ์ในตัวเอง และเป็นบันไดสู่ระดับถัดไป</p>
+    <a class="prow" href="#close"><div class="n">01</div><div class="nm">Executive Session<small>ครึ่งวันถึงหนึ่งวัน สำหรับผู้บริหาร</small></div><div class="ds">ทีมนำได้เห็น AI ทำงานกับโจทย์จริงขององค์กร ก่อนตัดสินใจว่าจะพาองค์กรไปทางไหน</div><div class="go">เริ่มต้น ฿200,000</div></a>
+    <a class="prow" href="#room"><div class="n">02</div><div class="nm">Hackathon Journey<small>3 / 4 / 6–8 วัน ทีมงานจริง โจทย์จริง</small></div><div class="ds">ทีมของคุณสร้างโปรเจกต์ใช้จริง จบด้วยผลงานที่นำเสนอผู้บริหาร และวัด ROI ได้</div><div class="go">ดูรายละเอียด</div></a>
+    <a class="prow" href="#close"><div class="n">03</div><div class="nm">Enterprise Rollout<small>3–8 เดือน หลายรุ่นต่อเนื่อง</small></div><div class="ds">ขยายผลจาก Hackathon สู่ทั้งองค์กร พร้อมระบบวัดผล และ PM ดูแลตลอดโครงการ</div><div class="go">ออกแบบเฉพาะองค์กร</div></a>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close" id="close">
+  <div class="duo">
+    <img width="1800" height="1200" loading="lazy" decoding="async" src="assets/demo-photos/team-01.jpg" alt="ทีมงานกำลังคุยกันในห้องประชุม">
+    <span class="demo-tag">ภาพตัวอย่าง รอภาพจริง</span>
+  </div>
+  <div class="scrim"></div>
+  <div class="wrap in">
+    <span class="kick on-photo">Start a Conversation</span>
+    <h2 style="margin-top:18px">พร้อมให้ทีมของคุณ <span class="g">ไปได้ไกลกว่าที่คิด</span> หรือยัง</h2>
+    <p>เริ่มจากบทสนทนา 30 นาที เรื่องโจทย์ขององค์กรคุณ จบบทสนทนา คุณจะเห็นชัดขึ้นว่าควรเริ่มตรงไหน และควรวัดผลด้วยอะไร</p>
+    <a class="btn btn-gold" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์ →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:30px;margin-bottom:14px">
+      <p>Your Transformation Partner<br>999/9 Central World กรุงเทพฯ 10330</p>
+    </div>
+    <ul>
+      <span class="lab">Programs</span>
+      <li><a href="#room">Hackathon Journey</a></li>
+      <li><a href="#path">Executive Programs</a></li>
+      <li><a href="#proof">Results</a></li>
+    </ul>
+    <div><span class="lab">Contact</span><p>training@solutionsimpact.com<br>02-107-6374</p></div>
+    <div class="note">© 2026 SolutionsIMPACT — Your Transformation Partner · ภาพในหน้านี้เป็นภาพตัวอย่างชั่วคราว</div>
+  </div>
+</footer>
+
+<a class="vbadge" href="compare.html">↔ เทียบทุกเวอร์ชัน</a>
+</html>
