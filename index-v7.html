@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolutionsIMPACT | ทีมของคุณ ไปได้ไกลกว่าที่คิด</title>
+<meta name="description" content="โปรแกรม transformation สำหรับองค์กรระดับ Enterprise ที่ทีมของคุณลงมือสร้างเอง มี mentor ประกบ และวัดผลเป็นตัวเลขร่วมกับฝ่ายการเงิน">
+<meta name="theme-color" content="#0d1117">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d1117; --ink2:#151b23; --navy:#002554; --gold:#FFC600; --gold-hi:#ffd633;
+    --cream:#f7f5f0; --muted:#6b7280; --line:rgba(255,255,255,.14);
+    --head:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --max:1260px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--body);background:var(--ink);color:#fff;line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--navy)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 30px}
+  h1,h2,h3{font-family:var(--head);font-weight:800;line-height:1.06;letter-spacing:-.025em;text-wrap:balance}
+
+  .eyebrow{font-family:var(--head);font-size:11.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--head);font-weight:700;
+    font-size:15px;padding:17px 36px;border-radius:3px;transition:transform .18s,background .18s,color .18s;border:2px solid transparent;cursor:pointer}
+  .btn-gold{background:var(--gold);color:#0d1117;border-color:var(--gold)}
+  .btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px)}
+  .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+  .btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .lnk{font-family:var(--head);font-weight:700;font-size:14px;color:var(--gold)}
+  .lnk::after{content:' ›';font-size:17px}
+
+  /* photo helper — TR uses full-colour photography with a dark scrim */
+  .ph{position:relative;overflow:hidden;background:#111}
+  .ph>img{width:100%;height:100%;object-fit:cover}
+  .sc{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .demo{position:absolute;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.55);color:rgba(255,255,255,.62);
+    font-family:var(--head);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px}
+
+  .notice{background:var(--navy);color:rgba(255,255,255,.82);font-family:var(--head);font-size:11.5px;
+    letter-spacing:.04em;text-align:center;padding:9px 18px;position:relative;z-index:60}
+  .notice b{color:var(--gold)}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:0 30px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+  .nav-links{display:flex;gap:30px;list-style:none}
+  .nav-links a{font-family:var(--head);font-size:13.5px;font-weight:600;color:rgba(255,255,255,.8)}
+  .nav-links a:hover{color:var(--gold)}
+  .nav-cta{font-family:var(--head);font-size:13.5px;font-weight:700;background:var(--gold);color:#0d1117;padding:11px 22px;border-radius:3px}
+  .nav-cta:hover{background:var(--gold-hi)}
+  @media(max-width:940px){.nav-links{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
+  .hero .ph{position:absolute;inset:0}
+  .hero .sc{background:
+      radial-gradient(120% 78% at 50% 52%, rgba(13,17,23,.86) 0%, rgba(13,17,23,.68) 46%, rgba(13,17,23,.5) 100%),
+      linear-gradient(180deg,rgba(13,17,23,.72) 0%,rgba(13,17,23,.42) 42%,rgba(13,17,23,.95) 100%)}
+  .hero-in{position:relative;z-index:5;width:100%;text-align:center;padding:100px 30px}
+  .hero h1{font-size:clamp(34px,5.6vw,74px);color:#fff;max-width:20ch;margin:22px auto 0}
+  .hero h1 .g{color:var(--gold)}
+  .hero p.sub{color:rgba(255,255,255,.86);font-size:clamp(16px,1.7vw,20px);max-width:56ch;margin:22px auto 0;font-weight:300}
+  .hero .acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+  @media(max-width:760px){
+    .hero{min-height:0}
+    .hero-in{padding:72px 24px}
+    .hero .sc{background:linear-gradient(180deg,rgba(13,17,23,.7) 0%,rgba(13,17,23,.72) 45%,rgba(13,17,23,.95) 100%)}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:96px 0}
+  .sec-head{text-align:center;max-width:760px;margin:0 auto 52px}
+  .sec-head h2{font-size:clamp(28px,3.9vw,50px);color:#fff;margin-top:16px}
+  .sec-head p{color:rgba(255,255,255,.68);font-size:18px;margin-top:16px}
+  .light{background:var(--cream);color:var(--ink)}
+  .light .sec-head h2{color:var(--ink)}
+  .light .sec-head p{color:var(--muted)}
+  .light .eyebrow{color:#a37b00}
+
+  /* ---------- PROGRAM CARDS (TR event-card pattern) ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{position:relative;min-height:430px;display:flex;flex-direction:column;justify-content:flex-end;
+    overflow:hidden;border-radius:4px;transition:transform .25s}
+  .card:hover{transform:translateY(-6px)}
+  .card .ph{position:absolute;inset:0}
+  .card .sc{background:linear-gradient(180deg,rgba(13,17,23,.15) 30%,rgba(13,17,23,.93) 100%)}
+  .card .c-in{position:relative;z-index:5;padding:28px}
+  .card .badge{display:inline-block;font-family:var(--head);font-size:10.5px;font-weight:800;letter-spacing:.12em;
+    text-transform:uppercase;background:var(--gold);color:#0d1117;padding:5px 11px;margin-bottom:14px}
+  .card h3{font-size:24px;color:#fff}
+  .card p{color:rgba(255,255,255,.78);font-size:15px;margin-top:10px}
+  .card .meta{font-family:var(--head);font-size:12.5px;font-weight:600;color:rgba(255,255,255,.6);margin-top:16px;
+    padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
+  .card .lnk{display:inline-block;margin-top:14px}
+  @media(max-width:900px){.cards{grid-template-columns:1fr}.card{min-height:340px}}
+
+  /* ---------- PILLARS (TR circular tile grid) ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+  .pil{text-align:center}
+  .pil .ph{aspect-ratio:1;border-radius:50%;margin-bottom:16px;border:3px solid transparent;transition:border-color .2s,transform .2s}
+  .pil:hover .ph{border-color:var(--gold);transform:translateY(-4px)}
+  .pil .ph .sc{background:linear-gradient(180deg,rgba(0,37,84,.25),rgba(0,37,84,.55))}
+  .pil h4{font-family:var(--head);font-weight:700;font-size:15px;color:var(--ink)}
+  .pil p{font-size:13px;color:var(--muted);margin-top:6px}
+  @media(max-width:1000px){.pillars{grid-template-columns:repeat(3,1fr);gap:24px}}
+  @media(max-width:560px){.pillars{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- RESULTS SPLIT (TR "equals results") ---------- */
+  .results{background:var(--cream);color:var(--ink)}
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .res-grid h2{font-size:clamp(28px,3.8vw,48px);color:var(--ink);margin:16px 0 20px}
+  .res-grid h2 .g{color:#a37b00}
+  .res-grid .intro{color:var(--muted);font-size:17.5px;max-width:46ch}
+  .bignums{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:38px}
+  .bn .n{font-family:var(--head);font-weight:900;font-size:clamp(46px,6vw,80px);color:var(--navy);line-height:.94;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+  .bn .l{font-size:14px;color:var(--muted);margin-top:8px;max-width:22ch;line-height:1.5}
+  .src{font-family:var(--head);font-size:12px;font-weight:600;color:var(--muted);margin-top:30px;padding-top:14px;border-top:1px solid #ddd8cc}
+  .res-shot{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden}
+  .res-shot .ph{position:absolute;inset:0}
+  @media(max-width:900px){.res-grid{grid-template-columns:1fr;gap:34px}.res-shot{aspect-ratio:16/10}}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .q{background:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:32px 30px;display:flex;flex-direction:column}
+  .q .mark{font-family:var(--head);font-weight:900;font-size:46px;color:var(--gold);line-height:.7;margin-bottom:14px}
+  .q p{color:rgba(255,255,255,.88);font-size:17px;line-height:1.66;flex:1}
+  .q .who{display:flex;align-items:center;gap:13px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+  .q .who .ph{width:48px;height:48px;border-radius:50%;flex:none}
+  .q .who .nm{font-family:var(--head);font-weight:700;font-size:14.5px;color:#fff}
+  .q .who .rl{font-size:12.5px;color:rgba(255,255,255,.55)}
+  .placeholder-note{text-align:center;font-family:var(--head);font-size:12.5px;color:rgba(255,255,255,.45);margin-top:26px}
+  @media(max-width:900px){.quotes{grid-template-columns:1fr}}
+
+  /* ---------- BAND ---------- */
+  .band{position:relative;min-height:62vh;display:flex;align-items:center;overflow:hidden}
+  .band .ph{position:absolute;inset:0}
+  .band .sc{background:linear-gradient(90deg,rgba(13,17,23,.92) 0%,rgba(13,17,23,.6) 55%,rgba(13,17,23,.25) 100%)}
+  .band .in{position:relative;z-index:5}
+  .band h2{font-size:clamp(28px,4.4vw,56px);color:#fff;max-width:18ch}
+  .band h2 .g{color:var(--gold)}
+  .band p{color:rgba(255,255,255,.82);font-size:18px;max-width:46ch;margin-top:18px}
+  .band .acts{margin-top:30px}
+  @media(max-width:760px){.band{min-height:0;padding:80px 0}.band .sc{background:linear-gradient(180deg,rgba(13,17,23,.55),rgba(13,17,23,.92))}}
+
+  /* ---------- FINALE ---------- */
+  .finale{position:relative;min-height:86vh;display:flex;align-items:center;text-align:center;overflow:hidden}
+  .finale .ph{position:absolute;inset:0}
+  .finale .sc{background:linear-gradient(180deg,rgba(13,17,23,.8),rgba(13,17,23,.88))}
+  .finale .in{position:relative;z-index:5;max-width:900px;margin:0 auto;padding:0 30px}
+  .finale h2{font-size:clamp(32px,6vw,80px);color:#fff;line-height:1.02}
+  .finale h2 .g{color:var(--gold)}
+  .finale p{color:rgba(255,255,255,.86);font-size:19px;max-width:48ch;margin:22px auto 34px}
+  @media(max-width:760px){.finale{min-height:0;padding:88px 0}}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#080b10;padding:60px 0 40px;border-top:1px solid var(--line)}
+  .foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+  .foot p,.foot a{font-size:14px;color:rgba(255,255,255,.55);line-height:1.9}
+  .foot a:hover{color:var(--gold)}
+  .foot ul{list-style:none}
+  .foot .lab{font-family:var(--head);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+  .foot .note{grid-column:1/-1;border-top:1px solid var(--line);margin-top:18px;padding-top:18px;font-size:12.5px;color:rgba(255,255,255,.36)}
+  @media(max-width:760px){.foot{grid-template-columns:1fr 1fr}}
+
+  .vbadge{position:fixed;right:16px;bottom:16px;z-index:70;background:var(--gold);color:#0d1117;font-family:var(--head);
+    font-weight:800;font-size:12px;letter-spacing:.03em;text-transform:uppercase;padding:11px 16px;border-radius:3px}
+  .vbadge:hover{background:#fff}
+</style>
+
+<div class="notice"><b>ตัวอย่างเท่านั้น</b> — ภาพและคำรับรองในหน้านี้เป็นตัวแทนชั่วคราว รอสวมด้วยภาพ Hackathon และคำรับรองจริงของ SolutionsIMPACT</div>
+
+<nav>
+  <div class="nav-in">
+    <a href="index-v7.html"><img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:32px"></a>
+    <ul class="nav-links">
+      <li><a href="#programs">โปรแกรม</a></li>
+      <li><a href="#pillars">สิ่งที่ทีมสร้างได้</a></li>
+      <li><a href="#results">ผลลัพธ์</a></li>
+      <li><a href="#voices">เสียงจากลูกค้า</a></li>
+    </ul>
+    <a class="nav-cta" href="#finale">นัดคุยกลยุทธ์</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="ph"><img src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนกำลังฟังการนำเสนอ" width="1800" height="1200" fetchpriority="high"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="sc"></div>
+  <div class="hero-in">
+    <span class="eyebrow">Your Transformation Partner</span>
+    <h1>ทีมของคุณ <span class="g">ไปได้ไกลกว่าที่คิด</span></h1>
+    <p class="sub">เริ่มจากโจทย์จริงในองค์กร ลงมือสร้างจนใช้งานได้จริง วัดผลเป็นตัวเลขที่ชัดเจน แล้วก้าวต่อไปทั้งองค์กร</p>
+    <div class="acts">
+      <a class="btn btn-gold" href="#finale">นัดคุยกลยุทธ์ 30 นาที</a>
+      <a class="btn btn-ghost" href="#results">ดูผลลัพธ์จริง</a>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Programs</span>
+      <h2>เลือกความลึกที่องค์กรคุณพร้อมก้าว</h2>
+      <p>เริ่มจากห้องผู้บริหาร ขยายสู่ทีม แล้วก้าวต่อทั้งองค์กร แต่ละระดับจบสมบูรณ์ในตัวเอง</p>
+    </div>
+    <div class="cards">
+      <a class="card" href="#finale">
+        <div class="ph"><img src="assets/demo-photos/pitch-01.jpg" alt="ผู้บริหารกำลังฟังการนำเสนอ" width="1800" height="1200" loading="lazy" decoding="async"></div>
+        <div class="sc"></div>
+        <div class="c-in">
+          <span class="badge">ครึ่งวัน – หนึ่งวัน</span>
+          <h3>Executive Session</h3>
+          <p>ทีมนำได้เห็น AI ทำงานกับโจทย์จริงขององค์กร ก่อนตัดสินใจว่าจะพาองค์กรไปทางไหน</p>
+          <div class="meta">สำหรับผู้บริหาร · เริ่มต้น ฿200,000</div>
+          <span class="lnk">ดูรายละเอียด</span>
+        </div>
+      </a>
+      <a class="card" href="#finale">
+        <div class="ph"><img src="assets/demo-photos/build-01.jpg" alt="ทีมงานกำลังลงมือสร้างใน Hackathon" width="1800" height="1200" loading="lazy" decoding="async"></div>
+        <div class="sc"></div>
+        <div class="c-in">
+          <span class="badge">3 / 4 / 6–8 วัน</span>
+          <h3>Hackathon Journey</h3>
+          <p>ทีมของคุณสร้างโปรเจกต์ใช้จริง จบด้วยผลงานที่นำเสนอผู้บริหาร และวัด ROI ได้</p>
+          <div class="meta">ทีมงานจริง โจทย์จริง · มี mentor ประกบทุกทีม</div>
+          <span class="lnk">ดูรายละเอียด</span>
+        </div>
+      </a>
+      <a class="card" href="#finale">
+        <div class="ph"><img src="assets/demo-photos/crowd-01.jpg" alt="พนักงานจำนวนมากในงานขององค์กร" width="1600" height="1067" loading="lazy" decoding="async"></div>
+        <div class="sc"></div>
+        <div class="c-in">
+          <span class="badge">3–8 เดือน</span>
+          <h3>Enterprise Rollout</h3>
+          <p>ขยายผลจาก Hackathon สู่ทั้งองค์กร พร้อมระบบวัดผล และ PM ดูแลตลอดโครงการ</p>
+          <div class="meta">หลายรุ่นต่อเนื่อง · ออกแบบเฉพาะองค์กร</div>
+          <span class="lnk">ดูรายละเอียด</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="light" id="pillars">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What Your Team Builds</span>
+      <h2>หกจุดที่ทีมของคุณ เปลี่ยนงานประจำวันให้เป็นผลงาน</h2>
+      <p>ทุกโปรเจกต์เริ่มจากงานที่ทีมทำอยู่ทุกวัน ไม่ใช่โจทย์สมมติในห้องเรียน</p>
+    </div>
+    <div class="pillars">
+      <div class="pil"><div class="ph"><img src="assets/demo-photos/desks-01.jpg" alt="งานเอกสารที่ทำซ้ำทุกวัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานเอกสาร</h4><p>งานซ้ำที่กินเวลาทุกสัปดาห์</p></div>
+      <div class="pil"><div class="ph"><img src="assets/demo-photos/table-01.jpg" alt="การรวบรวมและสรุปข้อมูล" width="1800" height="1200" loading="lazy" decoding="async"><span class="sc"></span></div><h4>สรุปข้อมูล</h4><p>รายงานที่ต้องทำทุกเดือน</p></div>
+      <div class="pil"><div class="ph"><img src="assets/demo-photos/team-01.jpg" alt="งานบริการลูกค้า" width="1800" height="1200" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานบริการ</h4><p>คำถามลูกค้าที่ซ้ำกันทุกวัน</p></div>
+      <div class="pil"><div class="ph"><img src="assets/demo-photos/board-01.jpg" alt="การวางแผนงาน" width="1800" height="1201" loading="lazy" decoding="async"><span class="sc"></span></div><h4>วางแผนงาน</h4><p>ประสานงานข้ามทีม</p></div>
+      <div class="pil"><div class="ph"><img src="assets/demo-photos/work-01.jpg" alt="งานวิเคราะห์" width="1600" height="1067" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานวิเคราะห์</h4><p>ตัวเลขที่ต้องดูทุกวัน</p></div>
+      <div class="pil"><div class="ph"><img src="assets/demo-photos/work-02.jpg" alt="งานปฏิบัติการหน้างาน" width="1600" height="1067" loading="lazy" decoding="async"><span class="sc"></span></div><h4>งานหน้างาน</h4><p>ขั้นตอนที่ติดขัดประจำ</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="wrap">
+    <div class="res-grid">
+      <div>
+        <span class="eyebrow">The Proof</span>
+        <h2>SolutionsIMPACT <span class="g">คือผลลัพธ์ที่วัดได้</span></h2>
+        <p class="intro">องค์กรอาหารระดับประเทศให้ทีมของตัวเองลงมือใน Hackathon กับเรา รุ่นแรกได้โปรเจกต์ใช้งานจริงกว่าร้อยตัว และหลังเห็นผล องค์กรก็ขยายขอบเขตต่อเป็นห้าเท่า</p>
+        <div class="bignums">
+          <div class="bn"><div class="n">100+</div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
+          <div class="bn"><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
+          <div class="bn"><div class="n">5×</div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
+          <div class="bn"><div class="n">600</div><div class="l">โปรเจกต์ตามขอบเขตงานที่ขยายแล้ว</div></div>
+        </div>
+        <div class="src">ที่มา · โปรแกรมที่ SolutionsIMPACT ส่งมอบแล้ว ปี 2026</div>
+      </div>
+      <div class="res-shot"><div class="ph"><img src="assets/demo-photos/laptops-01.jpg" alt="ทีมงานกำลังสร้างผลงานร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band">
+  <div class="ph"><img src="assets/demo-photos/room-01.jpg" alt="ทีมงานเต็มห้องกำลังทำงานร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="sc"></div>
+  <div class="wrap in">
+    <span class="eyebrow">In the room</span>
+    <h2 style="margin-top:18px">เมื่อ 300 คนลงมือพร้อมกัน <span class="g">โจทย์บนโต๊ะกลายเป็นระบบที่ใช้จริง</span></h2>
+    <p>ทุกทีมมี mentor ประกบตั้งแต่ชั่วโมงแรก และก่อนวันสุดท้ายจะจบ ของที่เคยค้างอยู่ในที่ประชุมก็เปิดใช้งานได้จริง</p>
+    <div class="acts"><a class="btn btn-gold" href="#finale">เริ่มบทสนทนากับเรา</a></div>
+  </div>
+</section>
+
+<!-- VOICES -->
+<section id="voices">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Voices</span>
+      <h2>เสียงจากคนที่อยู่ในห้องนั้น</h2>
+    </div>
+    <div class="quotes">
+      <div class="q">
+        <div class="mark">“</div>
+        <p>พื้นที่สำหรับคำรับรองจริงจากผู้บริหารที่ร่วมโปรแกรม รอเก็บจากลูกค้าจริงของ SolutionsIMPACT</p>
+        <div class="who"><div class="ph"><img src="assets/demo-photos/portrait-01.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div><div><div class="nm">รอชื่อจริง</div><div class="rl">ตำแหน่ง · องค์กร</div></div></div>
+      </div>
+      <div class="q">
+        <div class="mark">“</div>
+        <p>พื้นที่สำหรับคำรับรองจากหัวหน้าทีมที่ลงมือสร้างเอง รอเก็บจากลูกค้าจริงของ SolutionsIMPACT</p>
+        <div class="who"><div class="ph"><img src="assets/demo-photos/portrait-02.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div><div><div class="nm">รอชื่อจริง</div><div class="rl">ตำแหน่ง · องค์กร</div></div></div>
+      </div>
+      <div class="q">
+        <div class="mark">“</div>
+        <p>พื้นที่สำหรับคำรับรองจากฝ่ายการเงินที่ร่วมตั้งเกณฑ์วัดผล รอเก็บจากลูกค้าจริงของ SolutionsIMPACT</p>
+        <div class="who"><div class="ph"><img src="assets/demo-photos/portrait-03.jpg" alt="ภาพตัวแทนผู้ให้คำรับรอง" width="600" height="600" loading="lazy" decoding="async"></div><div><div class="nm">รอชื่อจริง</div><div class="rl">ตำแหน่ง · องค์กร</div></div></div>
+      </div>
+    </div>
+    <p class="placeholder-note">เราไม่ใส่คำรับรองสมมติ ช่องเหล่านี้รอคำพูดจริงจากลูกค้าที่ร่วมโปรแกรม</p>
+  </div>
+</section>
+
+<!-- FINALE -->
+<section class="finale" id="finale">
+  <div class="ph"><img src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนอยู่ร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="sc"></div>
+  <div class="in">
+    <span class="eyebrow">Start a Conversation</span>
+    <h2 style="margin-top:20px">พร้อมให้ทีมของคุณ <span class="g">ไปได้ไกลกว่าที่คิด</span> หรือยัง</h2>
+    <p>เริ่มจากบทสนทนา 30 นาที เรื่องโจทย์ขององค์กรคุณ จบบทสนทนา คุณจะเห็นชัดขึ้นว่าควรเริ่มตรงไหน และควรวัดผลด้วยอะไร</p>
+    <a class="btn btn-gold" href="mailto:training@solutionsimpact.com?subject=%E0%B8%99%E0%B8%B1%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A2%E0%B8%81%E0%B8%A5%E0%B8%A2%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B9%8C%2030%20%E0%B8%99%E0%B8%B2%E0%B8%97%E0%B8%B5">นัดคุยกลยุทธ์ 30 นาที</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <img src="assets/logo-dark-bg.svg" alt="SolutionsIMPACT" style="height:30px;margin-bottom:14px">
+      <p>Your Transformation Partner<br>999/9 Central World กรุงเทพฯ 10330</p>
+    </div>
+    <ul>
+      <span class="lab">Programs</span>
+      <li><a href="#programs">Executive Session</a></li>
+      <li><a href="#programs">Hackathon Journey</a></li>
+      <li><a href="#programs">Enterprise Rollout</a></li>
+    </ul>
+    <div><span class="lab">Contact</span><p>training@solutionsimpact.com<br>02-107-6374</p></div>
+    <div class="note">© 2026 SolutionsIMPACT — Your Transformation Partner · ภาพและคำรับรองในหน้านี้เป็นตัวอย่างชั่วคราว</div>
+  </div>
+</footer>
+
+<a class="vbadge" href="compare.html">↔ เทียบทุกเวอร์ชัน</a>
+</html>
