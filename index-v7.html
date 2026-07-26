@@ -49,16 +49,19 @@
 
   /* photo + the signature colour wash rising from the bottom */
   .shot{position:relative;overflow:hidden;background:#0a1626}
-  .shot>img{width:100%;height:100%;object-fit:cover}
+  .shot>img{width:100%;height:100%;object-fit:cover;filter:saturate(1.14) contrast(1.05)}
   .wash{position:absolute;inset:0;z-index:2;pointer-events:none;
-    background:linear-gradient(to top, var(--navy) 0%, rgba(0,37,84,.72) 34%, rgba(0,37,84,0) 72%)}
-  .wash.soft{background:linear-gradient(to top, rgba(0,37,84,.95) 0%, rgba(0,37,84,.35) 45%, rgba(0,37,84,.05) 100%)}
+    background:linear-gradient(to top, var(--navy) 0%, rgba(0,37,84,.86) 16%, rgba(0,37,84,.34) 38%, rgba(0,37,84,0) 62%)}
+  .wash.soft{background:linear-gradient(to top, rgba(0,37,84,.9) 0%, rgba(0,37,84,.28) 40%, rgba(0,37,84,0) 78%)}
   .demo{position:absolute;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.55);color:rgba(255,255,255,.6);
     font-family:var(--mono);font-size:9.5px;text-transform:uppercase;padding:5px 9px}
 
   /* Ken Burns — slow drift, the honest stand-in for video */
-  @keyframes kb{0%{transform:scale(1.06) translate3d(0,0,0)}100%{transform:scale(1.16) translate3d(-1.4%,-1.6%,0)}}
-  .kb>img{animation:kb 22s ease-in-out infinite alternate}
+  @keyframes kb{0%{transform:scale(1.04) translate3d(0,0,0)}100%{transform:scale(1.19) translate3d(-2.2%,-2.4%,0)}}
+  .kb>img{animation:kb 16s ease-in-out infinite alternate}
+  /* hero crossfade slideshow — the honest stand-in for video */
+  .slides>img{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease-in-out}
+  .slides>img.on{opacity:1}
   @media(prefers-reduced-motion:reduce){.kb>img{animation:none}}
 
   .strip{background:var(--navy);color:#fff;text-align:center;font-family:var(--mono);font-size:12px;padding:9px 18px}
@@ -111,7 +114,7 @@
   /* ---------- FULL-BLEED PORTRAIT statement ---------- */
   .portrait{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--navy)}
   .portrait .shot{position:absolute;inset:0}
-  .portrait .wash{background:linear-gradient(to top, rgba(0,37,84,.92) 0%, rgba(0,37,84,.5) 50%, rgba(0,37,84,.55) 100%)}
+  .portrait .wash{background:radial-gradient(78% 62% at 50% 50%, rgba(0,20,48,.74) 0%, rgba(0,20,48,.42) 60%, rgba(0,20,48,.2) 100%)}
   .portrait .in{position:relative;z-index:5;max-width:880px;padding:0 var(--pad)}
   .portrait .disp{font-size:clamp(34px,6.4vw,76px);color:#fff}
   .portrait p{color:rgba(255,255,255,.84);font-size:18px;max-width:44ch;margin:20px auto 30px}
@@ -184,6 +187,24 @@
   .foot .note{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.14);margin-top:20px;padding-top:20px;font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.38)}
   @media(max-width:760px){.foot{grid-template-columns:1fr 1fr}}
 
+  /* scroll reveal */
+  .has-js .rise{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,.8,.24,1),transform .9s cubic-bezier(.16,.8,.24,1)}
+  .rise.in{opacity:1;transform:none}
+  .rise.d1{transition-delay:.09s}.rise.d2{transition-delay:.18s}.rise.d3{transition-delay:.27s}
+  /* hover life */
+  .ecard,.vcard .pic,.stack .pic,.nxt{transition:transform .35s cubic-bezier(.16,.8,.24,1)}
+  .ecard .shot>img,.vcard .pic .shot>img,.stack .pic .shot>img,.nxt .shot>img{transition:transform .6s cubic-bezier(.16,.8,.24,1)}
+  .ecard:hover{transform:translateY(-8px)}
+  .ecard:hover .shot>img,.vcard:hover .pic .shot>img,.nxt:hover .shot>img{transform:scale(1.07)}
+  .pill{will-change:transform}
+  .pill:hover{transform:translateY(-2px)}
+  /* gold ticker */
+  .tick{background:var(--gold);color:var(--navy);overflow:hidden;white-space:nowrap;padding:13px 0;border-top:1px solid rgba(0,37,84,.12)}
+  .tick .run{display:inline-block;animation:run 26s linear infinite;font-family:var(--disp);font-weight:500;font-size:19px;letter-spacing:-.02em}
+  .tick .run span{margin:0 26px;opacity:.92}
+  .tick .run i{font-style:normal;opacity:.5}
+  @keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.tick .run{animation:none}.has-js .rise{opacity:1;transform:none}}
   .vbadge{position:fixed;right:16px;bottom:16px;z-index:70;background:var(--gold);color:var(--navy);
     font-family:var(--mono);font-size:12px;padding:11px 18px;border-radius:9999px}
 </style>
@@ -205,7 +226,12 @@
 
 <!-- HERO -->
 <header class="hero">
-  <div class="shot kb"><img src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนกำลังฟังการนำเสนอ" width="1800" height="1200" fetchpriority="high"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="shot kb slides">
+    <img class="on" src="assets/demo-photos/hero-room.jpg" alt="ห้องที่คนหลายร้อยคนกำลังฟังการนำเสนอ" width="1800" height="1200" fetchpriority="high">
+    <img src="assets/demo-photos/energy-crowd.jpg" alt="ผู้เข้าร่วมเต็มห้อง" width="1800" height="1200">
+    <img src="assets/demo-photos/build-01.jpg" alt="ทีมงานลงมือสร้าง" width="1800" height="1200">
+    <span class="demo">ภาพตัวอย่าง</span>
+  </div>
   <div class="wash"></div>
   <div class="wrap hero-in">
     <div class="hero-grid">
@@ -229,10 +255,14 @@
   </div>
 </header>
 
+<div class="tick"><div class="run">
+  <span>100+ โปรเจกต์ใช้งานจริง</span><i>◆</i><span>300 คนต่อรุ่น</span><i>◆</i><span>5× ขยายขอบเขตหลังรุ่นแรก</span><i>◆</i><span>600 โปรเจกต์ตามขอบเขตที่ขยาย</span><i>◆</i><span>mentor ประกบทุกทีม</span><i>◆</i><span>วัดผลร่วมกับฝ่ายการเงิน</span><i>◆</i><span>100+ โปรเจกต์ใช้งานจริง</span><i>◆</i><span>300 คนต่อรุ่น</span><i>◆</i><span>5× ขยายขอบเขตหลังรุ่นแรก</span><i>◆</i><span>600 โปรเจกต์ตามขอบเขตที่ขยาย</span><i>◆</i><span>mentor ประกบทุกทีม</span><i>◆</i><span>วัดผลร่วมกับฝ่ายการเงิน</span><i>◆</i>
+</div></div>
+
 <!-- PROGRAMS RAIL -->
 <section style="padding:96px 0 24px" id="programs">
   <div class="wrap">
-    <div class="rail-head">
+    <div class="rail-head rise">
       <div><span class="lab">โปรแกรมของเรา</span><h2 style="margin-top:14px">เลือกความลึกที่องค์กรคุณพร้อมก้าว</h2></div>
       <span class="lab" style="color:#8a8f99">เลื่อนดูทางขวา →</span>
     </div>
@@ -267,7 +297,7 @@
 <section class="portrait">
   <div class="shot kb"><img src="assets/demo-photos/room-01.jpg" alt="ทีมงานกำลังลงมือทำงานร่วมกัน" width="1800" height="1200" loading="lazy" decoding="async"><span class="demo">ภาพตัวอย่าง</span></div>
   <div class="wash"></div>
-  <div class="in">
+  <div class="in rise">
     <h2 class="disp">เมื่อ 300 คนลงมือพร้อมกัน</h2>
     <p>ทุกทีมมี mentor ประกบตั้งแต่ชั่วโมงแรก และก่อนวันสุดท้ายจะจบ ของที่เคยค้างอยู่ในที่ประชุมก็เปิดใช้งานได้จริง</p>
     <a class="pill pill-w" href="#programs">ดูว่าเกิดอะไรขึ้นบ้าง</a>
@@ -277,7 +307,7 @@
 <!-- WHITE STACK LIST -->
 <section class="stack" id="areas">
   <div class="wrap">
-    <div class="stack-grid">
+    <div class="stack-grid rise">
       <div>
         <span class="lab">สิ่งที่ทีมของคุณสร้างได้</span>
         <div class="list">
@@ -301,7 +331,7 @@
 <!-- VOICES : quote below the card -->
 <section class="voices" id="voices">
   <div class="wrap">
-    <div class="rail-head">
+    <div class="rail-head rise">
       <div><span class="lab">เสียงจากห้องนั้น</span><h2 style="margin-top:14px">คนที่อยู่ในห้อง พูดว่าอย่างไร</h2></div>
       <span class="lab" style="color:#8a8f99">เลื่อนดูทางขวา →</span>
     </div>
@@ -357,7 +387,7 @@
 <section class="say">
   <div class="wrap">
     <span class="lab" style="justify-content:center">The New Way</span>
-    <h2 class="disp">ทีมของคุณลงมือเอง<br>องค์กรถึงก้าวต่อได้</h2>
+    <h2 class="disp rise">ทีมของคุณลงมือเอง<br>องค์กรถึงก้าวต่อได้</h2>
     <p>เครื่องมือยุคนี้ทำให้คนหน้างานสร้างของที่ใช้ได้จริงด้วยตัวเอง สิ่งที่เปลี่ยนเกมจึงไม่ใช่ความรู้ที่เพิ่มขึ้น แต่คือทีมของคุณได้ลงมือ และได้เห็นผลงานเกิดขึ้นจริงกับมือ</p>
   </div>
 </section>
@@ -367,11 +397,11 @@
   <div class="wrap">
     <span class="lab">ผลลัพธ์ที่วัดได้</span>
     <h2 style="margin-top:16px">SolutionsIMPACT <span class="g">คือผลลัพธ์</span></h2>
-    <div class="nums">
-      <div><div class="n">100<b>+</b></div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
-      <div><div class="n">300</div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
-      <div><div class="n">5<b>×</b></div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
-      <div><div class="n">600</div><div class="l">โปรเจกต์ตามขอบเขตงานที่ขยายแล้ว</div></div>
+    <div class="nums rise">
+      <div><div class="n" data-count="100"><span class="cv">0</span><b>+</b></div><div class="l">โปรเจกต์ใช้งานจริง จากรุ่นเดียว</div></div>
+      <div><div class="n" data-count="300"><span class="cv">0</span></div><div class="l">คนต่อรุ่น พร้อมผู้บริหารร่วมสังเกตการณ์</div></div>
+      <div><div class="n" data-count="5"><span class="cv">0</span><b>×</b></div><div class="l">ลูกค้าขยายขอบเขตหลังเห็นผลรุ่นแรก</div></div>
+      <div><div class="n" data-count="600"><span class="cv">0</span></div><div class="l">โปรเจกต์ตามขอบเขตงานที่ขยายแล้ว</div></div>
     </div>
     <div class="src">ที่มา · โปรแกรมที่ SolutionsIMPACT ส่งมอบแล้ว ปี 2026</div>
   </div>
@@ -406,4 +436,50 @@
 </footer>
 
 <a class="vbadge" href="compare.html">↔ เทียบทุกเวอร์ชัน</a>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('has-js');
+  if(reduce){ [].forEach.call(document.querySelectorAll('.rise'),function(e){e.classList.add('in')}); return; }
+
+  /* hero crossfade */
+  var slides=[].slice.call(document.querySelectorAll('.slides>img')), si=0;
+  if(slides.length>1) setInterval(function(){ slides[si].classList.remove('on'); si=(si+1)%slides.length; slides[si].classList.add('on'); }, 5200);
+
+  /* scroll reveal (polled — reliable everywhere) */
+  var risers=[].slice.call(document.querySelectorAll('.rise'));
+  function reveal(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    for(var i=risers.length-1;i>=0;i--){
+      if(risers[i].getBoundingClientRect().top < vh*0.92){ risers[i].classList.add('in'); risers.splice(i,1); }
+    }
+    if(!risers.length&&iv){clearInterval(iv);iv=null;}
+  }
+  var iv=setInterval(reveal,120);
+  window.addEventListener('scroll',reveal,{passive:true});
+  reveal(); setTimeout(function(){[].forEach.call(document.querySelectorAll('.rise'),function(e){e.classList.add('in')})},4000);
+
+  /* count-up numbers — setInterval based (rAF can be throttled) + guaranteed final value */
+  var nums=[].slice.call(document.querySelectorAll('[data-count]'));
+  function run(el){
+    var target=parseInt(el.getAttribute('data-count'),10), out=el.querySelector('.cv');
+    if(!out) return;
+    var steps=34, i=0;
+    var t=setInterval(function(){
+      i++; var p=i/steps, e=1-Math.pow(1-p,3);
+      out.textContent=Math.round(target*e);
+      if(i>=steps){ out.textContent=target; clearInterval(t); }
+    },28);
+    setTimeout(function(){ clearInterval(t); out.textContent=target; },2500); /* never stick at 0 */
+  }
+  function tick(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    for(var i=nums.length-1;i>=0;i--){
+      if(nums[i].getBoundingClientRect().top < vh*0.9){ run(nums[i]); nums.splice(i,1); }
+    }
+    if(!nums.length&&nv){clearInterval(nv);nv=null;}
+  }
+  var nv=setInterval(tick,140); window.addEventListener('scroll',tick,{passive:true}); tick();
+})();
+</script>
 </html>
