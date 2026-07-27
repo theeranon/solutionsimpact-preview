@@ -3,227 +3,248 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>SolutionsIMPACT — สารบัญตรวจงาน 7 เวอร์ชัน</title>
+<title>SolutionsIMPACT — เทียบ 7 เวอร์ชัน</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#002554; --gold:#FFC600; --abyss:#00060f; --ink:#eaf0fb;
-    --mute:rgba(234,240,251,.6); --faint:rgba(234,240,251,.36); --line:rgba(120,160,230,.18);
+    --mute:rgba(234,240,251,.6); --faint:rgba(234,240,251,.34); --line:rgba(120,160,230,.18);
     --disp:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
     --body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
     --mono:'IBM Plex Mono',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--body);color:var(--ink);background:var(--abyss);line-height:1.65;font-size:16px;
+  body{font-family:var(--body);color:var(--ink);background:var(--abyss);line-height:1.6;font-size:16px;
     background-image:radial-gradient(120% 80% at 74% -12%,#06346f 0%,#01102a 46%,#00060f 86%);min-height:100vh}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 
-  header{padding:64px 0 30px}
+  header{padding:58px 0 26px}
   .kick{font-family:var(--mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-  h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.6vw,48px);letter-spacing:-.03em;line-height:1.05;margin:14px 0 0}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.6vw,46px);letter-spacing:-.03em;line-height:1.05;margin:14px 0 0}
   h1 .o{color:var(--gold)}
-  .sub{color:var(--mute);font-size:16.5px;max-width:66ch;margin-top:16px}
-  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;font-family:var(--mono);font-size:11.5px}
-  .legend span{border:1px solid var(--line);padding:6px 12px;border-radius:99px;color:var(--mute)}
-  .legend b{color:var(--gold);font-weight:500}
+  .sub{color:var(--mute);font-size:16px;max-width:64ch;margin-top:14px}
 
-  .ver{border-top:1px solid var(--line);padding:34px 0}
-  .ver:last-of-type{border-bottom:1px solid var(--line)}
-  .vhead{display:grid;grid-template-columns:78px 1fr auto;gap:22px;align-items:start}
-  .vno{font-family:var(--disp);font-weight:800;font-size:34px;letter-spacing:-.03em;color:var(--gold);line-height:1}
-  .vname{font-family:var(--disp);font-weight:700;font-size:22px;letter-spacing:-.02em}
-  .vdesc{color:var(--mute);font-size:15px;margin-top:7px;max-width:60ch}
-  .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;font-family:var(--mono);font-size:11px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;padding:14px 0 40px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+  .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(8,20,44,.5);
+    display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.16,.8,.24,1),border-color .28s}
+  .card:hover{transform:translateY(-5px);border-color:rgba(255,198,0,.5)}
+  .card.new{border-color:rgba(255,198,0,.42)}
+
+  .thumb{position:relative;display:block;border-bottom:1px solid var(--line);background:#050b18;overflow:hidden;aspect-ratio:1440/900}
+  .thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s cubic-bezier(.16,.8,.24,1)}
+  .card:hover .thumb img{transform:scale(1.035)}
+  .vno{position:absolute;left:14px;top:14px;z-index:3;font-family:var(--disp);font-weight:800;font-size:16px;
+    letter-spacing:.02em;background:var(--gold);color:var(--navy);padding:6px 13px;border-radius:99px}
+  .new-flag{position:absolute;right:14px;top:14px;z-index:3;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.1em;text-transform:uppercase;background:#fff;color:var(--navy);padding:6px 11px;border-radius:99px}
+
+  .body{padding:22px 22px 20px;display:flex;flex-direction:column;flex:1}
+  .vname{font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:-.02em}
+  .vdesc{color:var(--mute);font-size:14.5px;margin-top:8px;flex:1}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:10.5px}
   .tag{border:1px solid var(--line);padding:4px 10px;border-radius:99px;color:var(--faint)}
   .tag.ok{border-color:rgba(255,198,0,.45);color:var(--gold)}
-  .tag.warn{border-color:rgba(255,255,255,.2);color:var(--mute)}
-  .open{font-family:var(--mono);font-size:12.5px;background:var(--gold);color:var(--navy);padding:10px 16px;border-radius:99px;white-space:nowrap;display:inline-block}
+
+  .acts{display:flex;gap:10px;align-items:center;margin-top:18px;flex-wrap:wrap}
+  .open{font-family:var(--mono);font-size:12.5px;background:var(--gold);color:var(--navy);padding:10px 18px;border-radius:99px}
   .open:hover{background:#fff}
+  details{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  summary{font-family:var(--mono);font-size:12px;color:var(--mute);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:'+';color:var(--gold);font-size:14px}
+  details[open] summary::before{content:'–'}
+  summary:hover{color:#fff}
+  .pages{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px}
+  @media(max-width:520px){.pages{grid-template-columns:1fr}}
+  .p{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:13.5px;transition:.15s}
+  .p:hover{border-color:rgba(255,198,0,.55);background:rgba(255,198,0,.07)}
+  .p i{font-family:var(--mono);font-style:normal;font-size:10px;color:var(--faint)}
+  .grp{grid-column:1/-1;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:8px 0 0}
 
-  .pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:8px;margin:20px 0 0 100px}
-  @media(max-width:720px){.pages{margin-left:0}.vhead{grid-template-columns:52px 1fr;gap:14px}.vno{font-size:26px}.open{grid-column:2;justify-self:start;margin-top:10px}}
-  .p{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:9px;padding:11px 13px;
-     font-size:14px;transition:border-color .15s,background .15s,transform .15s}
-  .p:hover{border-color:rgba(255,198,0,.55);background:rgba(255,198,0,.07);transform:translateX(3px)}
-  .p i{font-family:var(--mono);font-style:normal;font-size:10.5px;color:var(--faint);flex:none}
-  .p.home{border-color:rgba(255,198,0,.4);background:rgba(255,198,0,.06)}
-  .p.home i{color:var(--gold)}
-  .grp{grid-column:1/-1;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-       color:var(--faint);margin:12px 0 2px}
-
-  footer{padding:40px 0 70px;color:var(--faint);font-family:var(--mono);font-size:12px;line-height:1.9}
+  footer{padding:8px 0 70px;color:var(--faint);font-family:var(--mono);font-size:12px;line-height:1.9;border-top:1px solid var(--line);margin-top:10px;padding-top:26px}
   footer b{color:var(--mute);font-weight:400}
 </style>
 
 <div class="wrap">
   <header>
     <span class="kick">SolutionsIMPACT · Internal Review</span>
-    <h1>สารบัญตรวจงาน<span class="o">.</span> ทุกเวอร์ชัน ทุกหน้า</h1>
-    <p class="sub">รวมลิงก์ทุกหน้าของทั้ง 7 เวอร์ชันไว้ที่เดียว กดเข้าไปตรวจได้ทีละหน้า เปิดได้ทุกอุปกรณ์ · ทุกเวอร์ชันใช้เนื้อหาและ positioning ชุดเดียวกัน ต่างกันที่ภาษาการออกแบบ</p>
-    <div class="legend">
-      <span><b>10 หน้า</b> = ทำครบทั้งเว็บ</span>
-      <span><b>หน้าแรก</b> = ทำเฉพาะหน้าแรก</span>
-      <span><b>มีภาพ</b> = ใส่ภาพตัวอย่างแล้ว</span>
-      <span><b>ช่องภาพ</b> = ยังเป็นกล่องรอภาพจริง</span>
-    </div>
+    <h1>เทียบ 7 เวอร์ชัน<span class="o">.</span> เห็นหน้าตาก่อนกดเข้าไปดู</h1>
+    <p class="sub">ทุกเวอร์ชันใช้เนื้อหาและ positioning ชุดเดียวกัน ต่างกันที่ภาษาการออกแบบ · กดที่ภาพเพื่อเปิดเวอร์ชันนั้น หรือกด <b style="color:var(--gold);font-weight:400">+ ทุกหน้า</b> เพื่อเข้าไปตรวจทีละหน้า</p>
   </header>
 
-  <!-- V7 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">07</div>
-      <div>
-        <div class="vname">Tony Robbins — ถอดจากเว็บจริง <span style="color:var(--gold);font-family:var(--mono);font-size:11px">★ ล่าสุด</span></div>
-        <div class="vdesc">ถอดค่าจริงจาก tonyrobbins.com ในเบราว์เซอร์ หัวข้อชิดซ้ายล่าง สีไล่จากขอบล่างภาพ ปุ่มแคปซูล ฟอนต์ weight 500 ชิดมาก · ใส่ชีวิต สไลด์เปลี่ยนภาพ แถบทองวิ่ง ตัวเลขนับขึ้น</div>
-        <div class="tags"><span class="tag warn">หน้าแรก</span><span class="tag ok">มีภาพ 15 จุด</span><span class="tag ok">มี motion</span></div>
-      </div>
-      <a class="open" href="index-v7.html">เปิด V7 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index-v7.html"><i>01</i> หน้าแรก</a>
-    </div>
-  </section>
+  <div class="grid">
 
-  <!-- V6 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">06</div>
-      <div>
+    <!-- V7 -->
+    <article class="card new">
+      <a class="thumb" href="index-v7.html">
+        <span class="vno">V7</span><span class="new-flag">★ ล่าสุด</span>
+        <img src="assets/shots/v7.jpg" alt="หน้าตาเวอร์ชัน 7" width="1000" height="625">
+      </a>
+      <div class="body">
+        <div class="vname">Tony Robbins — ถอดจากเว็บจริง</div>
+        <p class="vdesc">เปิดเบราว์เซอร์เข้า tonyrobbins.com แล้วถอดค่าจริงออกมา หัวข้อชิดซ้ายล่าง สีไล่ขึ้นจากขอบล่างภาพ ปุ่มแคปซูล ฟอนต์ weight 500 ชิดมาก และใส่ชีวิตด้วยสไลด์เปลี่ยนภาพ แถบทองวิ่ง ตัวเลขนับขึ้น</p>
+        <div class="tags"><span class="tag">หน้าแรก</span><span class="tag ok">ภาพ 15 จุด</span><span class="tag ok">มี motion</span></div>
+        <div class="acts"><a class="open" href="index-v7.html">เปิด V7 →</a></div>
+      </div>
+    </article>
+
+    <!-- V6 -->
+    <article class="card">
+      <a class="thumb" href="index-v6.html">
+        <span class="vno">V6</span>
+        <img src="assets/shots/v6.jpg" alt="หน้าตาเวอร์ชัน 6" width="1000" height="625" loading="lazy">
+      </a>
+      <div class="body">
         <div class="vname">Photographic — ภาพนำทั้งหน้า</div>
-        <div class="vdesc">ภาพจริงทุก section พร้อม duotone navy/gold คุมโทน คำใหญ่ TRANSFORMATION</div>
-        <div class="tags"><span class="tag warn">หน้าแรก</span><span class="tag ok">มีภาพ 9 จุด</span></div>
+        <p class="vdesc">ภาพจริงทุก section คุมโทนด้วย duotone navy/gold คำใหญ่ TRANSFORMATION</p>
+        <div class="tags"><span class="tag">หน้าแรก</span><span class="tag ok">ภาพ 9 จุด</span></div>
+        <div class="acts"><a class="open" href="index-v6.html">เปิด V6 →</a></div>
       </div>
-      <a class="open" href="index-v6.html">เปิด V6 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index-v6.html"><i>01</i> หน้าแรก</a>
-    </div>
-  </section>
+    </article>
 
-  <!-- V5 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">05</div>
-      <div>
+    <!-- V5 -->
+    <article class="card">
+      <a class="thumb" href="index-v5.html">
+        <span class="vno">V5</span>
+        <img src="assets/shots/v5.jpg" alt="หน้าตาเวอร์ชัน 5" width="1000" height="625" loading="lazy">
+      </a>
+      <div class="body">
         <div class="vname">Cinematic photo-led</div>
-        <div class="vdesc">กลับไปทิศที่เคย approve ดำ cinematic คำใหญ่ TRANSFORMATION IMPACT Ripple มีชีวิต ช่องภาพทุก section</div>
-        <div class="tags"><span class="tag warn">หน้าแรก</span><span class="tag">ช่องภาพ</span></div>
+        <p class="vdesc">กลับไปทิศที่เคย approve ดำ cinematic คำใหญ่ TRANSFORMATION IMPACT Ripple มีชีวิต วางช่องภาพไว้ทุก section</p>
+        <div class="tags"><span class="tag">หน้าแรก</span><span class="tag">ช่องภาพ</span></div>
+        <div class="acts"><a class="open" href="index-v5.html">เปิด V5 →</a></div>
       </div>
-      <a class="open" href="index-v5.html">เปิด V5 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index-v5.html"><i>01</i> หน้าแรก</a>
-    </div>
-  </section>
+    </article>
 
-  <!-- V4 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">04</div>
-      <div>
+    <!-- V4 -->
+    <article class="card">
+      <a class="thumb" href="index-v4.html">
+        <span class="vno">V4</span>
+        <img src="assets/shots/v4.jpg" alt="หน้าตาเวอร์ชัน 4" width="1000" height="625" loading="lazy">
+      </a>
+      <div class="body">
         <div class="vname">The Grid — สวิส / สถาบัน</div>
-        <div class="vdesc">กริดเส้นหนัก ตัวอักษรใหญ่คอนทราสต์จัด บล็อกทองแบบ Swiss ระบบเลขมาตรา ฟอนต์ Archivo · ภาษาเขียนสไตล์ Panpho</div>
-        <div class="tags"><span class="tag ok">10 หน้า</span><span class="tag">ช่องภาพ</span></div>
+        <p class="vdesc">กริดเส้นหนัก ตัวอักษรใหญ่คอนทราสต์จัด บล็อกทองแบบ Swiss ระบบเลขมาตรา ฟอนต์ Archivo · ภาษาเขียนสไตล์ Panpho</p>
+        <div class="tags"><span class="tag ok">ครบ 10 หน้า</span><span class="tag">ช่องภาพ</span></div>
+        <div class="acts"><a class="open" href="index-v4.html">เปิด V4 →</a></div>
+        <details>
+          <summary>ทุกหน้า (10)</summary>
+          <div class="pages">
+            <a class="p" href="index-v4.html"><i>01</i> หน้าแรก</a>
+            <a class="p" href="hackathon-journey-v4.html"><i>02</i> Hackathon Journey</a>
+            <a class="p" href="executive-programs-v4.html"><i>03</i> Executive Programs</a>
+            <a class="p" href="track-record-v4.html"><i>04</i> Results</a>
+            <a class="p" href="insights-v4.html"><i>05</i> Insights</a>
+            <div class="grp">บทความ</div>
+            <a class="p" href="insight-hackathon-300-v4.html"><i>06</i> ทีมที่เก่งเทคนิคที่สุด</a>
+            <a class="p" href="insight-roi-baseline-v4.html"><i>07</i> ตัวเลขที่ CFO เชื่อ</a>
+            <a class="p" href="insight-exec-questions-v4.html"><i>08</i> คำถามที่ผู้บริหารไม่ได้ถาม</a>
+            <a class="p" href="insight-team-structure-v4.html"><i>09</i> โครงสร้างทีม</a>
+            <a class="p" href="insight-hours-to-baht-v4.html"><i>10</i> ชั่วโมงเป็นตัวเงิน</a>
+          </div>
+        </details>
       </div>
-      <a class="open" href="index-v4.html">เปิด V4 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index-v4.html"><i>01</i> หน้าแรก</a>
-      <a class="p" href="hackathon-journey-v4.html"><i>02</i> Hackathon Journey</a>
-      <a class="p" href="executive-programs-v4.html"><i>03</i> Executive Programs</a>
-      <a class="p" href="track-record-v4.html"><i>04</i> Results</a>
-      <a class="p" href="insights-v4.html"><i>05</i> Insights</a>
-      <div class="grp">บทความ</div>
-      <a class="p" href="insight-hackathon-300-v4.html"><i>06</i> ทีมที่เก่งเทคนิคที่สุด</a>
-      <a class="p" href="insight-roi-baseline-v4.html"><i>07</i> ตัวเลขที่ CFO เชื่อ</a>
-      <a class="p" href="insight-exec-questions-v4.html"><i>08</i> คำถามที่ผู้บริหารไม่ได้ถาม</a>
-      <a class="p" href="insight-team-structure-v4.html"><i>09</i> โครงสร้างทีม</a>
-      <a class="p" href="insight-hours-to-baht-v4.html"><i>10</i> ชั่วโมงเป็นตัวเงิน</a>
-    </div>
-  </section>
+    </article>
 
-  <!-- V3 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">03</div>
-      <div>
+    <!-- V3 -->
+    <article class="card">
+      <a class="thumb" href="index-v3.html">
+        <span class="vno">V3</span>
+        <img src="assets/shots/v3.jpg" alt="หน้าตาเวอร์ชัน 3" width="1000" height="625" loading="lazy">
+      </a>
+      <div class="body">
         <div class="vname">Immersive — สามมิติ</div>
-        <div class="vdesc">WebGL IMPACT Ripple หลังทั้งหน้า แต่ละหน้ามีโลกของตัวเอง timeline แกนกลาง กำแพงตัวเลข magazine</div>
-        <div class="tags"><span class="tag ok">10 หน้า</span><span class="tag">ช่องภาพ</span><span class="tag ok">มี motion</span></div>
+        <p class="vdesc">WebGL IMPACT Ripple อยู่หลังทั้งหน้า แต่ละหน้ามีโลกของตัวเอง timeline แกนกลาง กำแพงตัวเลข magazine</p>
+        <div class="tags"><span class="tag ok">ครบ 10 หน้า</span><span class="tag">ช่องภาพ</span><span class="tag ok">มี motion</span></div>
+        <div class="acts"><a class="open" href="index-v3.html">เปิด V3 →</a></div>
+        <details>
+          <summary>ทุกหน้า (10)</summary>
+          <div class="pages">
+            <a class="p" href="index-v3.html"><i>01</i> หน้าแรก</a>
+            <a class="p" href="hackathon-journey-v3.html"><i>02</i> Hackathon Journey</a>
+            <a class="p" href="executive-programs-v3.html"><i>03</i> Executive Programs</a>
+            <a class="p" href="track-record-v3.html"><i>04</i> Results</a>
+            <a class="p" href="insights-v3.html"><i>05</i> Insights</a>
+            <div class="grp">บทความ</div>
+            <a class="p" href="insight-hackathon-300-v3.html"><i>06</i> Hackathon 300 คนสอนเรา</a>
+            <a class="p" href="insight-roi-baseline-v3.html"><i>07</i> วัด ROI ของ AI</a>
+            <a class="p" href="insight-exec-questions-v3.html"><i>08</i> คำถามก่อนอนุมัติ</a>
+            <a class="p" href="insight-team-structure-v3.html"><i>09</i> โครงสร้างทีม</a>
+            <a class="p" href="insight-hours-to-baht-v3.html"><i>10</i> พิสูจน์กับ CFO</a>
+          </div>
+        </details>
       </div>
-      <a class="open" href="index-v3.html">เปิด V3 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index-v3.html"><i>01</i> หน้าแรก</a>
-      <a class="p" href="hackathon-journey-v3.html"><i>02</i> Hackathon Journey</a>
-      <a class="p" href="executive-programs-v3.html"><i>03</i> Executive Programs</a>
-      <a class="p" href="track-record-v3.html"><i>04</i> Results</a>
-      <a class="p" href="insights-v3.html"><i>05</i> Insights</a>
-      <div class="grp">บทความ</div>
-      <a class="p" href="insight-hackathon-300-v3.html"><i>06</i> Hackathon 300 คนสอนเรา</a>
-      <a class="p" href="insight-roi-baseline-v3.html"><i>07</i> วัด ROI ของ AI</a>
-      <a class="p" href="insight-exec-questions-v3.html"><i>08</i> คำถามก่อนอนุมัติ</a>
-      <a class="p" href="insight-team-structure-v3.html"><i>09</i> โครงสร้างทีม</a>
-      <a class="p" href="insight-hours-to-baht-v3.html"><i>10</i> พิสูจน์กับ CFO</a>
-    </div>
-  </section>
+    </article>
 
-  <!-- V2 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">02</div>
-      <div>
+    <!-- V2 -->
+    <article class="card">
+      <a class="thumb" href="index-v2.html">
+        <span class="vno">V2</span>
+        <img src="assets/shots/v2.jpg" alt="หน้าตาเวอร์ชัน 2" width="1000" height="625" loading="lazy">
+      </a>
+      <div class="body">
         <div class="vname">Editorial — นิตยสาร สว่าง</div>
-        <div class="vdesc">แบบ McKinsey / Kearney เส้น hairline กริดอสมมาตร หัวข้อแบบ action-title นิ่งแบบที่ปรึกษา</div>
-        <div class="tags"><span class="tag ok">10 หน้า</span><span class="tag">ช่องภาพ</span></div>
+        <p class="vdesc">แบบ McKinsey / Kearney เส้น hairline กริดอสมมาตร หัวข้อแบบ action-title นิ่งแบบที่ปรึกษา</p>
+        <div class="tags"><span class="tag ok">ครบ 10 หน้า</span><span class="tag">ช่องภาพ</span></div>
+        <div class="acts"><a class="open" href="index-v2.html">เปิด V2 →</a></div>
+        <details>
+          <summary>ทุกหน้า (10)</summary>
+          <div class="pages">
+            <a class="p" href="index-v2.html"><i>01</i> หน้าแรก</a>
+            <a class="p" href="hackathon-journey-v2.html"><i>02</i> Hackathon Journey</a>
+            <a class="p" href="executive-programs-v2.html"><i>03</i> Executive Programs</a>
+            <a class="p" href="track-record-v2.html"><i>04</i> Results</a>
+            <a class="p" href="insights-v2.html"><i>05</i> Insights</a>
+            <div class="grp">บทความ</div>
+            <a class="p" href="insight-hackathon-300-v2.html"><i>06</i> Hackathon 300 คนสอนเรา</a>
+            <a class="p" href="insight-roi-baseline-v2.html"><i>07</i> วัด ROI ของ AI</a>
+            <a class="p" href="insight-exec-questions-v2.html"><i>08</i> คำถามก่อนอนุมัติ</a>
+            <a class="p" href="insight-team-structure-v2.html"><i>09</i> โครงสร้างทีม</a>
+            <a class="p" href="insight-hours-to-baht-v2.html"><i>10</i> พิสูจน์กับ CFO</a>
+          </div>
+        </details>
       </div>
-      <a class="open" href="index-v2.html">เปิด V2 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index-v2.html"><i>01</i> หน้าแรก</a>
-      <a class="p" href="hackathon-journey-v2.html"><i>02</i> Hackathon Journey</a>
-      <a class="p" href="executive-programs-v2.html"><i>03</i> Executive Programs</a>
-      <a class="p" href="track-record-v2.html"><i>04</i> Results</a>
-      <a class="p" href="insights-v2.html"><i>05</i> Insights</a>
-      <div class="grp">บทความ</div>
-      <a class="p" href="insight-hackathon-300-v2.html"><i>06</i> Hackathon 300 คนสอนเรา</a>
-      <a class="p" href="insight-roi-baseline-v2.html"><i>07</i> วัด ROI ของ AI</a>
-      <a class="p" href="insight-exec-questions-v2.html"><i>08</i> คำถามก่อนอนุมัติ</a>
-      <a class="p" href="insight-team-structure-v2.html"><i>09</i> โครงสร้างทีม</a>
-      <a class="p" href="insight-hours-to-baht-v2.html"><i>10</i> พิสูจน์กับ CFO</a>
-    </div>
-  </section>
+    </article>
 
-  <!-- V1 -->
-  <section class="ver">
-    <div class="vhead">
-      <div class="vno">01</div>
-      <div>
+    <!-- V1 -->
+    <article class="card">
+      <a class="thumb" href="index.html">
+        <span class="vno">V1</span>
+        <img src="assets/shots/v1.jpg" alt="หน้าตาเวอร์ชัน 1" width="1000" height="625" loading="lazy">
+      </a>
+      <div class="body">
         <div class="vname">Cinematic — ภาพยนตร์ เข้ม</div>
-        <div class="vdesc">เวอร์ชันแรก dark cinematic เต็มจอ hero คำใหญ่ อารมณ์และโมเมนตัม</div>
-        <div class="tags"><span class="tag ok">10 หน้า</span><span class="tag">ช่องภาพ</span></div>
+        <p class="vdesc">เวอร์ชันแรก dark cinematic เต็มจอ hero คำใหญ่ เน้นอารมณ์และโมเมนตัม</p>
+        <div class="tags"><span class="tag ok">ครบ 10 หน้า</span><span class="tag">ช่องภาพ</span></div>
+        <div class="acts"><a class="open" href="index.html">เปิด V1 →</a></div>
+        <details>
+          <summary>ทุกหน้า (10)</summary>
+          <div class="pages">
+            <a class="p" href="index.html"><i>01</i> หน้าแรก</a>
+            <a class="p" href="hackathon-journey-2026.html"><i>02</i> Hackathon Journey</a>
+            <a class="p" href="executive-programs-2026.html"><i>03</i> Executive Programs</a>
+            <a class="p" href="track-record-2026.html"><i>04</i> Results</a>
+            <a class="p" href="insights-2026.html"><i>05</i> Insights</a>
+            <div class="grp">บทความ</div>
+            <a class="p" href="insight-hackathon-300.html"><i>06</i> Hackathon 300 คนสอนเรา</a>
+            <a class="p" href="insight-roi-baseline.html"><i>07</i> วัด ROI ของ AI</a>
+            <a class="p" href="insight-exec-questions.html"><i>08</i> คำถามก่อนอนุมัติ</a>
+            <a class="p" href="insight-team-structure.html"><i>09</i> โครงสร้างทีม</a>
+            <a class="p" href="insight-hours-to-baht.html"><i>10</i> พิสูจน์กับ CFO</a>
+          </div>
+        </details>
       </div>
-      <a class="open" href="index.html">เปิด V1 →</a>
-    </div>
-    <div class="pages">
-      <a class="p home" href="index.html"><i>01</i> หน้าแรก</a>
-      <a class="p" href="hackathon-journey-2026.html"><i>02</i> Hackathon Journey</a>
-      <a class="p" href="executive-programs-2026.html"><i>03</i> Executive Programs</a>
-      <a class="p" href="track-record-2026.html"><i>04</i> Results</a>
-      <a class="p" href="insights-2026.html"><i>05</i> Insights</a>
-      <div class="grp">บทความ</div>
-      <a class="p" href="insight-hackathon-300.html"><i>06</i> Hackathon 300 คนสอนเรา</a>
-      <a class="p" href="insight-roi-baseline.html"><i>07</i> วัด ROI ของ AI</a>
-      <a class="p" href="insight-exec-questions.html"><i>08</i> คำถามก่อนอนุมัติ</a>
-      <a class="p" href="insight-team-structure.html"><i>09</i> โครงสร้างทีม</a>
-      <a class="p" href="insight-hours-to-baht.html"><i>10</i> พิสูจน์กับ CFO</a>
-    </div>
-  </section>
+    </article>
+
+  </div>
 
   <footer>
     รวม 43 หน้า · V1–V4 ทำครบทั้งเว็บ อย่างละ 10 หน้า · V5–V7 ทำเฉพาะหน้าแรกเพื่อเคาะทิศทางก่อน<br>
-    <b>ภาพทั้งหมดเป็นภาพตัวอย่างชั่วคราว</b> รอสวมด้วยภาพและวิดีโอ Hackathon จริงของทีม<br>
+    ภาพตัวอย่างหน้าตาถ่ายจากหน้าจริงของแต่ละเวอร์ชัน · <b>ภาพในเว็บทั้งหมดยังเป็นภาพตัวอย่างชั่วคราว</b> รอสวมด้วยภาพและวิดีโอ Hackathon จริง<br>
     © 2026 SolutionsIMPACT — internal preview
   </footer>
 </div>
