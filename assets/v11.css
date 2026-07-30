@@ -258,7 +258,8 @@
 .wc{border-top:3px solid var(--navy);padding-top:20px}
 .wc .r{font-family:var(--disp);font-weight:600;font-size:18px;color:var(--navy)}
 .wc .en{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:#8a8578;margin-top:6px}
-.wc p{font-size:15.5px;color:#5f6673;margin-top:14px}
+.wc .q{font-family:var(--disp);font-weight:600;font-size:17px;color:var(--navy);margin-top:16px;line-height:1.35}
+.wc p{font-size:15.5px;color:#5f6673;margin-top:10px}
 .inds{display:flex;flex-wrap:wrap;gap:9px;margin-top:38px;padding-top:26px;border-top:1px solid #e4e1da}
 .inds span{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;
   color:var(--navy);border:1px solid #ded9d0;padding:7px 13px;border-radius:2px}
