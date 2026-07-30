@@ -203,3 +203,7 @@
 .foot{grid-template-columns:1.6fr 1fr 1fr 1fr!important}
 .foot .h{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin-bottom:10px;display:block}
 @media(max-width:800px){.foot{grid-template-columns:1fr 1fr!important}}
+
+/* FIX (audit): wide differentiator cards are short, so the standard wash left the
+   gold headline sitting on a bright part of the photo. Darken across the whole card. */
+.dcard.wide .wash{background:linear-gradient(to top,var(--navy) 0%,rgba(0,37,84,.93) 45%,rgba(0,37,84,.62) 75%,rgba(0,37,84,.22) 100%)}
