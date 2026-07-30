@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SolutionsIMPACT | องค์กรคุณอยู่ระดับไหนของ AI</title>
+<meta name="description" content="AI IMPACT Level 8 ระดับ และ LeaderShift 6 ระดับ เส้นทางจาก SKILL สู่ SCALE สู่ SHIFT โดย Transformation Consultant ที่ทำงานกับองค์กรชั้นนำกว่า 500 แห่ง">
+<meta name="theme-color" content="#002554">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#002554; --deep:#00152e; --ink:#12161d; --gold:#FFC600;
+    --paper:#f7f6f3; --card:#fff; --line:#e2dfd8; --muted:#5f6673;
+    --disp:'Poppins','IBM Plex Sans Thai','Thonburi',sans-serif;
+    --body:'IBM Plex Sans Thai','Thonburi',-apple-system,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --max:1240px; --pad:36px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--gold);color:var(--navy)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+  @media(max-width:640px){:root{--pad:20px}}
+
+  h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;line-height:1.1;color:var(--navy)}
+  .lab{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
+    display:inline-flex;align-items:center;gap:9px}
+  .lab::before{content:'';width:22px;height:2px;background:var(--gold)}
+  .lab.w{color:rgba(255,255,255,.72)}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:600;font-size:15px;
+    padding:15px 30px;border-radius:99px;border:2px solid transparent;transition:.18s}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover{background:var(--gold);color:var(--navy)}
+  .btn-w{background:#fff;color:var(--navy)}
+  .btn-w:hover{background:var(--gold)}
+  .btn-line{border-color:rgba(255,255,255,.45);color:#fff}
+  .btn-line:hover{background:#fff;color:var(--navy)}
+
+  .shot{position:relative;overflow:hidden;background:#08182e}
+  .shot>img{width:100%;height:100%;object-fit:cover;filter:saturate(1.1) contrast(1.03)}
+  .wash{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(to top,rgba(0,21,46,.92) 0%,rgba(0,21,46,.55) 30%,rgba(0,21,46,.06) 65%)}
+  .demo{position:absolute;right:0;bottom:0;z-index:6;background:rgba(0,0,0,.5);color:rgba(255,255,255,.55);
+    font-family:var(--mono);font-size:9px;text-transform:uppercase;padding:4px 8px}
+
+  nav{background:rgba(247,246,243,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:60}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:0 var(--pad);height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .mark{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:.11em;color:var(--navy);text-transform:uppercase}
+  .nav-links{display:flex;gap:26px;list-style:none}
+  .nav-links a{font-family:var(--disp);font-size:13.5px;color:var(--ink)}
+  .nav-links a:hover{color:var(--navy);border-bottom:2px solid var(--gold)}
+  .nav-cta{font-family:var(--disp);font-size:13px;font-weight:600;background:var(--navy);color:#fff;padding:10px 20px;border-radius:99px}
+  @media(max-width:960px){.nav-links{display:none}}
+
+  /* HERO — question-led, split */
+  .hero{padding:70px 0 0}
+  .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+  .hero h1{font-size:clamp(32px,5.2vw,58px);max-width:15ch}
+  .hero h1 .g{color:var(--gold);-webkit-text-stroke:1px var(--navy)}
+  .hero p{color:var(--muted);font-size:18.5px;max-width:44ch;margin-top:22px}
+  .hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .hero .pic{position:relative;aspect-ratio:4/5;border-radius:200px 200px 8px 8px;overflow:hidden}
+  .hero .pic .shot{position:absolute;inset:0}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px}.hero .pic{aspect-ratio:16/11;border-radius:8px}}
+
+  /* thin proof strip */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:64px;background:var(--card)}
+  .strip-in{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:repeat(5,1fr)}
+  .st{padding:22px 14px 24px 0;display:flex;flex-direction:column;gap:4px}
+  .st+.st{padding-left:16px;border-left:1px solid var(--line)}
+  .st b{font-family:var(--disp);font-weight:700;font-size:24px;color:var(--navy);letter-spacing:-.03em}
+  .st span{font-size:12.5px;color:var(--muted);line-height:1.4}
+  @media(max-width:820px){.strip-in{grid-template-columns:1fr 1fr}.st:nth-child(odd){border-left:0;padding-left:0}}
+
+  /* LADDER */
+  .lad{padding:92px 0 84px}
+  .lad .head{max-width:62ch;margin-bottom:44px}
+  .lad h2{font-size:clamp(26px,3.6vw,44px);margin-top:16px}
+  .lad .head p{color:var(--muted);font-size:18px;margin-top:18px}
+  .rungs{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;align-items:end;margin-bottom:22px}
+  .rg{background:linear-gradient(to top,#dcd8cf,#eae7e0);border-radius:3px 3px 0 0;position:relative;
+    display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;
+    font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+  .rg:nth-child(1){height:44px}.rg:nth-child(2){height:60px}.rg:nth-child(3){height:78px}.rg:nth-child(4){height:98px}
+  .rg:nth-child(5){height:120px}.rg:nth-child(6){height:144px}.rg:nth-child(7){height:170px}
+  .rg:nth-child(8){height:200px;background:linear-gradient(to top,var(--navy),#0a3f86);color:#fff}
+  .rg:nth-child(8)::after{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+    width:14px;height:14px;background:var(--gold);border-radius:50%}
+  .lad-ends{display:flex;justify-content:space-between;gap:18px;border-top:2px solid var(--navy);padding-top:14px;flex-wrap:wrap}
+  .lad-ends div{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--navy)}
+  .lad-ends div small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase}
+  .lad-note{color:var(--muted);font-size:15.5px;margin-top:26px;max-width:60ch}
+  @media(max-width:700px){.rungs{grid-template-columns:repeat(8,1fr);gap:4px}.rg{font-size:0}}
+
+  /* full-bleed photo band */
+  .band{position:relative;min-height:56vh;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
+  .band .shot{position:absolute;inset:0}
+  .band .in{position:relative;z-index:5;width:100%;padding-bottom:44px}
+  .band h2{color:#fff;font-size:clamp(24px,3.6vw,42px);max-width:19ch}
+  .band h2 .g{color:var(--gold)}
+  .band p{color:rgba(255,255,255,.85);font-size:17.5px;max-width:48ch;margin-top:16px}
+  @media(max-width:900px){.band{min-height:0;padding-top:80px}}
+
+  /* THREE STAGES with photos */
+  .stg{padding:92px 0 96px}
+  .stg .head{max-width:60ch;margin-bottom:44px}
+  .stg h2{font-size:clamp(26px,3.6vw,44px);margin-top:16px}
+  .srow{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:34px 0;border-top:1px solid var(--line)}
+  .srow:nth-child(even) .stxt{order:2}
+  .srow .pic{position:relative;aspect-ratio:16/11;border-radius:6px;overflow:hidden}
+  .srow .pic .shot{position:absolute;inset:0}
+  .kn{font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.16em;color:var(--gold);
+    -webkit-text-stroke:.6px var(--navy)}
+  .srow h3{font-size:clamp(22px,2.6vw,30px);margin:12px 0 12px}
+  .srow p{color:var(--muted);font-size:16.5px;max-width:46ch}
+  .srow .fw{font-family:var(--mono);font-size:11.5px;color:var(--navy);margin-top:18px;
+    border-left:3px solid var(--gold);padding-left:12px;line-height:1.6}
+  @media(max-width:900px){.srow{grid-template-columns:1fr;gap:24px}.srow:nth-child(even) .stxt{order:0}}
+
+  /* PROOF mini */
+  .mini{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:80px 0 86px}
+  .mini h2{font-size:clamp(24px,3.2vw,38px);margin-top:16px;max-width:22ch}
+  .mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:38px}
+  .mc{border:1px solid var(--line);border-radius:6px;padding:22px 20px 24px;background:var(--paper)}
+  .mc .r{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--navy);letter-spacing:-.03em}
+  .mc .r span{font-size:12.5px;font-weight:500;color:var(--muted)}
+  .mc .n{font-size:14.5px;margin-top:10px;font-weight:600}
+  .mc .d{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:8px;text-transform:uppercase}
+  @media(max-width:900px){.mgrid{grid-template-columns:1fr 1fr}}
+
+  /* CTA */
+  .cta{position:relative;min-height:70vh;display:flex;align-items:center;overflow:hidden;background:var(--navy)}
+  .cta .shot{position:absolute;inset:0}
+  .cta .wash{background:linear-gradient(90deg,rgba(0,21,46,.95) 0%,rgba(0,21,46,.72) 48%,rgba(0,21,46,.35) 100%)}
+  .cta .in{position:relative;z-index:5;max-width:60ch}
+  .cta h2{color:#fff;font-size:clamp(28px,4.4vw,52px)}
+  .cta h2 .g{color:var(--gold)}
+  .cta p{color:rgba(255,255,255,.85);font-size:18px;margin:20px 0 30px;max-width:46ch}
+  @media(max-width:900px){.cta{min-height:0;padding:84px 0}}
+
+  footer{background:var(--deep);color:rgba(255,255,255,.6);padding:54px 0 40px}
+  .foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:32px}
+  .foot p,.foot a{font-size:14px;color:rgba(255,255,255,.6);line-height:1.9}
+  .foot a:hover{color:var(--gold)}
+  .foot ul{list-style:none}
+  .foot .mark{color:#fff;margin-bottom:14px;display:block}
+  .foot .note{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.14);margin-top:18px;padding-top:18px;
+    font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.36)}
+  @media(max-width:700px){.foot{grid-template-columns:1fr 1fr}}
+  .vbadge{position:fixed;right:14px;bottom:14px;z-index:70;background:var(--navy);color:#fff;
+    font-family:var(--mono);font-size:11.5px;padding:10px 15px;border-radius:99px}
+</style>
+
+<nav>
+  <div class="nav-in">
+    <a class="mark" href="index-v9.html">SolutionsIMPACT</a>
+    <ul class="nav-links">
+      <li><a href="#level">AI IMPACT Level</a></li>
+      <li><a href="#stages">3 กุญแจ</a></li>
+      <li><a href="#proof">ผลงานจริง</a></li>
+    </ul>
+    <a class="nav-cta" href="#cta">ประเมินองค์กร</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="lab">AI IMPACT Level™</span>
+      <h1 style="margin-top:18px">องค์กรของคุณ อยู่ระดับไหน <span class="g">ของ AI</span></h1>
+      <p>ทุกองค์กรที่เริ่มทำ AI อยู่คนละจุดกัน บางที่ยังไม่รู้จะเริ่มตรงไหน บางที่มีคนใช้เก่งแต่ยังไม่เป็นระบบ เรามีบันได 8 ระดับที่บอกได้ว่าคุณอยู่ตรงไหน และก้าวถัดไปคืออะไร</p>
+      <div class="acts">
+        <a class="btn btn-navy" href="#cta">ประเมินองค์กร 30 นาที</a>
+        <a class="btn" style="border-color:var(--line);color:var(--navy)" href="#level">ดูบันได 8 ระดับ</a>
+      </div>
+    </div>
+    <div class="pic">
+      <div class="shot"><img src="assets/demo-photos/exec-01.jpg" alt="ผู้บริหารในห้องประชุม" width="1800" height="1200" fetchpriority="high"><span class="demo">ภาพตัวอย่าง</span></div>
+      <div class="wash" style="opacity:.5"></div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="strip-in">
+      <div class="st"><b>15+</b><span>ปีแห่งประสบการณ์</span></div>
+      <div class="st"><b>600,000+</b><span>ผู้เรียนและผู้บริหาร</span></div>
+      <div class="st"><b>500+</b><span>องค์กรชั้นนำ</span></div>
+      <div class="st"><b>2,000+</b><span>โครงการทรานส์ฟอร์ม</span></div>
+      <div class="st"><b>540 ล้าน+</b><span>ผลลัพธ์ที่วัดได้ หน่วยบาท</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- LADDER -->
+<section class="lad" id="level">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">The Ladder</span>
+      <h2>บันได 8 ระดับ ที่บอกว่าองค์กรคุณยืนอยู่ตรงไหน</h2>
+      <p>เราไม่เริ่มด้วยการเสนอหลักสูตร เราเริ่มด้วยการหาว่าองค์กรคุณอยู่ระดับไหนก่อน เพราะองค์กรที่ยังไม่รู้จะเริ่มตรงไหน กับองค์กรที่มีโปรเจกต์เต็มมือแล้ว ต้องการคนละอย่างกันโดยสิ้นเชิง</p>
+    </div>
+    <div class="rungs">
+      <div class="rg">01</div><div class="rg">02</div><div class="rg">03</div><div class="rg">04</div>
+      <div class="rg">05</div><div class="rg">06</div><div class="rg">07</div><div class="rg">08</div>
+    </div>
+    <div class="lad-ends">
+      <div>Unaware<small>ระดับ 01 · ยังไม่เริ่ม</small></div>
+      <div style="text-align:right">AI New S-Curve<small>ระดับ 08 · เติบโตด้วย AI เป็นเส้นทางใหม่</small></div>
+    </div>
+    <p class="lad-note">ทั่วโลกมีองค์กรเพียง 8% เท่านั้นที่ก้าวถึงระดับ Front-Runner ด้าน AI ตามรายงานของ Accenture ปี 2025 ส่วนที่เหลือส่วนใหญ่ติดอยู่ช่วงกลางบันได คือมีคนใช้ AI เป็นแล้ว แต่ยังไม่กลายเป็นผลลัพธ์ระดับองค์กร</p>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band">
+  <div class="shot"><img src="assets/demo-photos/room-01.jpg" alt="ทีมงานลงมือทำงานร่วมกัน" width="1800" height="1200" loading="lazy"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="wash"></div>
+  <div class="wrap in">
+    <span class="lab w">BCG 10-20-70</span>
+    <h2>เทคโนโลยีคือ 10% ที่เหลือ <span class="g">คือคนกับกระบวนการ</span></h2>
+    <p>งานวิจัยของ BCG ชี้ว่า 70% ของความสำเร็จใน AI Transformation มาจากคนและกระบวนการ ไม่ใช่ตัวเทคโนโลยี นี่คือเหตุผลที่เราออกแบบให้ทีมของคุณเป็นคนลงมือเอง</p>
+  </div>
+</section>
+
+<!-- THREE STAGES -->
+<section class="stg" id="stages">
+  <div class="wrap">
+    <div class="head">
+      <span class="lab">Skill · Scale · Shift</span>
+      <h2>สามกุญแจ ที่พาองค์กรขึ้นบันไดทีละขั้น</h2>
+    </div>
+
+    <div class="srow">
+      <div class="stxt">
+        <div class="kn">SKILL</div>
+        <h3>ให้คนของคุณใช้ AI เป็นจริง ในงานจริง</h3>
+        <p>เริ่มจาก AI Literacy และการใช้งานจริงในงานประจำวัน ไม่ใช่แค่รู้จักชื่อเครื่องมือ เมื่อคนหน้างานใช้เป็น องค์กรถึงจะมีวัตถุดิบพอจะไปขั้นต่อไป</p>
+        <div class="fw">Transformative Productivity System™<br>I.M.P.A.C.T.™ Scorecard</div>
+      </div>
+      <div class="pic"><div class="shot"><img src="assets/demo-photos/laptops-01.jpg" alt="ทีมงานเรียนรู้และลงมือใช้เครื่องมือ" width="1800" height="1200" loading="lazy"></div></div>
+    </div>
+
+    <div class="srow">
+      <div class="stxt">
+        <div class="kn">SCALE</div>
+        <h3>ขยายจากคนใช้เก่ง เป็นโปรเจกต์ที่วัด ROI ได้</h3>
+        <p>Project-Based, Bootcamp และ Hackathon ที่ทีมของคุณหยิบโจทย์จริงมาสร้างจนใช้งานได้ และตกลงเกณฑ์วัดผลกับฝ่ายการเงินตั้งแต่ก่อนเริ่ม จบด้วย ROI ไม่ใช่จบด้วยใบประกาศ</p>
+        <div class="fw">AI IMPACT Level™<br>8 ระดับ จาก Unaware สู่ AI New S-Curve</div>
+      </div>
+      <div class="pic"><div class="shot"><img src="assets/demo-photos/build-02.jpg" alt="ทีมสร้างโปรเจกต์จริง" width="1800" height="1200" loading="lazy"></div></div>
+    </div>
+
+    <div class="srow">
+      <div class="stxt">
+        <div class="kn">SHIFT</div>
+        <h3>สร้างผู้นำที่เก่งในสิ่งที่ AI ทำแทนไม่ได้</h3>
+        <p>เมื่อ AI รับงานไปมากขึ้น สิ่งที่ตัดสินอนาคตขององค์กรคือผู้นำ เราพาทีมนำเดินจากระดับ Survival ขึ้นไปถึง Visionary Leadership ด้วยโมเดล 6 ระดับที่ใช้กับองค์กรจริงมาแล้ว</p>
+        <div class="fw">LeaderShift™<br>6 ระดับ จาก Survival สู่ Visionary Leadership</div>
+      </div>
+      <div class="pic"><div class="shot"><img src="assets/demo-photos/mentor-01.jpg" alt="ผู้นำและทีมทำงานร่วมกัน" width="1800" height="1200" loading="lazy"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF MINI -->
+<section class="mini" id="proof">
+  <div class="wrap">
+    <span class="lab">Real Projects</span>
+    <h2>ตัวอย่างโปรเจกต์ที่ทีมลูกค้าสร้างเอง พร้อม ROI ต่อปี</h2>
+    <div class="mgrid">
+      <div class="mc"><div class="r">5.45 <span>ล้าน/ปี</span></div><div class="n">One-Click Lab Verdict</div><div class="d">Manual → Automated</div></div>
+      <div class="mc"><div class="r">5.25 <span>ล้าน/ปี</span></div><div class="n">Supplier Portal AI Helpdesk</div><div class="d">Slow → Instant 24/7</div></div>
+      <div class="mc"><div class="r">2.63 <span>ล้าน/ปี</span></div><div class="n">War Room AI Assistant</div><div class="d">Scattered → Centralized</div></div>
+      <div class="mc"><div class="r">459,500 <span>บาท/ปี</span></div><div class="n">ช่าง Auto FG Chatbot</div><div class="d">Tribal Knowledge → Systemized</div></div>
+    </div>
+    <p style="font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:20px">รวม 2,000+ โครงการ ผลลัพธ์ที่วัดได้กว่า 540 ล้านบาท · งานที่เคยทำมือส่วนใหญ่ลดเวลาลงราว 70%</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="shot"><img src="assets/demo-photos/energy-crowd.jpg" alt="ผู้เข้าร่วมงานจำนวนมาก" width="1800" height="1200" loading="lazy"><span class="demo">ภาพตัวอย่าง</span></div>
+  <div class="wash"></div>
+  <div class="wrap in">
+    <span class="lab w">Start Here</span>
+    <h2 style="margin-top:16px">รู้ระดับก่อน <span class="g">แล้วค่อยเลือกทาง</span></h2>
+    <p>คุยกับเรา 30 นาที เราจะประเมินว่าองค์กรคุณอยู่ระดับไหนของ AI IMPACT Level และบอกตรงไปตรงมาว่าควรเริ่มที่ SKILL SCALE หรือ SHIFT</p>
+    <a class="btn btn-w" href="mailto:training@solutionsimpact.com?subject=%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%A1%E0%B8%B4%E0%B8%99%20AI%20IMPACT%20Level">นัดประเมิน 30 นาที</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="mark">SolutionsIMPACT</span>
+      <p>Transformation Consultant<br>เปลี่ยน AI ให้เป็นผลลัพธ์ที่วัดผลได้จริง</p>
+    </div>
+    <ul><li><a href="#level">AI IMPACT Level</a></li><li><a href="#stages">3 กุญแจ</a></li><li><a href="#proof">ผลงานจริง</a></li></ul>
+    <div><p>training@solutionsimpact.com<br>02-107-6374</p></div>
+    <div class="note">© 2026 SolutionsIMPACT · ภาพในหน้านี้เป็นภาพตัวอย่างชั่วคราว รอสวมด้วยภาพจริง</div>
+  </div>
+</footer>
+
+<a class="vbadge" href="compare.html">↔ เทียบทุกเวอร์ชัน</a>
+</html>
